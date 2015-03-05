@@ -21,6 +21,7 @@
     ],
     "bin": [
         "server-config-generator/generate-server-config.sh",
+        "server-config-generator/parse-composer-json.sh",
         "docker-bash.sh",
         "git-dist-clone.sh"
     ],
