@@ -2,7 +2,8 @@
 
 # For running scripts in the current directory via Docker
 # Example usage: Cross-platform bash scripts
+# Note: Requires a docker set-up that can mount local directories to the docker container
 
-docker run -a stdin -a stdout -i -t -v .:/pwd debian:jessie /bin/bash -c "cd /pwd && $@"
+docker run -a stdin -a stdout -i -t -v "$(pwd):/pwd" -w="/pwd" debian:jessie "$@"
 
 exit 0

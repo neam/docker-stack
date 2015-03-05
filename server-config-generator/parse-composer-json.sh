@@ -4,10 +4,12 @@ set -e
 set -o pipefail
 shopt -s dotglob
 
-if [ "$BUILD_DIR" == "" ]; then
-    echo "BUILD_DIR must be set to a directory where a copy of the project composer.json resides"
+if [ "$APP_DIR" == "" ]; then
+    echo "APP_DIR must be set. (to a directory where the app's main composer.json resides)"
     exit;
 fi
+
+BUILD_DIR="$APP_DIR"
 
 error() {
   echo " !     $*" >&2
@@ -75,7 +77,7 @@ function package_nginx_includes() {
 }
 
 function package_nginx_locations() {
-    jq --raw-output '.extra.${composer_extra_key}[\"nginx-locations\"] // []' < "$BUILD_DIR/composer.json"
+    jq --raw-output ".extra.${composer_extra_key}[\"nginx-locations\"] // []" < "$BUILD_DIR/composer.json"
 }
 
 function package_log_files() {
@@ -98,9 +100,9 @@ function package_newrelic_enabled() {
 
 # Read config variables from composer.json if it exists
 if [ -f "$BUILD_DIR/composer.json" ]; then
-  composer_extra_key="server-config"
+  composer_extra_key="server"
   if [ -n "$(has_heroku_extra)" ] ; then
-    protip "Your composer.json is using the key 'extra' → 'heroku', you should switch to 'extra' → 'server-config' if this project does not work on heroku"
+    protip "Your composer.json is using the key 'extra' → 'heroku', you should switch to 'extra' → 'server' if this project does not work on heroku"
     composer_extra_key="heroku"
   fi
 
@@ -122,12 +124,13 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   PHP_INCLUDES="$(package_php_includes)"
   COMPILE_CMD="$(package_compile_cmd)"
   NGINX_INCLUDES="$(package_nginx_includes)"
+  set -x
   NGINX_LOCATIONS="$(package_nginx_locations)"
   USER_LOG_FILES="$(package_log_files)"
   DOCUMENT_ROOT="$(package_document_root)"
 
   # Serialize the data
-  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT > /app/.serialized_composer_json_data.sh
+  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT > "$BUILD_DIR/.serialized_composer_json_data.sh"
 
 else
   status "No composer.json found in $BUILD_DIR, automatic server config generation will not be performed";
