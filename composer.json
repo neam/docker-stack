@@ -1,8 +1,8 @@
 {
-    "name": "neam/dna-project-base-docker-toolkit",
-    "description": "Toolkit for maintaining a Docker-based \"one-process-per-container\" PHP-FPM/Nginx stack for 12-factor-apps.",
-    "keywords": ["php", "docker", "dna", "php-fpm", "nginx", "local-dev"],
-    "homepage": "https://github.com/neam/dna-project-base-docker-toolkit",
+    "name": "neam/docker-php-toolkit",
+    "description": "Toolkit for maintaining a Docker-based \"one-process-per-container\" PHP-FPM/Nginx stack for 12-factor PHP apps.",
+    "keywords": ["php", "docker", "php-fpm", "nginx", "local-dev"],
+    "homepage": "https://github.com/neam/docker-php-toolkit",
     "type": "library",
     "license": "BSD-3-Clause",
     "authors": [
@@ -10,6 +10,13 @@
             "name": "Fredrik Wollsén",
             "email": "fredrik@neam.se",
             "homepage": "http://www.neam.se"
+        },
+        {
+            "name": "Docker PHP Toolkit Contributors",
+            "homepage": "https://github.com/neam/docker-php-toolkit/graphs/contributors"
+        },
+        {
+            "name": "Open Source Community"
         }
     ],
     "bin": [

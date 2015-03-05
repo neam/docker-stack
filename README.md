@@ -1,12 +1,12 @@
-DNA Project Base - Docker Toolkit
+Docker PHP Toolkit
 =================================
 
-Toolkit for maintaining a Docker-based "one-process-per-container" PHP-FPM/Nginx stack for 12-factor-apps.
+Toolkit for maintaining a Docker-based "one-process-per-container" PHP-FPM/Nginx stack for 12-factor PHP apps.
 
 Includes:
- * The Dockerfile for the neam/dna-project-docker-base image
  * Boilerplate files to include in your 12-factor app
  * PHP-FPM an Nginx server configuration generator for generating configuration based on your composer.json
+ * The Dockerfile for the `neam/docker-php-toolkit-app-source-code-container-base` image
  * Some potentially useful shell scripts
 
 # Installation
@@ -15,7 +15,7 @@ Copy boilerplate files to your 12-factor app base dir.
 
 Add the following to the require section of your composer.json:
 
-    "neam/dna-project-base-docker-toolkit": "dev-develop"
+    "neam/docker-php-toolkit": "dev-develop"
 
 Either add your project php-fpm/nginx configuration includes to under server-config/*/conf.d/ directories.
 

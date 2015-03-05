@@ -1,8 +1,8 @@
-# Base docker image for a DNA project source code image
+# Base docker image for a PHP 12-factor app source code container
 # -----------------------------------------------------
-# Available on docker hub as neam/dna-project-docker-base
+# Available on docker hub as neam/docker-php-toolkit-app-source-code-container-base
 # Build by running:
-#     docker build -t 'neam/dna-project-docker-base' .
+#     docker build -t 'neam/docker-php-toolkit-app-source-code-container-base' .
 
 FROM debian:jessie
 
@@ -26,21 +26,19 @@ RUN apt-get install -y -q \
         sed \
         vim
 
-# Show available versions and install version-sensitive packages
-RUN echo "git-core \n $(apt-cache show git-core | grep -i version)" && \
-    echo "php5-cli \n $(apt-cache show php5-cli | grep -i version)" && \
-    apt-get install -y -q \
-        git-core=1:2.1.4* \
-        php5-cli=5.6.6*
+# Show available versions and install binaries used for composer installation during build
+RUN apt-get install -y -q \
+        git-core \
+        php5-cli
 
 # Add external apt repositories
 RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | apt-key add -
 RUN wget -O/etc/apt/sources.list.d/s3tools.list http://s3tools.org/repo/deb-all/stable/s3tools.list
 
-# Install Node.js (also runs apt-get update)
+# Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \
   echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
-  apt-get install -y nodejs=0.10.36*
+  apt-get install -y nodejs=0.10.*
 
 # Install s3cmd
 RUN echo "s3cmd \n $(apt-cache show s3cmd | grep -i version)" && \
