@@ -41,7 +41,6 @@ trap 'error "Script error in $0 on or near line ${LINENO}"' ERR
 # Read the serialized composer.json data
 source "$APP_DIR/.serialized_composer_json_data.sh"
 
-echo $PHP_VERSION
 echo $NGINX_VERSION
 echo $FRAMEWORK
 
@@ -63,23 +62,3 @@ protip "You composer.json specifies framework '$FRAMEWORK', thus we will attempt
 fi
 
 erb "$GENERATOR_DIR/templates/nginx/project.conf.erb" > "$APP_DIR/server-config/nginx/conf.d/project.conf"
-
-# generate php-fpm config
-
-for var in $(env | cut -f1 -d=); do
-  echo "env[$var] = \$${var}" >> $APP_DIR/server-config/php/conf.d/env.ini
-done
-
-if [ -n "\$NEW_RELIC_LICENSE_KEY" ]; then
-  erb "$GENERATOR_DIR/templates/php/newrelic.ini.erb" > "$APP_DIR/server-config/php/conf.d/newrelic.ini"
-  echo "newrelic.license=\"\$NEW_RELIC_LICENSE_KEY\"" > "$APP_DIR/server-config/php/conf.d/newrelic_license.ini"
-fi
-
-echo "" > "$APP_DIR/server-config/php/conf.d/project.ini"
-for conf in $PHP_EXTRA_CONFIG; do
-  echo "$conf" >> "$APP_DIR/server-config/php/conf.d/project.ini"
-done
-
-for include in $PHP_INCLUDES; do
-  cp "$APP_DIR/$include" "/app/vendor/php/etc/conf.d/"
-done
