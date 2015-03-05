@@ -20,7 +20,7 @@
         }
     ],
     "bin": [
-        "server-config-generator/generate.sh",
+        "server-config-generator/generate-server-config.sh",
         "docker-bash.sh",
         "git-dist-clone.sh"
     ],

@@ -29,7 +29,7 @@ fi
 #cp -r /app/server-config/nginx/nginx.conf "$NGINX_CONFD"/../
 
 # Generate general project nginx and php-fpm configuration based on composer.json
-export GENERATOR_DIR="/app/vendor/neam/yii-dna-deployment/server-config-generator"
-$GENERATOR_DIR/generate.sh
+export GENERATOR_DIR="/app/vendor/neam/docker-php-toolkit/server-config-generator"
+$GENERATOR_DIR/generate-server-config.sh
 
 exit 0
