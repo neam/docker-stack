@@ -6,27 +6,17 @@ project:
   image: gapminder/cms:feature_dockerfile-based-build-cms-clean-db
   volumes:
    - /app
-   # Volumes to provide project-specific configuration for nginx and php-fpm
-   - /etc/nginx/conf.d
-   - /usr/local/etc/php/conf.d
-   # Volumes to override default nginx and php-fpm configuration
-   #- /etc/nginx/nginx.conf
-   #- /usr/local/etc/php-fpm.conf
-  links:
-    - phpfpm
-    - nginx
   environment:
     FOO: bar
 
-# Includes a cmd to run commands defined by env vars so that administration tasks can be run
+# Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the container
 worker:
   image: php:5.6-cli
-  links:
-    - project
   volumes_from:
     - project
   environment:
     WORKER_CMD: '/bin/bash echo "Hello"'
+  command: ["/bin/bash", "/app/server-config/generate.sh", "&&", "/app/server-config/run-worker-cmd.sh"]
 
 # The php-fpm server for interpreting php code
 phpfpm:
@@ -37,19 +27,21 @@ phpfpm:
     - project
   ports:
    - "9000"
+  command: ["/bin/bash", "/app/server-config/generate.sh", "&&", "php-fpm"]
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php-fpm server
 nginx:
   image: nginx:1.7
   links:
-    - phpfpm
     - project
+    - phpfpm
     - memcached
   volumes_from:
     - project
   ports:
     - "80"
     - "443"
+  command: ["/bin/bash", "/app/server-config/generate.sh", "&&", "nginx", "-g", "daemon off;"]
 
 # Memcached server for serving cached contents via the nginx-memcache plugin
 memcached:

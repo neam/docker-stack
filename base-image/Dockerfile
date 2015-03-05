@@ -9,7 +9,7 @@ FROM debian:jessie
 # Prepare Debian environment
 ENV DEBIAN_FRONTEND noninteractive
 
-# Update to trigger new apt upgrade - system packages will be based on apt state of this datetime
+# Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
 ENV APT_DOCKER_CACHE_TRIGGER "2015-03-05 09:56"
 RUN apt-get update && \
     apt-get upgrade -y -q
@@ -21,6 +21,7 @@ RUN apt-get install -y -q \
         wget \
         htop \
         less \
+        jq \
         nano \
         sed \
         vim
