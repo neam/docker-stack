@@ -5,7 +5,7 @@ set -o pipefail
 shopt -s dotglob
 
 if [ "$APP_DIR" == "" ]; then
-    echo "APP_DIR must be set. (to a directory where '.serialized_composer_json_data.sh' resides)"
+    echo "APP_DIR must be set. (to a directory where 'server-config/.serialized_composer_json_data.sh' resides)"
     exit;
 fi
 
@@ -41,24 +41,35 @@ indent() {
 trap 'error "Script error in $0 on or near line ${LINENO}"' ERR
 
 # Read the serialized composer.json data
-source "$APP_DIR/.serialized_composer_json_data.sh"
+source "$APP_DIR/server-config/.serialized_composer_json_data.sh"
 
-echo $NGINX_VERSION
-echo $FRAMEWORK
-env
+export PHP_VERSION
+export NGINX_VERSION
+export DOCUMENT_ROOT
+export INDEX_DOCUMENT
+export FRAMEWORK
+export PHP_EXTRA_CONFIG
+export PHP_INCLUDES
+export COMPILE_CMD
+export NGINX_INCLUDES
+export NGINX_LOCATIONS
+export USER_LOG_FILES
+export DOCUMENT_ROOT
+export NEWRELIC_ENABLED
 
 # generate nginx config
 
 status "Generating project.conf (project-specific nginx settings)"
 
 # note about framework config inclusion
-if [ -n "$FRAMEWORK" ] ; then
-    if [ ! -n "$GENERATOR_DIR/templates/$FRAMEWORK.conf.erb" ]; then
-        status "You composer.json-specified framework '$FRAMEWORK' has no matching configuration template. Default configuration will be used"
+if [ "$FRAMEWORK" != "" ] ; then
+    if [ ! -f "$GENERATOR_DIR/templates/nginx/frameworks/$FRAMEWORK.conf.erb" ]; then
+        status "Warning: You composer.json-specified framework '$FRAMEWORK' has no matching configuration template. Default configuration will be used"
         FRAMEWORK=default_SITE
     fi
 fi
 
-erb "$GENERATOR_DIR/templates/nginx/project.conf.erb" > "$APP_DIR/server-config/nginx/conf.d/project.conf"
+cd $GENERATOR_DIR
+erb "templates/nginx/project.conf.erb" > "$APP_DIR/server-config/nginx/conf.d/project.conf"
 
 status "Done!"

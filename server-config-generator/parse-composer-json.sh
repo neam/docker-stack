@@ -127,9 +127,9 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   NEWRELIC_ENABLED="$(package_newrelic_enabled)"
 
   # Serialize the data
-  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT NEWRELIC_ENABLED > "$BUILD_DIR/.serialized_composer_json_data.sh"
+  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT NEWRELIC_ENABLED > "$BUILD_DIR/server-config/.serialized_composer_json_data.sh"
 
-  status "Done! Results saved in $BUILD_DIR/.serialized_composer_json_data.sh"
+  status "Done! Results saved in $BUILD_DIR/server-config/.serialized_composer_json_data.sh"
 
 else
   status "No composer.json found in $BUILD_DIR, automatic server config generation will not be performed";

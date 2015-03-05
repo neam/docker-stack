@@ -5,7 +5,7 @@ set -o pipefail
 shopt -s dotglob
 
 if [ "$APP_DIR" == "" ]; then
-    echo "APP_DIR must be set. (to a directory where '.serialized_composer_json_data.sh' resides)"
+    echo "APP_DIR must be set. (to a directory where 'server-config/.serialized_composer_json_data.sh' resides)"
     exit;
 fi
 
@@ -41,10 +41,7 @@ indent() {
 trap 'error "Script error in $0 on or near line ${LINENO}"' ERR
 
 # Read the serialized composer.json data
-source "$APP_DIR/.serialized_composer_json_data.sh"
-
-echo $PHP_VERSION
-env
+source "$APP_DIR/server-config/.serialized_composer_json_data.sh"
 
 # generate php-fpm config
 
@@ -54,10 +51,9 @@ for conf in $PHP_EXTRA_CONFIG; do
   echo "$conf" >> "$APP_DIR/server-config/php/conf.d/project.ini"
 done
 
-status "Generating newrelic.ini (if new relic is enabled in composer.json)"
+status "Copying newrelic.ini (if new relic is enabled in composer.json)"
 if [ "$NEWRELIC_ENABLED" == "true" ]; then
-  erb "$GENERATOR_DIR/templates/php/newrelic.ini.erb" > "$APP_DIR/server-config/php/conf.d/newrelic.ini"
-  echo "newrelic.license=\"\${NEW_RELIC_LICENSE_KEY}\"" > "$APP_DIR/server-config/php/conf.d/newrelic_license.ini"
+  cp "$GENERATOR_DIR/templates/php/newrelic.ini" > "$APP_DIR/server-config/php/conf.d/newrelic.ini"
 fi
 
 status "Including additional project-required includes (if any)"

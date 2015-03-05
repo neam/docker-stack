@@ -24,8 +24,8 @@ WORKDIR /app/
 # Add source code to volume mount point
 COPY . /app
 
-# Parse composer.json
-RUN vendor/neam/docker-php-toolkit/server-config-generator/parse-composer-json.sh
+# Env var with path to application directory
+ENV APP_DIR /app
 
 # Use a valid cmd that immediately exits for this data only container
 CMD ["true"]

@@ -7,7 +7,11 @@ set -o errexit
 
 # Verify that APP_DIR is set
 if [ "$APP_DIR" == "" ]; then
-    echo "APP_DIR must be set to the app base directory"
+    echo "Error: APP_DIR must be set (to the app base directory)"
+    exit;
+fi
+if [ "$PHP_CONFD" == "" ]; then
+    echo "Error: PHP_CONFD must be set (to the php conf.d directory)"
     exit;
 fi
 

@@ -7,11 +7,11 @@ set -o errexit
 
 # Verify that APP_DIR is set
 if [ "$APP_DIR" == "" ]; then
-    echo "APP_DIR must be set to the app base directory"
+    echo "Error: APP_DIR must be set (to the app base directory)"
     exit;
 fi
 if [ "$NGINX_CONFD" == "" ]; then
-    echo "$NGINX_CONFD must be set to the nginx conf.d directory"
+    echo "Error: NGINX_CONFD must be set (to the nginx conf.d directory)"
     exit;
 fi
 
