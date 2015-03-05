@@ -9,6 +9,8 @@ if [ "$APP_DIR" == "" ]; then
     exit;
 fi
 
+GENERATOR_DIR="$(dirname $0)"
+
 error() {
   echo " !     $*" >&2
   exit 1
@@ -47,19 +49,16 @@ env
 
 # generate nginx config
 
-if [ ! -n "$PHPFPM_PORT_9000_TCP_ADDR" ] ; then
-protip "The env var PHPFPM_PORT_9000_TCP_ADDR is missing, so the generated configuration will not work"
-fi
-
-if [ ! -n "$PHPFPM_PORT_9000_TCP_PORT" ] ; then
-protip "The env var PHPFPM_PORT_9000_TCP_PORT is missing, so the generated configuration will not work"
-fi
-
-erb "$GENERATOR_DIR/templates/nginx/00-defaults.conf.erb" > "$APP_DIR/server-config/nginx/conf.d/00-defaults.conf"
+status "Generating project.conf (project-specific nginx settings)"
 
 # note about framework config inclusion
 if [ -n "$FRAMEWORK" ] ; then
-protip "You composer.json specifies framework '$FRAMEWORK', thus we will attempt to include Nginx configuration for that framework."
+    if [ ! -n "$GENERATOR_DIR/templates/$FRAMEWORK.conf.erb" ]; then
+        status "You composer.json-specified framework '$FRAMEWORK' has no matching configuration template. Default configuration will be used"
+        FRAMEWORK=default_SITE
+    fi
 fi
 
 erb "$GENERATOR_DIR/templates/nginx/project.conf.erb" > "$APP_DIR/server-config/nginx/conf.d/project.conf"
+
+status "Done!"

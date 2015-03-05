@@ -9,7 +9,7 @@ Includes:
  * The Dockerfile for the `neam/docker-php-toolkit-app-source-code-container-base` image
  * Some potentially useful shell scripts
 
-# Installation
+## Installation
 
 Copy boilerplate files to your 12-factor app base dir.
 
@@ -17,7 +17,13 @@ Add the following to the require section of your composer.json:
 
     "neam/docker-php-toolkit": "dev-develop"
 
-Either add your project php-fpm/nginx configuration includes to under server-config/*/conf.d/ directories.
+Add your project php/nginx configuration includes to the `server-config/*/conf.d/` directories.
+
+Your configuration files may use the following style of placeholders to include the value of environment variables at runtime:
+
+    fastcgi_pass ${PHPFPM_PORT_9000_TCP_ADDR}:${PHPFPM_PORT_9000_TCP_PORT};
+
+## Generate general project nginx configuration based on composer.json
 
 Optionally, add server configuration to your composer.json under the key "extra.server-config".
 
@@ -63,6 +69,13 @@ Example:
             ]
         }
     },
+
+Then generate php and nginx config:
+
+    export APP_DIR=$(pwd)
+    vendor/neam/docker-php-toolkit/server-config-generator/parse-composer-json.sh
+    vendor/neam/docker-php-toolkit/server-config-generator/generate-nginx-config.sh
+    vendor/neam/docker-php-toolkit/server-config-generator/generate-php-config.sh
 
 # Usage
 

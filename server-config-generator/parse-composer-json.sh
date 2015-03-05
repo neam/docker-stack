@@ -48,8 +48,8 @@ function package_document_root() {
     jq --raw-output ".extra.${composer_extra_key}[\"document-root\"] // \"\"" < "$BUILD_DIR/composer.json"
 }
 
-function package_index_file() {
-    jq --raw-output ".extra.${composer_extra_key}[\"index-document\"] // \"index.php\"" < "$BUILD_DIR/composer.json"
+function package_index_document() {
+    jq --raw-output ".extra.${composer_extra_key}[\"index-document\"] // \"index.php index.html\"" < "$BUILD_DIR/composer.json"
 }
 
 function package_framework() {
@@ -89,17 +89,14 @@ function package_compile_cmd() {
 }
 
 function package_newrelic_enabled() {
-    local val=$(jq --raw-output ".extra.${composer_extra_key}[\"newrelic\"] // false" < "$BUILD_DIR/composer.json")
-
-    if [ "$val" = "true" ]; then
-        return 0
-    else
-        return 1
-    fi
+    jq --raw-output ".extra.${composer_extra_key}[\"newrelic\"] // false" < "$BUILD_DIR/composer.json"
 }
 
 # Read config variables from composer.json if it exists
 if [ -f "$BUILD_DIR/composer.json" ]; then
+
+  status "Parsing composer.json"
+
   composer_extra_key="server"
   if [ -n "$(has_heroku_extra)" ] ; then
     protip "Your composer.json is using the key 'extra' → 'heroku', you should switch to 'extra' → 'server' if this project does not work on heroku"
@@ -118,7 +115,7 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   PHP_VERSION="$(package_php_version)"
   NGINX_VERSION="$(package_nginx_version)"
   DOCUMENT_ROOT="$(package_document_root)"
-  INDEX_DOCUMENT="$(package_index_file)"
+  INDEX_DOCUMENT="$(package_index_document)"
   FRAMEWORK="$(package_framework)"
   PHP_EXTRA_CONFIG="$(package_php_config)"
   PHP_INCLUDES="$(package_php_includes)"
@@ -127,9 +124,12 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   NGINX_LOCATIONS="$(package_nginx_locations)"
   USER_LOG_FILES="$(package_log_files)"
   DOCUMENT_ROOT="$(package_document_root)"
+  NEWRELIC_ENABLED="$(package_newrelic_enabled)"
 
   # Serialize the data
-  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT > "$BUILD_DIR/.serialized_composer_json_data.sh"
+  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT NEWRELIC_ENABLED > "$BUILD_DIR/.serialized_composer_json_data.sh"
+
+  status "Done! Results saved in $BUILD_DIR/.serialized_composer_json_data.sh"
 
 else
   status "No composer.json found in $BUILD_DIR, automatic server config generation will not be performed";

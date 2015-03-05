@@ -1,9 +1,8 @@
 # Data only container that includes project source code at /app and generates
 # some configuration files generated based on env vars and composer.json.
 # /app is subsequently used as document root in php-fpm and nginx config
-
 project:
-  image: gapminder/cms:feature_dockerfile-based-build-cms-clean-db
+  image: user/project:tag
   volumes:
    - /app
   environment:
@@ -15,8 +14,9 @@ worker:
   volumes_from:
     - project
   environment:
+    APP_DIR: '/app'
     WORKER_CMD: '/bin/bash echo "Hello"'
-  command: ["/bin/bash", "/app/server-config/generate.sh", "&&", "/app/server-config/run-worker-cmd.sh"]
+  command: ["/bin/bash", "/app/vendor/neam/docker-php-toolkit/setup-php-config.sh", "&&", "/app/vendor/neam/docker-php-toolkit/run-worker-cmd.sh"]
 
 # The php-fpm server for interpreting php code
 phpfpm:
@@ -27,7 +27,10 @@ phpfpm:
     - project
   ports:
    - "9000"
-  command: ["/bin/bash", "/app/server-config/generate.sh", "&&", "php-fpm"]
+  environment:
+    APP_DIR: '/app'
+    PHP_CONFD: '/usr/local/etc/php/conf.d'
+  command: ["/bin/bash", "/app/vendor/neam/docker-php-toolkit/setup-php-config.sh", "&&", "php-fpm"]
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php-fpm server
 nginx:
@@ -41,7 +44,10 @@ nginx:
   ports:
     - "80"
     - "443"
-  command: ["/bin/bash", "/app/server-config/generate.sh", "&&", "nginx", "-g", "daemon off;"]
+  environment:
+    APP_DIR: '/app'
+    NGINX_CONFD: '/etc/nginx/conf.d'
+  command: ["/bin/bash", "/app/vendor/neam/docker-php-toolkit/setup-nginx-config.sh", "&&", "nginx", "-g", "daemon off;"]
 
 # Memcached server for serving cached contents via the nginx-memcache plugin
 memcached:

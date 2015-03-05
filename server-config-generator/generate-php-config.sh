@@ -9,6 +9,8 @@ if [ "$APP_DIR" == "" ]; then
     exit;
 fi
 
+GENERATOR_DIR="$(dirname $0)"
+
 error() {
   echo " !     $*" >&2
   exit 1
@@ -46,20 +48,21 @@ env
 
 # generate php-fpm config
 
-for var in $(env | cut -f1 -d=); do
-  echo "env[$var] = \$${var}" >> $APP_DIR/server-config/php/conf.d/env.ini
-done
-
-if [ -n "\$NEW_RELIC_LICENSE_KEY" ]; then
-  erb "$GENERATOR_DIR/templates/php/newrelic.ini.erb" > "$APP_DIR/server-config/php/conf.d/newrelic.ini"
-  echo "newrelic.license=\"\$NEW_RELIC_LICENSE_KEY\"" > "$APP_DIR/server-config/php/conf.d/newrelic_license.ini"
-fi
-
+status "Generating project.ini (project-required php settings)"
 echo "" > "$APP_DIR/server-config/php/conf.d/project.ini"
 for conf in $PHP_EXTRA_CONFIG; do
   echo "$conf" >> "$APP_DIR/server-config/php/conf.d/project.ini"
 done
 
+status "Generating newrelic.ini (if new relic is enabled in composer.json)"
+if [ "$NEWRELIC_ENABLED" == "true" ]; then
+  erb "$GENERATOR_DIR/templates/php/newrelic.ini.erb" > "$APP_DIR/server-config/php/conf.d/newrelic.ini"
+  echo "newrelic.license=\"\${NEW_RELIC_LICENSE_KEY}\"" > "$APP_DIR/server-config/php/conf.d/newrelic_license.ini"
+fi
+
+status "Including additional project-required includes (if any)"
 for include in $PHP_INCLUDES; do
   cp "$APP_DIR/$include" "/app/vendor/php/etc/conf.d/"
 done
+
+status "Done!"

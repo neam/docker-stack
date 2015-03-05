@@ -20,10 +20,15 @@
         }
     ],
     "bin": [
-        "server-config-generator/generate-server-config.sh",
+        "server-config-generator/generate-php-config.sh",
+        "server-config-generator/generate-nginx-config.sh",
         "server-config-generator/parse-composer-json.sh",
         "docker-bash.sh",
-        "git-dist-clone.sh"
+        "git-dist-clone.sh",
+        "replace-env-tokens.sh",
+        "run-worker-cmd.sh",
+        "setup-nginx-config.sh",
+        "setup-php-config.sh"
     ],
     "require": {
     },
