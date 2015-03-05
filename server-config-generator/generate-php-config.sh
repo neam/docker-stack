@@ -42,6 +42,7 @@ trap 'error "Script error in $0 on or near line ${LINENO}"' ERR
 source "$APP_DIR/.serialized_composer_json_data.sh"
 
 echo $PHP_VERSION
+env
 
 # generate php-fpm config
 

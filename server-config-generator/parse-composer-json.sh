@@ -124,7 +124,6 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   PHP_INCLUDES="$(package_php_includes)"
   COMPILE_CMD="$(package_compile_cmd)"
   NGINX_INCLUDES="$(package_nginx_includes)"
-  set -x
   NGINX_LOCATIONS="$(package_nginx_locations)"
   USER_LOG_FILES="$(package_log_files)"
   DOCUMENT_ROOT="$(package_document_root)"

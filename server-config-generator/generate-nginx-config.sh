@@ -43,6 +43,7 @@ source "$APP_DIR/.serialized_composer_json_data.sh"
 
 echo $NGINX_VERSION
 echo $FRAMEWORK
+env
 
 # generate nginx config
 
