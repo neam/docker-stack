@@ -24,9 +24,8 @@ WORKDIR /app/
 # Add source code to volume mount point
 COPY . /app
 
-# Generate and symlink project configuration - Don't forget to add volumes in
-# docker-compose.yml for specific files in case they are outside the conf.d directories
-RUN server-config/generate.sh
+# Parse composer.json
+RUN vendor/neam/docker-php-toolkit/server-config-generator/parse-composer-json.sh
 
-# Use a valid entrypoint that immediately exits for this data only container
-ENTRYPOINT ["true"]
+# Use a valid cmd that immediately exits for this data only container
+CMD ["true"]
