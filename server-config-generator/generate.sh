@@ -75,7 +75,7 @@ function package_nginx_includes() {
 }
 
 function package_nginx_locations() {
-    jq --raw-output '.extra.${composer_extra_key}["nginx-locations"] // []' < "$BUILD_DIR/composer.json"
+    jq --raw-output '.extra.${composer_extra_key}[\"nginx-locations\"] // []' < "$BUILD_DIR/composer.json"
 }
 
 function package_log_files() {
@@ -98,9 +98,9 @@ function package_newrelic_enabled() {
 
 # Read config variables from composer.json if it exists
 if [ -f "$BUILD_DIR/composer.json" ]; then
-  composer_extra_key="docker-build"
+  composer_extra_key="server-config"
   if [ -n "$(has_heroku_extra)" ] ; then
-    protip "Your composer.json is using the key 'extra' → 'heroku', you should switch to 'extra' → 'docker-build' if this project does not work on heroku"
+    protip "Your composer.json is using the key 'extra' → 'heroku', you should switch to 'extra' → 'server-config' if this project does not work on heroku"
     composer_extra_key="heroku"
   fi
 
@@ -137,9 +137,6 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   # generate nginx config
 
   export PORT=80
-
-  export DOCUMENT_ROOT="$(package_document_root)"
-
   erb "$GENERATOR_DIR/templates/nginx/00-defaults.conf.erb" > "$BUILD_DIR/server-config/nginx/conf.d/00-defaults.conf"
   erb "$GENERATOR_DIR/templates/nginx/project.conf.erb" > "$BUILD_DIR/server-config/nginx/conf.d/project.conf"
 
