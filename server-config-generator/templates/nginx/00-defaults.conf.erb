@@ -28,7 +28,7 @@
     }
 
     upstream php {
-        server unix:/tmp/php-fpm.sock max_fails=3 fail_timeout=3s;
+        server <%= ENV['PHPFPM_PORT_9000_TCP_ADDR'] %>:<%= ENV['PHPFPM_PORT_9000_TCP_PORT'] %> max_fails=3 fail_timeout=3s;
         keepalive 16;
     }
 
@@ -69,7 +69,7 @@
 
     server {
         server_name localhost;
-        listen <%= ENV['PORT'] %>;
+        listen 80;
 
         #Specify a charset
         charset utf-8;

@@ -104,17 +104,13 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
     composer_extra_key="heroku"
   fi
 
-  # note about debian jessie
+  # note about php and nginx versions
   if [ -n "$(package_php_version)" ] ; then
-    protip "Foo"
+    protip "Your composer.json specifies a specific PHP version. This is ignored by the server config generator - instead, the actual PHP version of your app is specified by the php-fpm docker image the app defines in it's docker-compose.yml"
   fi
 
   if [ -n "$(package_nginx_version)" ] ; then
-    protip "Foo"
-  fi
-
-  if [ -n "$(package_framework)" ] ; then
-    protip "Foo"
+    protip "Your composer.json specifies a specific Nginx version. This is ignored by the server config generator - instead, the actual Nginx version of your app is specified by the nginx docker image the app defines in it's docker-compose.yml"
   fi
 
   PHP_VERSION=$(package_php_version)
@@ -136,28 +132,33 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
 
   # generate nginx config
 
-  export PORT=80
+  if [ ! -n "$PHPFPM_PORT_9000_TCP_ADDR" ] ; then
+    protip "The env var PHPFPM_PORT_9000_TCP_ADDR is missing, so the generated configuration will not work"
+  fi
+
+  if [ ! -n "$PHPFPM_PORT_9000_TCP_PORT" ] ; then
+    protip "The env var PHPFPM_PORT_9000_TCP_PORT is missing, so the generated configuration will not work"
+  fi
+
   erb "$GENERATOR_DIR/templates/nginx/00-defaults.conf.erb" > "$BUILD_DIR/server-config/nginx/conf.d/00-defaults.conf"
+
+  # note about framework config inclusion
+  if [ -n "$FRAMEWORK" ] ; then
+    protip "You composer.json specifies framework $(package_framework), thus we will attempt to include Nginx configuration for that framework."
+  fi
+
   erb "$GENERATOR_DIR/templates/nginx/project.conf.erb" > "$BUILD_DIR/server-config/nginx/conf.d/project.conf"
 
   # generate php-fpm config
-  #
-  # /dist/composer.json > build/php-fpm.conf
-  # generate base nginx config /dist/composer.json > build/nginx.conf
-  # project-specific nginx config /dist/composer.json > build/site.conf
-  # generate installation of deps command > build/install-production-deps.sh
 
   for var in $(env | cut -f1 -d=); do
       echo "env[$var] = \$${var}" >> $BUILD_DIR/server-config/php/conf.d/env.ini
   done
 
-  # TODO: New relic
-  #erb "$GENERATOR_DIR/templates/php/project.conf.erb" > "$BUILD_DIR/server-config/php/conf.d/newrelic.ini"
-
-  # TODO: Move to runtime instead
-  #if [ -n "\$NEW_RELIC_LICENSE_KEY" ]; then
-  #    echo "newrelic.license=\"\$NEW_RELIC_LICENSE_KEY\"" > $BUILD_DIR/server-config/php/conf.d/newrelic_license.ini
-  #fi
+  if [ -n "\$NEW_RELIC_LICENSE_KEY" ]; then
+      erb "$GENERATOR_DIR/templates/php/newrelic.ini.erb" > "$BUILD_DIR/server-config/php/conf.d/newrelic.ini"
+      echo "newrelic.license=\"\$NEW_RELIC_LICENSE_KEY\"" > $BUILD_DIR/server-config/php/conf.d/newrelic_license.ini
+  fi
 
   rm "$BUILD_DIR/server-config/php/conf.d/project.ini"
   for conf in $PHP_EXTRA_CONFIG; do
