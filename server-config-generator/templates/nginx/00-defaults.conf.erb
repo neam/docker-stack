@@ -1,19 +1,10 @@
 <% require "shellwords" %>
-worker_processes auto;
-daemon off;
 
-events {
-    worker_connections  1024;
-}
-http {
     # Hide nginx version information.
     server_tokens off;
 
-    sendfile    on;
     tcp_nopush  on;
     tcp_nodelay off;
-
-    keepalive_timeout  65;
 
     log_format specialLog '$http_x_forwarded_for - '
                       '"$request" $status $body_bytes_sent '
@@ -89,4 +80,3 @@ http {
         include /app/<%= f %>;
         <% end %>
     }
-}

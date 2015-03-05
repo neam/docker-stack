@@ -1,0 +1,18 @@
+<% require "shellwords" %>
+
+    server {
+        server_name localhost;
+        listen <%= ENV['PORT'] %>;
+
+        #Specify a charset
+        charset utf-8;
+
+        <% if ENV.has_key? "FRAMEWORK" and ENV['FRAMEWORK'].to_s != "" %>
+        # Framework-specific config
+        <%= ERB.new(File.read(File.expand_path("templates/" + ENV['FRAMEWORK'].to_s + ".conf.erb")), eoutvar='_sub01').result(binding) %>
+        <% end %>
+
+        <% Shellwords.split(ENV['NGINX_INCLUDES'].to_s).each do |f| %>
+        include /app/<%= f %>;
+        <% end %>
+    }
