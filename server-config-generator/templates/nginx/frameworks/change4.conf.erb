@@ -1,0 +1,27 @@
+<% if ENV.has_key? "DOCUMENT_ROOT" and ENV['DOCUMENT_ROOT'].to_s != "" %>
+root /app/<%= ENV['DOCUMENT_ROOT'] %>;
+<% else %>
+root /app/www;
+<% end %>
+
+location / {
+  index index.php;
+  try_files $uri @rewriteapp;
+}
+
+location @rewriteapp {
+  rewrite ^(.*)$ /index.php$1 last;
+}
+
+location ~ ^(.+?\.php).*$ {
+    include        fastcgi_params;
+    proxy_buffering off;
+    fastcgi_connect_timeout 3s;
+    fastcgi_read_timeout 10s;
+    fastcgi_buffers 256 4k;
+    fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+    fastcgi_pass   php;
+    fastcgi_param  PATH_INFO          $fastcgi_path_info;
+    fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param  SCRIPT_NAME $fastcgi_script_name;
+}

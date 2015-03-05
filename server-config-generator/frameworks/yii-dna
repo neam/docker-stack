@@ -1,0 +1,28 @@
+#!/bin/bash
+
+BUILD_DIR="$2"
+basedir="$( cd -P "$( dirname "$0" )" && pwd )"
+
+function sets_framework_yii_dna() {
+    [ $(jq --raw-output '.extra.heroku.framework' < "$BUILD_DIR/composer.json") == "yii-dna" ]
+}
+
+case "$1" in
+    detect)
+        if [ ! -f "$BUILD_DIR/composer.json" ]; then
+            exit 1
+        fi
+
+        if sets_framework_yii_dna; then
+            echo "-----> Detected Yii DNA project"
+            exit 0
+        else
+            exit 1
+        fi
+        ;;
+    compile)
+        echo "-----> Setting up Yii DNA project"
+        mkdir -p $BUILD_DIR/conf/yii-dna/
+        cp "$basedir/../conf/nginx/yii-dna.conf.erb" "$BUILD_DIR/conf/site.conf.erb"
+        ;;
+esac

@@ -1,0 +1,68 @@
+#!/bin/bash
+
+BUILD_DIR="$2"
+basedir="$( cd -P "$( dirname "$0" )" && pwd )"
+source $basedir/../bin/common.sh
+
+function requires_change4() {
+  require_change=$(jq --raw-output ".require[\"rbschange/core\"] // \"\"" < "$BUILD_DIR/composer.json")
+  [ -n  "$require_change" ]
+}
+
+case "$1" in
+    detect)
+        if [ ! -f "$BUILD_DIR/composer.json" ]; then
+            exit 1
+        fi
+
+        if requires_change4; then
+            status "Detected Change 4 app"
+            exit 0
+        else
+            exit 1
+        fi
+        ;;
+    get-log-files)
+        echo "log/project/application.log"
+        ;;
+    compile)
+        status "Setting up Change 4 app"
+        cp "$basedir/../conf/nginx/change4.conf.erb" "$BUILD_DIR/conf/site.conf.erb"
+
+        status "Bootstrap Change 4 base plugins"
+        pushd $BUILD_DIR > /dev/null
+        php bin/change.phar change:generate-db-schema | indent
+        php bin/change.phar change:register-plugin --all | indent
+        php bin/change.phar change:install-package --vendor=Rbs Core | indent
+        php bin/change.phar change:install-package --vendor=Rbs ECom | indent
+        php bin/change.phar change:install-plugin --type=theme --vendor=Rbs Demo | indent
+        php bin/change.phar change:set-document-root $BUILD_DIR/www | indent
+        popd > /dev/null
+        ;;
+    end)
+        status "Apply patch for redis session storage"
+        pushd $BUILD_DIR/vendor/zendframework/zendframework >/dev/null
+        curl -LO $SWIFT_URL/change4-patch1.patch
+        patch -p1 < change4-patch1.patch
+        popd >/dev/null
+
+        status "Change references to build directory"
+        for php_file in $BUILD_DIR/www/*.php ; do
+          sed -i 's+\\Rbs\\Http+\\Change\\Http+' $php_file
+          sed -i 's+/build+/app+g' $php_file
+        done
+        php_script=$(cat <<EOF
+          <?php
+          \$cache_file = "$BUILD_DIR/tmp/cache/.pluginsNamespace.ser";
+          \$namespace_str = file_get_contents(\$cache_file);
+          \$namespace = unserialize(\$namespace_str);
+          foreach(\$namespace as \$plugin => \$path) {
+            \$namespace[\$plugin] = str_replace("$BUILD_DIR", "/app", \$path);
+          }
+          file_put_contents(\$cache_file, serialize(\$namespace));
+          ?>
+EOF
+        )
+        echo $php_script | php
+      ;;
+esac
