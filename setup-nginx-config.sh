@@ -20,12 +20,12 @@ if [ "$(ls $APP_DIR/server-config/nginx/conf.d/)" ]; then
     cp -r $APP_DIR/server-config/nginx/conf.d/* "$NGINX_CONFD"/
 fi
 
-if [ ! -n "$PHPFPM_PORT_9000_TCP_ADDR" ] ; then
-    echo "Warning: The env var PHPFPM_PORT_9000_TCP_ADDR is missing, so the generated configuration will not work"
+if [ ! -n "$PHPFPM_1_PORT_9000_TCP_ADDR" ] ; then
+    echo "Warning: The env var PHPFPM_1_PORT_9000_TCP_ADDR is missing, so the generated configuration will not work"
 fi
 
-if [ ! -n "$PHPFPM_PORT_9000_TCP_PORT" ] ; then
-    echo "Warning: The env var PHPFPM_PORT_9000_TCP_PORT is missing, so the generated configuration will not work"
+if [ ! -n "$PHPFPM_1_PORT_9000_TCP_PORT" ] ; then
+    echo "Warning: The env var PHPFPM_1_PORT_9000_TCP_PORT is missing, so the generated configuration will not work"
 fi
 
 # Setup config variables only available at runtime

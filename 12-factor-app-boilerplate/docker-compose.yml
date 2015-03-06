@@ -11,18 +11,21 @@ project:
 # Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the container
 worker:
   image: php:5.6-cli
+  links:
+    - project
   volumes_from:
     - project
   environment:
     APP_DIR: '/app'
     WORKER_CMD: '/bin/bash echo "Hello"'
-  command: ["/bin/bash", "/app/vendor/neam/docker-php-toolkit/setup-php-config.sh", "&&", "/app/vendor/neam/docker-php-toolkit/run-worker-cmd.sh"]
+  command: "/bin/bash /app/vendor/neam/docker-php-toolkit/setup-php-config.sh /app/vendor/neam/docker-php-toolkit/run-worker-cmd.sh"
 
 # The php-fpm server for interpreting php code
 phpfpm:
   image: php:5.6-fpm
   links:
     - project
+    - memcached
   volumes_from:
     - project
   ports:
@@ -30,7 +33,7 @@ phpfpm:
   environment:
     APP_DIR: '/app'
     PHP_CONFD: '/usr/local/etc/php/conf.d'
-  command: ["/bin/bash", "/app/vendor/neam/docker-php-toolkit/setup-php-config.sh", "&&", "php-fpm"]
+  command: "/bin/bash /app/vendor/neam/docker-php-toolkit/setup-php-config.sh php-fpm"
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php-fpm server
 nginx:
@@ -47,7 +50,9 @@ nginx:
   environment:
     APP_DIR: '/app'
     NGINX_CONFD: '/etc/nginx/conf.d'
-  command: ["/bin/bash", "/app/vendor/neam/docker-php-toolkit/setup-nginx-config.sh", "&&", "nginx", "-g", "daemon off;"]
+    NGINX_ERROR_LOG_LEVEL: 'notice'
+    INDEX_DOCUMENT: 'index.php index.html'
+  command: "/bin/bash /app/vendor/neam/docker-php-toolkit/setup-nginx-config.sh nginx"
 
 # Memcached server for serving cached contents via the nginx-memcache plugin
 memcached:
