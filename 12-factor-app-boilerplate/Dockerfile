@@ -1,7 +1,7 @@
 # Project source code data volume container docker image
 # --------------------------------
 
-FROM neam/docker-php-toolkit-app-source-code-container-base:latest
+FROM neam/dpt-project-data-container:latest
 
 # Add composer github token for faster downloads
 COPY composer.github.token composer.github.token

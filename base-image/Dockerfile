@@ -10,7 +10,7 @@ FROM debian:jessie
 ENV DEBIAN_FRONTEND noninteractive
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-03-05 09:56"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-03-07 18:43"
 RUN apt-get update && \
     apt-get upgrade -y -q
 
