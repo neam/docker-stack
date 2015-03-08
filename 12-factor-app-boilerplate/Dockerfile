@@ -28,6 +28,3 @@ COPY . /app
 
 # Env var with path to application directory
 ENV APP_DIR /app
-
-# Use a valid cmd that immediately exits for this data only container
-CMD ["true"]

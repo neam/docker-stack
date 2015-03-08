@@ -62,3 +62,6 @@ ENV PATH /root/.composer/vendor/bin:$PATH
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     /usr/local/bin/composer global require "fxp/composer-asset-plugin:1.0.*" && \
     /usr/local/bin/composer global dumpautoload --optimize
+
+# Use a valid cmd that immediately exits for this data only container
+CMD ["echo 'The data volume container with project source code will now exit, leaving the /app directory available for all other containers in the stack'"]
