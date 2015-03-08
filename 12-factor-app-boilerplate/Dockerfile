@@ -23,13 +23,6 @@ COPY composer.lock /app/composer.lock
 COPY composer.json /app/composer.json
 RUN /usr/local/bin/composer install --prefer-dist --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
 
-WORKDIR /app/dna/
-COPY dna/composer.lock /app/dna/composer.lock
-COPY dna/composer.json /app/dna/composer.json
-RUN /usr/local/bin/composer install --prefer-dist --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
-
-WORKDIR /app/
-
 # Add source code to volume mount point
 COPY . /app
 
