@@ -1,8 +1,16 @@
 # Base docker image for a PHP 12-factor app source code container
 # -----------------------------------------------------
-# Available on docker hub as neam/docker-php-toolkit-app-source-code-container-base
+# Containers based on this image are supposed to be data volume containers with app source code.
+# The /app directory is shared with the other containers in the stack as a volume.
+# The base image (in this case debian:jessie) and packages installed are used only for installing
+# app dependencies and other build tasks necessary to populate /app with the complete source code.
+#
+# Available on docker hub as neam/dpt-project-code-container-base
+#
 # Build by running:
-#     docker build -t 'neam/docker-php-toolkit-app-source-code-container-base' .
+#     docker build -t 'neam/dpt-project-code-container-base' .
+#
+# Replace with your own project tag in case you want to use a custom base image in your project.
 
 FROM debian:jessie
 

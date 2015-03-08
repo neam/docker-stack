@@ -1,5 +1,14 @@
 # Project source code data volume container docker image
 # --------------------------------
+# This builds a data volume containers with the app source code.
+# The /app directory is shared with the other containers in the stack as a volume.
+# The base image (in this case debian:jessie) and packages installed there are used only for installing
+# app dependencies and other build tasks necessary to populate /app with the complete source code.
+#
+# Build by running:
+#     docker build -t 'user/project' .
+#
+# Replace with your own project tag.
 
 FROM neam/dpt-project-data-container:latest
 
