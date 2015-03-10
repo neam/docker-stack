@@ -23,11 +23,13 @@ Add your project php/nginx configuration includes to the `stack/nginx/` and `sta
 
 ### Opening your local web app in the browser:
 
-After running `docker-compose up`, you can find out the port your nginx container is responding on:
+After running `docker-compose up`, you can find out the url your nginx container is responding on:
 
-    export NGINX_PORT=$(docker-compose ps nginx | tail -n1 | awk '{ print $5 }' | sed 's/[0-9.]*://' | sed 's/->80\/tcp//')
+    stack/nginx/url.sh
 
-Open http://$DOCKER_HOST_IP:$NGINX_PORT in your browser
+On OS X you can even open the url directly from your terminal:
+
+    open $(stack/nginx/url.sh)
 
 ### Useful general commands
 
