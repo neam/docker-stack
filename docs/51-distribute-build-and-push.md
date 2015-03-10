@@ -3,7 +3,7 @@ Distribute - Build and push
 
 Build deployment images
 
-    docker build -f .stack.files.Dockerfile -t ${APP_ID}:${BRANCH} .
+    docker build -f .stack.codebase.Dockerfile -t ${APP_ID}:${BRANCH} .
 
 Deploy the built images to verify that it works:
 
