@@ -22,7 +22,7 @@ Stacks
 This section includes instructions for including docker-based stacks in your 12-factor web app repository.
 
 - [Adopting a Docker stack](docs/10-stacks-adopting-a-docker-stack.md)
-- [PHP/Nginx/Memcache](docs/11-stacks-php-nginx-memcache.md)
+- [PHP/Nginx/Memcache](stacks/php-nginx-memcache/README.md)
 
 Develop
 -------
