@@ -45,6 +45,12 @@ Change and reload nginx configuration on-the-fly:
     nano /etc/nginx/nginx.conf
     nginx -s reload
 
+### Add your composer github token before build
+
+    export COMPOSER_GITHUB_TOKEN=foofoofoofoofoofoofoofoofoofoo
+    echo $COMPOSER_GITHUB_TOKEN > composer.github.token
+    echo "composer.github.token" >> .gitignore
+
 ### Using memcache
 
 TODO: Add instructions
