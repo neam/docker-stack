@@ -53,13 +53,10 @@ RUN echo "s3cmd \n $(apt-cache show s3cmd | grep -i version)" && \
   apt-get install -y -q s3cmd=1.0.0*
 
 # Clojure compiler
-#
+# TODO
 
-# sdfjklsdf
-sdljkf
-sdfkljsdf
-ljksdflkjsdf
-kljsdfjlksdf
+# Bower
+# TODO
 
 # Clean apt caches
 RUN apt-get clean && \

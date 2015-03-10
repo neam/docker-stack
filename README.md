@@ -1,10 +1,10 @@
-Docker PHP Toolkit
+Docker Stack
 =================================
 
-Toolkit for maintaining a Docker-based "one-process-per-container" PHP-FPM/Nginx stack for 12-factor PHP apps.
+Toolkit for maintaining a Docker-based "one-process-per-container" stack for 12-factor web apps.
 
 Includes:
- * Boilerplate files to include in your 12-factor app
+ * Boilerplate files to include in your 12-factor app for 12-factor PHP apps (PHP-FPM/Nginx)
  * The Dockerfile and assets for the PHP-FPM an Nginx server configuration generator for generating configuration based on your composer.json
  * Some potentially useful shell scripts
 
