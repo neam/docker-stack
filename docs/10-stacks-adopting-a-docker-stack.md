@@ -5,6 +5,7 @@ The following files needs to be available in your app repository to be able to u
 
  * `docker-compose.yml` - Docker compose configuration file for local development
  * `stack/{container}/*` - Project-specific configuration files used by your stack
+ * `stack/codebase/install-deps.sh` - Project-specific script for installation of dependencies
  * `stack/deploy.yml` - Docker compose configuration file for portable deployment of the app on any docker host
  * `stack/deploy-tutum.yml` - Docker compose configuration file for portable deployment of the app using Tutum
 
