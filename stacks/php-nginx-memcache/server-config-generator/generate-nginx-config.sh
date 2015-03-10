@@ -4,11 +4,7 @@ set -e
 set -o pipefail
 shopt -s dotglob
 
-if [ "$APP_DIR" == "" ]; then
-    echo "APP_DIR must be set. (to a directory where 'server-config/.serialized_composer_json_data.sh' resides)"
-    exit;
-fi
-
+APP_DIR=/app
 GENERATOR_DIR="$(dirname $0)"
 
 error() {
@@ -41,7 +37,7 @@ indent() {
 trap 'error "Script error in $0 on or near line ${LINENO}"' ERR
 
 # Read the serialized composer.json data
-source "$APP_DIR/server-config/.serialized_composer_json_data.sh"
+source "$APP_DIR/stack/.serialized_composer_json_data.sh"
 
 export PHP_VERSION
 export NGINX_VERSION
@@ -59,7 +55,7 @@ export NEWRELIC_ENABLED
 
 # generate nginx config
 
-status "Generating project.conf (project-specific nginx settings)"
+status "Generating app.conf (app-specific nginx settings)"
 
 # note about framework config inclusion
 if [ "$FRAMEWORK" != "" ] ; then
@@ -70,6 +66,6 @@ if [ "$FRAMEWORK" != "" ] ; then
 fi
 
 cd $GENERATOR_DIR
-erb "templates/nginx/project.conf.erb" > "$APP_DIR/server-config/nginx/conf.d/project.conf"
+erb "templates/nginx/app.conf.erb" > "$APP_DIR/stack/nginx/conf.d/app.conf"
 
 status "Done!"

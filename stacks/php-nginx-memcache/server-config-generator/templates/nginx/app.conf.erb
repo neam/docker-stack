@@ -7,6 +7,12 @@
   end
 %>
 
+    <% if ENV.has_key? "INDEX_DOCUMENT" and ENV['INDEX_DOCUMENT'].to_s != "" %>
+    index <%= ENV['INDEX_DOCUMENT'] %>;
+    <% else %>
+    index index.html;
+    <% end %>
+
     server {
         server_name localhost;
         listen 80;

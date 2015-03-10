@@ -4,11 +4,7 @@ set -e
 set -o pipefail
 shopt -s dotglob
 
-if [ "$APP_DIR" == "" ]; then
-    echo "APP_DIR must be set. (to a directory where 'server-config/.serialized_composer_json_data.sh' resides)"
-    exit;
-fi
-
+APP_DIR=/app
 GENERATOR_DIR="$(dirname $0)"
 
 error() {
@@ -41,24 +37,24 @@ indent() {
 trap 'error "Script error in $0 on or near line ${LINENO}"' ERR
 
 # Read the serialized composer.json data
-source "$APP_DIR/server-config/.serialized_composer_json_data.sh"
+source "$APP_DIR/stack/.serialized_composer_json_data.sh"
 
 # generate php-fpm config
 
-status "Generating project.ini (project-required php settings)"
-echo "" > "$APP_DIR/server-config/php/conf.d/project.ini"
+status "Generating app.ini (app-required php settings)"
+echo "" > "$APP_DIR/stack/php/conf.d/app.ini"
 for conf in $PHP_EXTRA_CONFIG; do
-  echo "$conf" >> "$APP_DIR/server-config/php/conf.d/project.ini"
+  echo "$conf" >> "$APP_DIR/stack/php/conf.d/app.ini"
 done
 
 status "Copying newrelic.ini (if new relic is enabled in composer.json)"
 if [ "$NEWRELIC_ENABLED" == "true" ]; then
-  cp "$GENERATOR_DIR/templates/php/newrelic.ini" > "$APP_DIR/server-config/php/conf.d/newrelic.ini"
+  cp "$GENERATOR_DIR/templates/php/newrelic.ini" > "$APP_DIR/stack/php/conf.d/newrelic.ini"
 fi
 
-status "Including additional project-required includes (if any)"
+status "Including additional app-required includes (if any)"
 for include in $PHP_INCLUDES; do
-  cp "$APP_DIR/$include" "/app/vendor/php/etc/conf.d/"
+  cp "$APP_DIR/$include" "$APP_DIR/stack/php/conf.d/"
 done
 
 status "Done!"
