@@ -47,7 +47,6 @@ Fire up your local docker stack:
 
 ## Step 6 - Initialize the database with a relevant dataset
 
-* Follow the instructions in "Reset the database" in [Working with data](22-local-dev-working-with-data.md)
 * Follow the instructions in [Update to the latest changes](21-local-dev-update-to-the-latest-changes.md)
 
 ## Step 7 - See your app in action

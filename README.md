@@ -30,7 +30,7 @@ Develop
 This section includes sample documentation for developers to hack on a project that has adopted a docker-based stack.
 
 - [First-time set-up](docs/20-local-dev-first-time-set-up.md)
-- [Pulling in changes](docs/21-local-dev-pulling-in-changes.md)
+- [Update to the latest changes](docs/21-local-dev-update-to-the-latest-changes)
 - [Working with secrets](docs/22-local-dev-working-with-secrets.md)
 - [Working with database data](docs/23-local-dev-working-with-database-data.md)
 - [Working with tests](docs/24-local-dev-working-with-tests.md)
