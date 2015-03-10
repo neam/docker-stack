@@ -4,7 +4,7 @@
     "keywords": ["php", "docker", "php-fpm", "nginx", "local-dev"],
     "homepage": "https://github.com/neam/docker-stack",
     "type": "library",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "authors": [
         {
             "name": "Fredrik Wollsén",
