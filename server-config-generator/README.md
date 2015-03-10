@@ -1,1 +1,0 @@
-Reads composer.json and generates PHP-FPM and Nginx configuration based on project requirements
