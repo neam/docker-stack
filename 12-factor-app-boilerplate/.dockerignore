@@ -1,8 +1,0 @@
-.git
-.vagrant
-.idea
-.env
-
-dna/db/data
-vendor
-dna/vendor

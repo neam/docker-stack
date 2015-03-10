@@ -1,16 +1,7 @@
 # Project source code data volume container docker image
 # --------------------------------
-# This builds a data volume containers with the app source code.
-# The /app directory is shared with the other containers in the stack as a volume.
-# The base image (in this case debian:jessie) and packages installed there are used only for installing
-# app dependencies and other build tasks necessary to populate /app with the complete source code.
-#
-# Build by running:
-#     docker build -t 'user/project' .
-#
-# Replace with your own project tag.
 
-FROM neam/dpt-project-data-container:latest
+FROM neam/docker-php-toolkit-app-source-code-container-base:latest
 
 # Add composer github token for faster downloads
 COPY composer.github.token composer.github.token
@@ -26,5 +17,5 @@ RUN /usr/local/bin/composer install --prefer-dist --no-dev --optimize-autoloader
 # Add source code to volume mount point
 COPY . /app
 
-# Env var with path to application directory
-ENV APP_DIR /app
+# Use a valid cmd that immediately exits for this data only container
+CMD ["echo 'The data volume container with project source code will now exit, leaving the /app directory available for all other containers in the stack'"]

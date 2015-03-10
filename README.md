@@ -77,19 +77,45 @@ Then generate php and nginx config:
     vendor/neam/docker-php-toolkit/server-config-generator/generate-nginx-config.sh
     vendor/neam/docker-php-toolkit/server-config-generator/generate-php-config.sh
 
-# Usage
+## Local Development
 
-1. Build, tag and push your project source code docker image
-2. Update docker-compose.yml to use the correct docker image tag
-3. Deploy
+### Step 1
 
-# Deploy on a docker host
+Install Docker 1.5.0 and [Docker Compose](https://docs.docker.com/compose/install/)
 
-Git clone your project anywhere on the docker host, then run:
+### Step 2
+
+Prepare `vendor` folder for development using the Docker shell (or `dosh` in short):
+
+    docker-compose run -it dosh composer install
+
+### Step 3
+
+Fire up your local docker stack:
 
     docker-compose up
 
-# Deploy on Tutum
+Find out the port your nginx container is responding on:
 
-    TODO
+    export NGINX_PORT=$(docker-compose ps nginx | tail -n1 | awk '{ print $5 }' | sed 's/[0-9.]*://' | sed 's/->80\/tcp//')
+
+Open http://$DOCKER_HOST_IP:$NGINX_PORT in your browser and hack away!
+
+## Deployment
+
+Build deployment images
+
+    docker build -f .stack.files.Dockerfile -t ${APP_ID}:${BRANCH} .
+    docker push
+
+Deploy - on your docker host:
+
+    git clone https://example.com/project.git
+    cd project
+    docker-compose -f stack/deploy.yml up -d
+
+Or, on tutum:
+
+    tutum stack create -n ${APP_ID} -f build/tutum.yml
+
 

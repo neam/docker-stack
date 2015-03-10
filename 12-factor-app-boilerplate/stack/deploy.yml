@@ -1,13 +1,23 @@
-# Docker compose configuration for local development
+# Data only container that includes project source code at /app and generates
+# some configuration files generated based on env vars and composer.json.
+# /app is subsequently used as document root in php-fpm and nginx config
+project:
+  image: user/project-files:foo
+  volumes:
+   - /app
+  working_dir: '/app'
+  environment:
+    FOO: bar
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php-fpm server
 nginx:
   image: nginx:1.7
   links:
+    - project
     - phpfpm
     - memcached
-  volumes:
-   - .:/app
+  volumes_from:
+    - project
   ports:
     - "80"
     - "443"
@@ -20,9 +30,10 @@ nginx:
 phpfpm:
   image: php:5.6-fpm
   links:
+    - project
     - memcached
-  volumes:
-   - .:/app
+  volumes_from:
+    - project
   ports:
    - "9000"
   working_dir: '/app'
@@ -40,14 +51,6 @@ mailcatcher:
   ports:
     - "25"
     - "1080"
-
-# Includes a container to run commands locally - a Dockerized shell
-dosh:
-  image: phundament/app:development
-  volumes:
-   - .:/app
-  working_dir: '/app'
-  command: "true"
 
 # Selenium...
 
