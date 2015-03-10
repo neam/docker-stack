@@ -40,8 +40,8 @@ Distribute
 
 This section includes sample documentation on how to package and deploy your 12-factor web app for deployment elsewhere.
 
-- [Build](docs/51-deploy-build-and-push.md)
-- [Deploy](docs/52-distribution-deploy.md)
+- [Build and push](docs/51-distribute-build-and-push.md)
+- [Deploy](docs/52-distribute-deploy.md)
 
 Release Management
 ------------------
