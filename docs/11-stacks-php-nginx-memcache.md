@@ -1,10 +1,11 @@
-Stacks - PHP-FPM/Nginx/Memcache Docker Stack
+Stacks - PHP/Nginx/Memcache
 ===================================
 
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
 * Uses official PHP-FPM and Nginx Docker containers
+* Includes boilerplate configuration with Docker-specific enhancements
 * (Optional) a PHP-FPM an Nginx server configuration generator for generating configuration based on your composer.json
 
 ## Installation
