@@ -1,7 +1,7 @@
-# Data only container that includes project source code at /app and generates
+# Data only container that includes app source code at /app and generates
 # some configuration files generated based on env vars and composer.json.
 # /app is subsequently used as document root in php-fpm and nginx config
-project:
+codebase:
   image: user/project-files:foo
   volumes:
    - /app
@@ -13,11 +13,11 @@ project:
 nginx:
   image: nginx:1.7
   links:
-    - project
+    - codebase
     - phpfpm
     - memcached
   volumes_from:
-    - project
+    - codebase
   ports:
     - "80"
     - "443"
@@ -30,10 +30,10 @@ nginx:
 phpfpm:
   image: php:5.6-fpm
   links:
-    - project
+    - codebase
     - memcached
   volumes_from:
-    - project
+    - codebase
   ports:
    - "9000"
   working_dir: '/app'
