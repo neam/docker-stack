@@ -10,7 +10,14 @@ Open up a terminal window and cd into the root directory of your 12-factor app's
 Install [Docker Machine](https://docs.docker.com/machine/) and create a docker host to use for local development (switch out `virtualbox` for your vm software of choice):
 
     docker-machine create --driver virtualbox local-docker-host
-    docker-machine env local-docker-host > .local-docker-host
+
+After each reboot, run:
+
+    docker-machine up local-docker-host
+
+In each new terminal session, run (preferably by adding to ~/.bashrc or similar)
+
+    $(docker-machine env local-docker-host)
 
 Note: This is [currently broken on OS X](https://github.com/docker/machine/issues/721), use [Boot2Docker](http://boot2docker.io/) meanwhile.
 
@@ -18,8 +25,13 @@ Note: This is [currently broken on OS X](https://github.com/docker/machine/issue
 
 Alternatively, install [Boot2Docker](http://boot2docker.io/)
 
+After each reboot, run:
+
     boot2docker up
-    boot2docker shellinit > .local-docker-host
+
+In each new terminal session, run (preferably by adding to ~/.bashrc or similar)
+
+    $(boot2docker shellinit)
 
 ## Step 2 - Connect to your local docker host
 
