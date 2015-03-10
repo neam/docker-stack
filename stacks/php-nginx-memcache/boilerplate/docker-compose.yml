@@ -41,7 +41,7 @@ mailcatcher:
     - "25"
     - "1080"
 
-# Includes a container to run commands locally - a Dockerized shell
+# A container to run commands locally - a Dockerized shell
 shell:
   image: phundament/app:development
   volumes:
