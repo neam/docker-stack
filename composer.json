@@ -2,7 +2,7 @@
     "name": "neam/docker-stack",
     "description": "Toolkit for maintaining a Docker-based \"one-process-per-container\" stack for 12-factor web apps.",
     "keywords": ["php", "docker", "php-fpm", "nginx", "local-dev"],
-    "homepage": "https://github.com/neam/docker-compose-php-stack",
+    "homepage": "https://github.com/neam/docker-stack",
     "type": "library",
     "license": "BSD-3-Clause",
     "authors": [
@@ -13,7 +13,7 @@
         },
         {
             "name": "Docker PHP Toolkit Contributors",
-            "homepage": "https://github.com/neam/docker-compose-php-stack/graphs/contributors"
+            "homepage": "https://github.com/neam/docker-stack/graphs/contributors"
         },
         {
             "name": "Open Source Community"
