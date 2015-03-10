@@ -49,6 +49,18 @@ shell:
   working_dir: '/app'
   command: "true"
 
+# A container that is linked to and thus can output linked information about running containers
+info:
+  image: phundament/app:development
+  links:
+    - nginx
+    - phpfpm
+    - memcached
+  volumes:
+   - .:/app
+  working_dir: '/app'
+  command: "true"
+
 # Selenium...
 
 # Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the container

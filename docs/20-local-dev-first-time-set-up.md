@@ -79,3 +79,9 @@ When adapting this documentation for your app, you might want to include somethi
 * Now your yii apps should be accessible on the following urls locally and you should be able to login with admin/admin:
     * Yii Frontend: [http://192.168.59.103:8001/]()
     * REST API: [http://192.168.59.103:8001/api/]()
+
+### Hint 3
+
+You can echo all available linked environment variables related to running containers:
+
+    docker-compose run info printenv
