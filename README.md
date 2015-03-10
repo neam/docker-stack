@@ -5,6 +5,8 @@ Docker Stack
 
 Use [Docker Compose, Docker Machine and Docker 1.5.0+](http://blog.docker.com/2014/12/announcing-docker-machine-swarm-and-compose-for-orchestrating-distributed-apps/) to maintain a Docker-based "one-process-per-container" stack and development workflows for your 12-factor web apps.
 
+Enables easy app-specific orchestration of dockerized services (databases, mail servers, task runners, message queues etc)
+
 The stack can be deployed to any docker host/swarm or [the container platform service Tutum](https://tutum.io).
 
 As a member of a developer team, the stack enables you to ditch Vagrant/Puppet/Chef while still maintaining a cross-platform local development workflow similar to the powerful `npm install` + `grunt serve` combo for javascript-based apps:
@@ -17,7 +19,7 @@ Includes sample documentation on how to use the stack for a wide range of web ap
 Stacks
 ------
 
-This section includes instructions for including a docker-based stack in your 12-factor web app repository.
+This section includes instructions for including docker-based stacks in your 12-factor web app repository.
 
 - [Adopting a Docker stack](docs/10-stacks-adopting-a-docker-stack.md)
 - [PHP/Nginx/Memcache](docs/11-stacks-php-nginx-memcache.md)
@@ -27,7 +29,6 @@ Develop
 
 This section includes sample documentation for developers to hack on a project that has adopted a docker-based stack.
 
-- [Introduction](docs/20-local-dev-introduction.md)
 - [First-time set-up](docs/21-local-dev-first-time-set-up.md)
 - [Pulling in changes](docs/21-local-dev-pulling-in-changes.md)
 - [Working with secrets](docs/22-local-dev-working-with-secrets.md)

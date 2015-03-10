@@ -12,6 +12,9 @@ Stacks - PHP/Nginx/Memcache
 
 Clone/download a copy of this repository and copy the boilerplate files to your 12-factor app base dir.
 
+    cd my-app
+    cp -r docker-stack/stacks/php-nginx-memcache/boilerplate/* .
+
 Optionally, generation your project php/nginx base configuration: [Follow these instructions](../stacks/php-nginx-memcache/server-config-generator/README.md)
 
 Add your project php/nginx configuration includes to the `stack/nginx/` and `stack/php/` directories.
