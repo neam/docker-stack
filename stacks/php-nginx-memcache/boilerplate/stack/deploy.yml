@@ -36,6 +36,8 @@ phpfpm:
     - codebase
   ports:
    - "9000"
+  environment:
+    DISPLAY_PHP_ERRORS: 'off'
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
