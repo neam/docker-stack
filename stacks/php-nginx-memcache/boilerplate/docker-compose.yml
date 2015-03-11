@@ -1,10 +1,10 @@
 # Docker compose configuration for local development
 
-# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php-fpm server
-nginx:
+# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
+web:
   image: nginx:1.7
   links:
-    - phpfpm
+    - php
     - memcached
   volumes:
    - .:/app:rw
@@ -16,8 +16,8 @@ nginx:
   working_dir: '/app'
   command: "/app/stack/nginx/run.sh"
 
-# The php-fpm server for interpreting php code
-phpfpm:
+# The php service for interpreting php code
+php:
   #build: stack/php/fpm/
   image: neam/docker-stack-debian-php:5.6.6-fpm
   links:
@@ -57,8 +57,8 @@ shell:
 info:
   image: phundament/app:development
   links:
-    - nginx
-    - phpfpm
+    - web
+    - php
     - memcached
   volumes:
    - .:/app

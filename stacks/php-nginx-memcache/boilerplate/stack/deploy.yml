@@ -1,7 +1,7 @@
 # Data only container that includes app source code at /app and generates
 # some configuration files generated based on env vars and composer.json.
 # /app is subsequently used as document root in php-fpm and nginx config
-codebase:
+src:
   image: user/project-files:foo
   volumes:
    - /app
@@ -9,15 +9,15 @@ codebase:
   environment:
     FOO: bar
 
-# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php-fpm server
-nginx:
+# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
+web:
   image: nginx:1.7
   links:
-    - codebase
-    - phpfpm
+    - src
+    - php
     - memcached
   volumes_from:
-    - codebase
+    - src
   ports:
     - "80"
     - "443"
@@ -26,14 +26,15 @@ nginx:
   working_dir: '/app'
   command: "/app/stack/nginx/run.sh"
 
-# The php-fpm server for interpreting php code
-phpfpm:
-  image: php:5.6-fpm
+# The php service for interpreting php code
+php:
+  image: neam/docker-stack-debian-php:5.6.6-fpm
   links:
-    - codebase
+    - src
+    - mailcatcher
     - memcached
   volumes_from:
-    - codebase
+    - src
   ports:
    - "9000"
   environment:

@@ -41,7 +41,7 @@ Needs to be done before running docker commands:
 
 ## Step 3 - Install app dependencies
 
-    docker-compose run shell stack/codebase/install-deps.sh
+    docker-compose run shell stack/src/install-deps.sh
 
 ## Step 4 - Initialize your local configuration file
 
@@ -73,11 +73,11 @@ Hack away!
 
 ### Hint 1
 
-Example of how to extract the url to an nginx container's public http port:
+Example of how to extract the url to a web container's public http port:
 
     export DOCKER_HOST_IP=$(echo $DOCKER_HOST | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//')
-    export NGINX_PORT_80=$(docker-compose port nginx 80 | sed 's/[0-9.]*://')
-    export URL="http://$DOCKER_HOST_IP:$NGINX_PORT_80"
+    export WEB_PORT_80=$(docker-compose port web 80 | sed 's/[0-9.]*://')
+    export URL="http://$DOCKER_HOST_IP:$WEB_PORT_80"
     echo $URL
 
 On OS X you can even open the url directly from your terminal:
