@@ -9,6 +9,10 @@ set -o errexit
 for configfile in /app/stack/php/conf.d/*; do
     cp $configfile /etc/php5/fpm/conf.d/
 done
+for configfile in /app/stack/php/pool.d/*; do
+    cp $configfile /etc/php5/fpm/pool.d/
+done
+cp /app/stack/php/php-fpm.conf /etc/php5/fpm/php-fpm.conf
 
 # Setup config variables only available at runtime
 sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/php5/fpm/conf.d/app.ini

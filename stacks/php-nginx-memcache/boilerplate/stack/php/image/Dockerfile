@@ -23,6 +23,3 @@ RUN apt-get install -y -q \
         php5-redis \
         php5-mongo \
         php5-apcu
-
-# Import official fpm config
-ADD https://raw.githubusercontent.com/docker-library/php/1e07e9134490f53d24fbd23ee3521067c8ab2d29/5.6/fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf
