@@ -18,7 +18,8 @@ nginx:
 
 # The php-fpm server for interpreting php code
 phpfpm:
-  image: php:5.6-fpm
+  #build: stack/php/fpm/
+  image: neam/docker-stack-debian-php:5.6.6-fpm
   links:
     - mailcatcher
     - memcached

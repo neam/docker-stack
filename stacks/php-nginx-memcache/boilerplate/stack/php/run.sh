@@ -6,18 +6,21 @@
 set -o errexit
 
 # Copy custom project config overrides
-if [ "$(ls /app/stack/php/conf.d/)" ]; then
-    cp -r /app/stack/php/conf.d/* /usr/local/etc/php/conf.d/
-fi
-
-# Setup config variables only available at runtime
-sed -i "s|\${FOO}|${FOO}|" /usr/local/etc/php/conf.d/app.ini
-
-# Make all environment variables available to php-fpm at runtime
-echo "" > "/usr/local/etc/php/env.ini"
-for var in $(env | cut -f1 -d=); do
-  echo "env[$var] = \$${var}" >> "/usr/local/etc/php/env.ini"
+for configfile in /app/stack/php/conf.d/*; do
+    cp $configfile /etc/php5/fpm/conf.d/
 done
 
+# Setup config variables only available at runtime
+sed -i "s|\${FOO}|${FOO}|" /etc/php5/fpm/conf.d/app.ini
+
+# Make all environment variables available to php-fpm at runtime
+echo "" > "/etc/php5/fpm/conf.d/env.ini"
+for var in $(env | cut -f1 -d=); do
+  echo "env[$var] = \$${var}" >> "/etc/php5/fpm/conf.d/env.ini"
+done
+
+# Work around permission errors locally TODO only if local
+usermod -u 1000 www-data
+
 # Run the command sent as command line arguments
-php-fpm
+php5-fpm
