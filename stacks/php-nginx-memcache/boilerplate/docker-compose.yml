@@ -7,7 +7,7 @@ nginx:
     - phpfpm
     - memcached
   volumes:
-   - .:/app
+   - .:/app:rw
   ports:
     - "80"
     - "443"
@@ -20,6 +20,7 @@ nginx:
 phpfpm:
   image: php:5.6-fpm
   links:
+    - mailcatcher
     - memcached
   volumes:
    - .:/app
@@ -49,7 +50,7 @@ shell:
   working_dir: '/app'
   command: "true"
 
-# A container that is linked to and thus can output linked information about running containers
+# A container that is linked to and thus can output linked information about running containers locally
 info:
   image: phundament/app:development
   links:
