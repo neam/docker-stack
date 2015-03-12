@@ -45,9 +45,17 @@ mailcatcher:
     - "25"
     - "1080"
 
-# A container to run commands locally - a Dockerized shell
-shell:
-  image: phundament/app:development
+# A container to run builder commands locally
+builder:
+  image: neam/web-app-builder
+  volumes:
+   - .:/app
+  working_dir: '/app'
+  command: "true"
+
+# A container to run worker/administration commands locally
+worker:
+  image: neam/web-app-worker
   volumes:
    - .:/app
   working_dir: '/app'

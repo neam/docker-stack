@@ -5,7 +5,7 @@ After pulling the latest changes or restoring to a previous commit, compare your
 
 Install the app's current dependencies:
 
-    docker-compose run shell stack/codebase/install-deps.sh
+    docker-compose run builder stack/src/install-deps.sh
 
 In case your stack is running, don't forget to restart it to use the latest configuration.
 
