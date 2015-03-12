@@ -1,0 +1,34 @@
+# Docker compose configuration for local development
+
+# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
+web:
+  image: nginx:1.7
+  links:
+    - php
+  volumes:
+   - .:/app:rw
+  ports:
+    - "80"
+    - "443"
+  environment:
+    NGINX_ERROR_LOG_LEVEL: 'notice'
+  working_dir: '/app'
+  command: "/app/stack/nginx/run.sh"
+
+# The php service for interpreting php code
+php:
+  image: php:5.6-fpm
+  volumes:
+   - .:/app
+  ports:
+   - "9000"
+  environment:
+    DISPLAY_PHP_ERRORS: 'off'
+  working_dir: '/app'
+  command: "/app/stack/php-fpm/run.sh"
+
+# A container to run commands locally - a Dockerized shell
+cli:
+  image: php:5.6-cli
+  volumes:
+   - .:/app
