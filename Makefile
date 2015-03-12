@@ -19,6 +19,7 @@ yii2:
 phundament: yii2
 	docker build -t phundament/php:cli stacks/phundament/stack/php-cli
 	docker build -t phundament/php:fpm stacks/phundament/stack/php-fpm
+	docker build -t phundament/nginx:1.7 stacks/phundament/stack/nginx
 
 release: build
 	echo "NOT IMPLEMENTED YET"
