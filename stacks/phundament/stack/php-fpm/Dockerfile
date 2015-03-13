@@ -1,12 +1,9 @@
-FROM schmunk42/php-yii2:fpm
+FROM schmunk42/php-yii2:5.6-fpm
 
-# Note: Source-code is used from phundament/app:cli volume
+# Note: Source-code is used from phundament/app:cli or data volume
 # Copy custom project config overrides
 
-ADD conf.d/* /usr/local/etc/php/conf.d/
-ADD pool.d/* /usr/local/etc/php/pool.d/
-ADD php-fpm.conf /usr/local/etc/php-fpm.conf
+ADD conf.d-local/* /usr/local/etc/php/conf.d-local/
 
-ADD run.sh /root/run.sh
-
-CMD ["/root/run.sh"]
+ADD run.sh /root/run-phundament.sh
+CMD ["/root/run-phundament.sh"]
