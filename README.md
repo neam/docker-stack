@@ -57,25 +57,6 @@ This section includes sample documentation on how to update and troubleshoot you
 - [Staging new features](docs/63-staging-new-features.md)
 
 
-Troubleshooting
----------------
-
-**WORK IN PROGESS**
-
-Change the current user
-
-    # Fix write permissions with shared folders
-    # usermod -u 1000 www-data
-
-Run nginx as root in development only    
-
-    # /!\ DEVELOPMENT ONLY SETTINGS /!\
-    # Running PHP-FPM as root, required for volumes mounted from host
-    RUN sed -i.bak 's/user = www-data/user = root/' /etc/php5/fpm/pool.d/www.conf && \
-        sed -i.bak 's/group = www-data/group = root/' /etc/php5/fpm/pool.d/www.conf && \
-        sed -i.bak 's/--fpm-config /-R --fpm-config /' /etc/init.d/php5-fpm
-    # /!\ DEVELOPMENT ONLY SETTINGS /!\
-
 
 License
 -------
