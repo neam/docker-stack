@@ -4,15 +4,7 @@ default: build
 
 all: build
 
-build: yii2 phundament
-
-php-nginx-vanilla-with-volumes:
-	cd stacks/php-nginx && \
-	    docker-compose run cli php -v && \
-	    docker-compose up -d && \
-	    docker-compose run php env && \
-	    docker-compose run web env && \
-	    docker-compose stop
+build: php-nginx yii2 phundament
 
 php-nginx:
 	docker build -t schmunk42/php:5.6-fpm stacks/php-nginx/stack/php-fpm
@@ -28,6 +20,24 @@ phundament: yii2
 	docker build -t phundament/php:5.6-cli stacks/phundament/stack/php-cli
 	docker build -t phundament/php:5.6-fpm stacks/phundament/stack/php-fpm
 	docker build -t phundament/nginx:1.7 stacks/phundament/stack/nginx
+
+test: test-stack-php-nginx-vanilla-mount test-stack-php-nginx
+
+test-stack-php-nginx-vanilla-mount:
+	cd stacks/php-nginx && \
+	    docker-compose -f docker-compose-vanilla-mount.yml run cli php -v && \
+	    docker-compose -f docker-compose-vanilla-mount.yml up -d && \
+	    docker-compose -f docker-compose-vanilla-mount.yml run php env && \
+	    docker-compose -f docker-compose-vanilla-mount.yml run web env && \
+	    docker-compose -f docker-compose-vanilla-mount.yml stop
+
+test-stack-php-nginx:
+	cd stacks/php-nginx && \
+	    docker-compose -f docker-compose-vanilla-mount.yml run cli php -v && \
+	    docker-compose -f docker-compose-vanilla-mount.yml up -d && \
+	    docker-compose -f docker-compose-vanilla-mount.yml run php env && \
+	    docker-compose -f docker-compose-vanilla-mount.yml run web env && \
+	    docker-compose -f docker-compose-vanilla-mount.yml stop
 
 release: build
 	echo "Pushing images to Docker Hub..."
