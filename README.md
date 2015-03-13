@@ -30,34 +30,32 @@ This section includes instructions for including docker-based stacks in your 12-
 Develop
 -------
 
-This section includes sample documentation for developers to hack on a project that has adopted a docker-based stack.
+This section includes boilerplate documentation for developers to hack on a project that has adopted a docker-based stack. It is meant to be copied to your app repository and adapted to suit your specific workflows.
 
 - [First-time set-up](docs/20-local-dev-first-time-set-up.md)
 - [Update to the latest changes](docs/21-local-dev-update-to-the-latest-changes)
-- [Working with secrets](docs/22-local-dev-working-with-secrets.md)
-- [Working with database data](docs/23-local-dev-working-with-database-data.md)
-- [Working with tests](docs/24-local-dev-working-with-tests.md)
-- [Code generation](docs/25-local-dev-code-generation.md)
+- TODO: [Working with secrets](docs/22-local-dev-working-with-secrets.md)
+- TODO: [Working with database data](docs/23-local-dev-working-with-database-data.md)
+- TODO: [Working with tests](docs/24-local-dev-working-with-tests.md)
+- TODO: [Code generation](docs/25-local-dev-code-generation.md)
 
 Distribute
 ----------
 
-This section includes sample documentation on how to package and deploy your 12-factor web app for deployment elsewhere.
+This section includes boilerplate documentation on how to package and deploy your 12-factor web app for deployment elsewhere. It is meant to be copied to your app repository and adapted to suit your specific workflows.
 
 - [Build and push](docs/51-distribute-build-and-push.md)
-- [Deploy](docs/52-distribute-deploy.md)
+- TODO: [Deploy](docs/52-distribute-deploy.md)
 
 Release Management
 ------------------
 
-This section includes sample documentation on how to update and troubleshoot your 12-factor web app in production.
+This section includes boilerplate documentation on how to update and troubleshoot your 12-factor web app in production. It is meant to be copied to your app repository and adapted to suit your specific workflows.
 
-- [Production release routines](docs/60-release-routines.md)
-- [Live troubleshooting](docs/61-live-troubleshooting.md)
-- [If something is wrong with the latest release](docs/62-if-something-is-wrong-with-the-latest-release.md)
-- [Staging new features](docs/63-staging-new-features.md)
-
-
+- TODO: [Production release routines](docs/60-release-routines.md)
+- TODO: [Live troubleshooting](docs/61-live-troubleshooting.md)
+- TODO: [If something is wrong with the latest release](docs/62-if-something-is-wrong-with-the-latest-release.md)
+- TODO: [Staging new features](docs/63-staging-new-features.md)
 
 License
 -------
