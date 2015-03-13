@@ -10,6 +10,8 @@ php-nginx-vanilla-with-volumes:
 	cd stacks/php-nginx && \
 	    docker-compose run cli php -v && \
 	    docker-compose up -d && \
+	    docker-compose run php env && \
+	    docker-compose run web env && \
 	    docker-compose stop
 
 php-nginx:
@@ -28,4 +30,7 @@ phundament: yii2
 	docker build -t phundament/nginx:1.7 stacks/phundament/stack/nginx
 
 release: build
-	echo "NOT IMPLEMENTED YET"
+	echo "Pushing images to Docker Hub..."
+	docker push schmunk42/php
+	docker push schmunk42/php-yii2
+	docker push phundament/php
