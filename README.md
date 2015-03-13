@@ -25,6 +25,7 @@ This section includes instructions for including docker-based stacks in your 12-
 
 - [Adopting a Docker stack](docs/10-stacks-adopting-a-docker-stack.md)
 - [PHP/Nginx/Memcache](stacks/php-nginx-memcache/README.md)
+- [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
 
 Develop
 -------
