@@ -1,7 +1,7 @@
 Docker Stack
 =========================================================================================
 
-*Active development disclaimer*: Code is still being moved around and being updated while preparing for a stable release. That said, the stacks stemming from this project have been verified to work well for both local development and high availability multi-node setups deployed at AWS, Digital Ocean and Azure via Tutum.so
+**Active development disclaimer**: Code is still being moved around and being updated while preparing for a stable release. That said, the stacks stemming from this project have been verified to work well for both local development and high availability multi-node setups deployed at AWS, Digital Ocean and Azure via [the container platform service Tutum](https://tutum.io)
 
 ## Develop, Build, Test, Deploy and Maintain your 12-factor web app using Docker
 
