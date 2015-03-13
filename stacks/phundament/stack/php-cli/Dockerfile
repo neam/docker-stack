@@ -4,7 +4,7 @@
 # CLI tools
 #
 
-FROM schmunk42/php-yii2:cli
+FROM schmunk42/php-yii2:5.6-cli
 MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 
 # Install system development packages
@@ -39,5 +39,4 @@ RUN /usr/local/bin/composer create-project --prefer-dist \
 ENV APP_ENABLE_AUTOMIGRATIONS 1
 RUN cp .env-dist .env
 
-# Print informational message by default
-CMD ["echo", "This is the CLI and data container of your Phundament 4 application, run or exec /bin/bash for multiple one-off commands.\n\nThis container will exit now, its data-volumes will stay available for other containers."]
+CMD ["php", "/app/yii"]
