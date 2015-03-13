@@ -1,6 +1,8 @@
 Docker Stack
 =========================================================================================
 
+*Active development disclaimer*: Code is still being moved around and being updated while preparing for a stable release. That said, the stacks stemming from this project have been verified to work well for both local development and high availability multi-node setups deployed at AWS, Digital Ocean and Azure via Tutum.so
+
 ## Develop, Build, Test, Deploy and Maintain your 12-factor web app using Docker
 
 Use [Docker Compose, Docker Machine and Docker 1.5.0+](http://blog.docker.com/2014/12/announcing-docker-machine-swarm-and-compose-for-orchestrating-distributed-apps/) to maintain a Docker-based "one-process-per-container" stack and development workflows for your 12-factor web apps.
