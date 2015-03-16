@@ -27,6 +27,28 @@ Requirements
  * git
  * a *nix shell (Windows users: Try Cygwin or Git bash)
 
+Installation
+------------
+
+Global installation:
+
+    git clone https://github.com/neam/docker-stack ~/.docker-stack
+    ln -s ~/.docker-stack/cli/docker-stack /usr/local/cli/docker-stack
+
+Verify your installation:
+
+    docker-stack info
+
+For a local installation, add docker-stack as an extension or submodule to your project and add the local `docker-stack/cli/` directory to PATH.
+
+The cli searches for a docker-stack installation in the following directories in relation to the current working directory:
+
+    ./.docker-stack/
+    ~/.docker-stack/
+    bower_components/docker-stack/
+    node_modules/docker-stack/
+    vendor/neam/docker-stack/
+
 Stacks
 ------
 

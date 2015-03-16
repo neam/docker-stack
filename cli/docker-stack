@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Uncomment or set env var to debug
+DOCKERSTACK_DEBUG=0
+
+if [ "$DOCKERSTACK_DEBUG" == "1" ]; then
+    set -x;
+fi
+
+export APP_HOME="$(pwd)"
+export SCRIPTDIR="$(dirname $0)"
+
+# Find docker-stack installation
+function chk {
+    if [ -d "$1" ]; then
+        export DOCKERSTACK_HOME=$1
+    fi
+}
+chk ~/.docker-stack
+chk bower_components/docker-stack
+chk node_modules/docker-stack
+chk vendor/neam/docker-stack
+chk ./.docker-stack
+
+cd $APP_HOME
+
+if [ "$DOCKERSTACK_HOME" == "" ]; then
+    echo "Could not find a docker-stack installation"
+    exit 1
+fi
+
+make -f $DOCKERSTACK_HOME/cli/commands $@

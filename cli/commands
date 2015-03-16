@@ -1,0 +1,9 @@
+.PHONY: info
+
+default: info
+
+all: info
+
+info:
+	@echo APP_HOME=$(APP_HOME);
+	@echo DOCKERSTACK_HOME=$(DOCKERSTACK_HOME);
