@@ -3,9 +3,20 @@ Yii 2 Docker Stack
 
 # Dockerize
 
-To dockerize a Yii 2 application, example:
+## Option A: From image
+
+    docker pull schmunk42/php:5.6-cli-yii-2.0.3-app-basic
+    docker run -v `pwd`:/install schmunk42/php:5.6-cli-yii-2.0.3-app-basic cp -r /app/. /install
+
+## Option B: From clone
+
+To dockerize a Yii 2 application, get a 2.0.3 verion for example:
 
     git clone -b 2.0.3 https://github.com/yiisoft/yii2-app-basic.git
+
+# Startup
+    
+Get Dockerization files    
       
     curl -O https://raw.githubusercontent.com/neam/docker-stack/develop/stacks/yii2/docker-compose.yml
     curl -O https://raw.githubusercontent.com/neam/docker-stack/develop/stacks/yii2/.dockerignore
@@ -14,6 +25,7 @@ To dockerize a Yii 2 application, example:
 Install application packages
 
     docker-compose run cli composer install --prefer-dist
+   
     docker-compose up -d
 
 Check the assigned ports
@@ -32,6 +44,10 @@ Output should look similar to
 *Temporary Glitch*
 
     edit config/web.php
+
+Open application in browser
+
+    open http://192.168.59.103:49404
 
 Follow the logs
 
