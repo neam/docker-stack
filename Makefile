@@ -9,11 +9,10 @@ build: php-nginx yii2 phundament
 php-nginx:
 	docker build -t schmunk42/nginx:1.7          images/php-nginx/nginx
 	docker build -t schmunk42/php:5.6-fpm        images/php-nginx/php-fpm
-	docker build -t schmunk42/php:5.6-cli        images/php-nginx/php-cli
 
 yii2: php-nginx
-	docker build -t schmunk42/php:5.6-fpm-yii-2.0.3-runtime     images/php-nginx.yii2/php-fpm
-	docker build -t schmunk42/php:5.6-cli-yii-2.0.3-runtime     images/php-nginx.yii2/php-cli
+	docker build -t schmunk42/php:5.6-fpm-yii-2.0.3-runtime     images/php-nginx.yii2/php-fpm-runtime
+	docker build -t schmunk42/php:5.6-cli-yii-2.0.3-runtime     images/php-nginx.yii2/php-cli-runtime
 	docker build -t schmunk42/php:5.6-cli-yii-2.0.3-app-basic   images/php-nginx.yii2/php-cli-app-basic
 
 phundament: yii2
