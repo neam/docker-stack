@@ -6,13 +6,18 @@ Yii 2 Docker Stack
 ## Option A: From image
 
     docker pull schmunk42/php:5.6-cli-yii-2.0.3-app-basic
+
+Copy files
+
+    mkdir myapp
+    cd myapp
     docker run -v `pwd`:/install schmunk42/php:5.6-cli-yii-2.0.3-app-basic cp -r /app/. /install
 
 ## Option B: From clone
 
 To dockerize a Yii 2 application, get a 2.0.3 verion for example:
 
-    git clone -b 2.0.3 https://github.com/yiisoft/yii2-app-basic.git
+    git clone -b 2.0.3 https://github.com/yiisoft/yii2-app-basic.git myapp
 
 # Startup
     
@@ -22,9 +27,11 @@ Get Dockerization files
     curl -O https://raw.githubusercontent.com/neam/docker-stack/develop/stacks/yii2/.dockerignore
     curl -O https://raw.githubusercontent.com/neam/docker-stack/develop/stacks/yii2/Dockerfile
 
-Install application packages
+Install application packages (required only for Option B)
 
     docker-compose run cli composer install --prefer-dist
+   
+Bring up the services
    
     docker-compose up -d
 
@@ -36,14 +43,14 @@ Output should look similar to
 
         Name                  Command              State                Ports              
     --------------------------------------------------------------------------------------
-    yii2203_cli_1   php -a                         Exit 0                                  
-    yii2203_db_1    /docker-entrypoint.sh mysqld   Up       0.0.0.0:49391->3306/tcp        
-    yii2203_fpm_1   /root/run.sh                   Up       9000/tcp                       
-    yii2203_web_1   /root/run.sh                   Up       443/tcp, 0.0.0.0:49390->80/tcp 
+    myapp_cli_1   php -a                         Exit 0                                  
+    myapp_db_1    /docker-entrypoint.sh mysqld   Up       0.0.0.0:49391->3306/tcp        
+    myapp_fpm_1   /root/run.sh                   Up       9000/tcp                       
+    myapp_web_1   /root/run.sh                   Up       443/tcp, 0.0.0.0:49390->80/tcp 
 
-*Temporary Glitch*
-
-    edit config/web.php
+> *Temporary Glitch*
+> 
+>     edit config/web.php
 
 Open application in browser
 

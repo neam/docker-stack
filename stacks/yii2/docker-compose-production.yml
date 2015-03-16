@@ -8,8 +8,6 @@
 # Includes a container to run commands locally - a Dockerized shell
 cli:
   image: myapp_cli
-#  volumes:
-#   - .:/app
   links:
    - web:WEB
   working_dir: /app
