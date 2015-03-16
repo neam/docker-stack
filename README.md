@@ -18,6 +18,15 @@ As a member of a developer team, the stack enables you to ditch Vagrant/Puppet/C
 
 Includes sample documentation on how to use the stack for a wide range of web app development workflows, ranging from setting up the project for new developers to debugging software bugs in production.
 
+Requirements
+------------
+
+ * docker 1.5.0+
+ * docker-compose
+ * make
+ * git
+ * a *nix shell (Windows users: Try Cygwin or Git bash)
+
 Stacks
 ------
 
