@@ -13,7 +13,7 @@ export SCRIPTDIR="$(dirname $0)"
 # Find docker-stack installation
 function chk {
     if [ -d "$1" ]; then
-        export DOCKERSTACK_HOME=$1
+        export LIB_HOME=$1
     fi
 }
 chk ~/.docker-stack
@@ -22,11 +22,20 @@ chk node_modules/docker-stack
 chk vendor/neam/docker-stack
 chk ./.docker-stack
 
-cd $APP_HOME
+# Find chosen stack
+function chk {
+    if [ -d "$1" ]; then
+        export STACK_HOME=$1
+    fi
+}
 
-if [ "$DOCKERSTACK_HOME" == "" ]; then
+chk vendor/neam/docker-stack/stacks/hello-world
+[ -f ".docker-stack" ] && chk $(cat .docker-stack)
+#chk ./stack
+
+if [ "$LIB_HOME" == "" ]; then
     echo "Could not find a docker-stack installation"
     exit 1
 fi
 
-make -f $DOCKERSTACK_HOME/cli/commands $@
+make -f $LIB_HOME/cli/commands $@

@@ -1,9 +1,29 @@
-.PHONY: info
+.PHONY: info docker-compose
 
 default: info
 
-all: info
+build: docker-compose
+help: docker-compose
+kill: docker-compose
+logs: docker-compose
+port: docker-compose
+ps: docker-compose
+pull: docker-compose
+rm: docker-compose
+run: docker-compose
+scale: docker-compose
+start: docker-compose
+stop: docker-compose
+restart: docker-compose
+up: docker-compose
 
 info:
 	@echo APP_HOME=$(APP_HOME);
-	@echo DOCKERSTACK_HOME=$(DOCKERSTACK_HOME);
+	@echo LIB_HOME=$(LIB_HOME);
+	@echo STACK_HOME=$(STACK_HOME);
+
+docker-compose:
+	docker-compose -f $(STACK_HOME)/local.yml $(filter-out $@,$(MAKECMDGOALS))
+
+url:
+	@$(LIB_HOME)/cli/url.sh

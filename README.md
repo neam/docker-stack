@@ -5,7 +5,7 @@ Docker Stack
 
 ## Develop, Build, Test, Deploy and Maintain your 12-factor web app using Docker
 
-Use [Docker Compose, Docker Machine and Docker 1.5.0+](http://blog.docker.com/2014/12/announcing-docker-machine-swarm-and-compose-for-orchestrating-distributed-apps/) to maintain a Docker-based "one-process-per-container" stack and development workflows for your 12-factor web apps.
+Uses [Docker Compose, Docker Machine and Docker 1.5.0+](http://blog.docker.com/2014/12/announcing-docker-machine-swarm-and-compose-for-orchestrating-distributed-apps/) to maintain a Docker-based "one-process-per-container" stack and development workflows for your 12-factor web apps.
 
 Enables easy app-specific orchestration of dockerized services (databases, mail servers, task runners, message queues etc)
 
@@ -30,24 +30,24 @@ Requirements
 Installation
 ------------
 
-Global installation:
+Clone and symlink to /usr/local/bin/:
 
     git clone https://github.com/neam/docker-stack ~/.docker-stack
-    ln -s ~/.docker-stack/cli/docker-stack /usr/local/cli/docker-stack
+    ln -s ~/.docker-stack/cli/docker-stack /usr/local/bin/docker-stack
 
-Verify your installation:
+Verify your installation by starting the default hello world stack:
 
-    docker-stack info
+    docker-stack start
 
-For a local installation, add docker-stack as an extension or submodule to your project and add the local `docker-stack/cli/` directory to PATH.
+Visit the following url in your browser:
 
-The cli searches for a docker-stack installation in the following directories in relation to the current working directory:
+    docker-stack url
 
-    ./.docker-stack/
-    ~/.docker-stack/
-    bower_components/docker-stack/
-    node_modules/docker-stack/
-    vendor/neam/docker-stack/
+You should see "Hello world! My hostname is ______________".
+
+Hint: On OSX, you can open the url directly from a terminal session:
+
+    open $(docker-stack url)
 
 Stacks
 ------
@@ -87,6 +87,10 @@ This section includes boilerplate documentation on how to update and troubleshoo
 - TODO: [Live troubleshooting](docs/61-live-troubleshooting.md)
 - TODO: [If something is wrong with the latest release](docs/62-if-something-is-wrong-with-the-latest-release.md)
 - TODO: [Staging new features](docs/63-staging-new-features.md)
+
+Advanced Usage
+----------------------------
+- [Installing Docker Stack in your project](docs/80-contributing-installing-docker-stack-in-your-project.md)
 
 License
 -------

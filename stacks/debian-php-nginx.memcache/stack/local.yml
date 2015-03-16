@@ -47,6 +47,7 @@ mailcatcher:
 
 # A container to run builder commands locally
 builder:
+  #build: vendor/neam/docker-stack/base-images/web-app-builder/
   image: neam/web-app-builder
   volumes:
    - .:/app
@@ -55,6 +56,7 @@ builder:
 
 # A container to run worker/administration commands locally
 worker:
+  #build: vendor/neam/docker-stack/base-images/web-app-worker/
   image: neam/web-app-worker
   volumes:
    - .:/app
