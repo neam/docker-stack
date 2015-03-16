@@ -61,6 +61,11 @@ This section includes instructions for including docker-based stacks in your 12-
 - [PHP/Nginx/Memcache](stacks/php-nginx-memcache/README.md)
 - [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
 
+### Available Stacks
+
+- [Vanilla PHP + nginx](stacks/php-nginx-vanilla/README.md) official images
+- [Yii 2 Framework](stacks/yii2/README.md)
+
 Develop
 -------
 
