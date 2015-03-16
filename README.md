@@ -42,11 +42,11 @@ Develop
 This section includes boilerplate documentation for developers to hack on a project that has adopted a docker-based stack. It is meant to be copied to your app repository and adapted to suit your specific workflows.
 
 - [First-time set-up](docs/20-local-dev-first-time-set-up.md)
-- [Update to the latest changes](docs/21-local-dev-update-to-the-latest-changes)
 - TODO: [Working with secrets](docs/22-local-dev-working-with-secrets.md)
 - TODO: [Working with database data](docs/23-local-dev-working-with-database-data.md)
 - TODO: [Working with tests](docs/24-local-dev-working-with-tests.md)
 - TODO: [Code generation](docs/25-local-dev-code-generation.md)
+- [Pulling in changes from team mates](docs/21-local-dev-pulling-in-changes-from-team-mates.md)
 
 Distribute
 ----------

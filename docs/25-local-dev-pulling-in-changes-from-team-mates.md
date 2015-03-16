@@ -1,5 +1,5 @@
-Local Development: Update to the latest changes
-===============================================
+Local Development: Pulling in changes from team mates
+=====================================================
 
 After pulling the latest changes or restoring to a previous commit, compare your `.env` against `.env.dist` and merge in relevant new configuration options/changes from the latter.
 
