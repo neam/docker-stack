@@ -26,6 +26,14 @@ Applications
 
 - `5.6-cli-2.0.3-yii-app-basic`
 
+### `schmunk42/hhvm`
+
+Framework runtime (`fpm`) can be used from [estebanmatias92/docker-hhvm](https://github.com/estebanmatias92/docker-hhvm).
+
+Applications
+
+- `3.5-cli-2.0.3-yii-app-basic`
+
 
 ## Phundament
 
