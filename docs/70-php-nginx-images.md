@@ -5,16 +5,17 @@
 
 ## Base
 
-### `schmunk/php`
+### `schmunk42/php`
 
 Basic PHP + nginx configuration
 
 - `5.6-cli`
 - `5.6-fpm` 
 
+
 ## Yiisoft
 
-### `schmunk/php`
+### `schmunk42/php`
 
 Framework runtime
 
@@ -23,7 +24,7 @@ Framework runtime
 
 Applications
 
-- `5.6-cli-2.0.3-app-basic`
+- `5.6-cli-2.0.3-yii-app-basic`
 
 
 ## Phundament
