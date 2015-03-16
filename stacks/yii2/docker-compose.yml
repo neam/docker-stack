@@ -25,6 +25,16 @@ fpm:
     YII_DEBUG: 1
     YII_ENV: dev
 
+# The hhvm server for interpreting php code (Note: all required extensions are preinstalled, image is about 1.1 GB)
+#fpm:
+#  image: estebanmatias92/hhvm:3.5.1-fastcgi
+#  volumes:
+#   - .:/app
+#  environment:
+#    YII_DEBUG: 1
+#    YII_ENV: dev
+
+
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php-fpm server
 web:
   image: schmunk42/nginx:1.7
