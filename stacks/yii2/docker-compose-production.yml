@@ -7,9 +7,9 @@
 
 # Includes a container to run commands locally - a Dockerized shell
 cli:
-  build: .
-  volumes:
-   - .:/app
+  image: myapp_cli
+#  volumes:
+#   - .:/app
   links:
    - web:WEB
   working_dir: /app
@@ -19,8 +19,8 @@ cli:
 # The php-fpm server for interpreting php code
 fpm:
   image: schmunk42/php:5.6-fpm-yii-2.0.3-runtime
-  volumes:
-   - .:/app
+  volumes_from:
+   - cli
   environment:
     YII_DEBUG: 1
     YII_ENV: dev
@@ -30,8 +30,8 @@ web:
   image: schmunk42/nginx:1.7
   links:
     - fpm:PHPFPM
-  volumes:
-   - .:/app
+  volumes_from:
+   - cli
   ports:
     - "80"
   environment:
