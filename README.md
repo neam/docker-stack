@@ -35,6 +35,9 @@ Clone and symlink to /usr/local/bin/:
     git clone https://github.com/neam/docker-stack ~/.docker-stack
     ln -s ~/.docker-stack/cli/docker-stack /usr/local/bin/docker-stack
 
+Hello World
+------------
+
 Verify your installation by starting the default hello world stack:
 
     docker-stack start
