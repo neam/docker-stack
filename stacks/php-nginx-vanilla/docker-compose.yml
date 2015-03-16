@@ -4,32 +4,28 @@
 web:
   image: nginx:1.7
   links:
-    - php
+    - fpm
   volumes:
    - .:/app:rw
   ports:
     - "80"
-    - "443"
-  environment:
-    NGINX_ERROR_LOG_LEVEL: 'notice'
   working_dir: '/app'
-  command: "/app/stack/nginx/run.sh"
+  command: "nginx -c /app/stack/nginx/nginx.conf -g 'daemon off;'"
 
 # The php service for interpreting php code
-php:
+fpm:
   image: php:5.6-fpm
   volumes:
    - .:/app
-  ports:
-   - "9000"
-  environment:
-    DISPLAY_PHP_ERRORS: 'off'
+  #expose:
+  # - "9000"
   working_dir: '/app'
-  command: "/app/stack/php-fpm/run.sh"
+  #command: "/app/stack/php-fpm/run.sh"
 
 # A container to run commands locally - a Dockerized shell
 cli:
   image: php:5.6-cli
   volumes:
    - .:/app
+  command: true
 

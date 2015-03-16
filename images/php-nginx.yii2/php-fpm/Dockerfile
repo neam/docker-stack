@@ -2,11 +2,10 @@
 # ===============================================================
 
 FROM schmunk42/php:5.6-fpm
-
 MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 
 # Install system packages for PHP extensions required for Yii 2.0 Framework
-ENV IMAGE_FPM_APT_GET_DATE 2015-03-10-23-33
+ENV IMAGE_PHPFPM_APT_GET_DATE 2015-03-10-23-33
 RUN apt-get update && \
     apt-get -y install \
             g++ \
@@ -21,11 +20,12 @@ RUN apt-get update && \
         --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
 
-# Install PHP extensions
-RUN docker-php-ext-install intl && \
-    docker-php-ext-install gd && \
-    docker-php-ext-install pdo_mysql && \
-    docker-php-ext-install mbstring && \
-    docker-php-ext-install mcrypt && \
-    docker-php-ext-install zip && \
-    pecl install apcu-beta && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
+# Install PHP extensions required for Yii 2.0 Framework
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ && \
+    docker-php-ext-install gd
+RUN docker-php-ext-install intl \
+                           pdo_mysql \
+                           mbstring \
+                           mcrypt \
+                           zip
+RUN pecl install apcu-beta && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
