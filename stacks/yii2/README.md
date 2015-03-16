@@ -52,9 +52,9 @@ Output should look similar to
 > 
 >     edit config/web.php
 
-Open application in browser
+Open application in browser, check on which port `myapp_web_1` is accessible on the Docker host.
 
-    open http://192.168.59.103:49404
+    open http://192.168.59.103:49390
 
 Follow the logs
 
