@@ -24,19 +24,18 @@ phundament: yii2
 test: test-stack-php-nginx-vanilla-mount test-stack-php-nginx
 
 test-stack-php-nginx-vanilla-mount:
-	cd stacks/php-nginx && \
-	    docker-compose -f docker-compose-vanilla-mount.yml run cli php -v && \
-	    docker-compose -f docker-compose-vanilla-mount.yml up -d && \
-	    docker-compose -f docker-compose-vanilla-mount.yml run fpm env && \
-	    docker-compose -f docker-compose-vanilla-mount.yml run web env && \
-	    docker-compose -f docker-compose-vanilla-mount.yml stop
+	cd stacks/php-nginx-vanilla && \
+	    docker-compose up -d && \
+	    docker-compose ps && \
+	    docker-compose run cli env && \
+	    docker-compose stop
 
 test-stack-php-nginx:
 	cd stacks/php-nginx && \
 	    docker-compose run cli php -v && \
 	    docker-compose up -d && \
-	    docker-compose run fpm enmakev && \
-	    docker-compose run web env && \
+	    docker-compose ps && \
+	    docker-compose run cli env && \
 	    docker-compose stop
 
 test-phundament:
