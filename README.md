@@ -43,6 +43,10 @@ Quick start - Example Yii 2
     docker-stack local up -d
     docker-stack local url
 
+> Hint: On OSX, you can open the url directly from a terminal session:
+>
+>    open $(docker-stack local url)
+
 Usage
 -----
 
@@ -54,9 +58,10 @@ List available stacks:
 
     docker-stack list
 
-Select a stack:
+Select or install a stack:
 
     docker-stack select <stack-name>
+    docker-stack install <stack-name>
 
 Fire up the stack locally:
 
