@@ -38,6 +38,13 @@ memcached:
   ports:
     - "11211"
 
+# Mailcatcher server for catching outgoing email when not in production
+mailcatcher:
+  image: nisenabe/mailcatcher
+  ports:
+    - "25"
+    - "1080"
+
 # A container to run builder commands locally
 builder:
   #build: vendor/neam/docker-stack/base-images/web-app-builder/
