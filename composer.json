@@ -12,6 +12,11 @@
             "homepage": "http://www.neam.se"
         },
         {
+            "name": "Tobias Munk",
+            "email": "schmunk@usrbin.de",
+            "homepage": "http://diemeisterei.de"
+        },
+        {
             "name": "Docker PHP Toolkit Contributors",
             "homepage": "https://github.com/neam/docker-stack/graphs/contributors"
         },
