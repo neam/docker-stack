@@ -29,8 +29,7 @@ RUN composer global require  --prefer-dist \
         "codeception/codeception:2.0.*" "codeception/specify:*" "codeception/verify:*" && \
     composer global dumpautoload --optimize
 
-# Install application template and core extension
-# Phundament 4 and its extensions can be used directly from the image or serve as local cache
+# Install application development packages
 WORKDIR /app
 ENV PHUNDAMENT_PHP_BUILDER_CREATE_PROJECT 2015-03-10-23-33
 RUN /usr/local/bin/composer install --prefer-dist && \

@@ -14,7 +14,7 @@ Basic nginx configuration
 
 ### [`schmunk42/php`](https://registry.hub.docker.com/u/schmunk42/php/)
 
-Basic PHP-fpm + nginx configuration
+Basic PHP-FPM configuration
 
 - `5.6-cli`
 - `5.6-fpm` 
