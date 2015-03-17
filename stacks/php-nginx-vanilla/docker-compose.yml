@@ -4,13 +4,13 @@
 web:
   image: nginx:1.7
   links:
-    - fpm
+    - fpm:PHPFPM
   volumes:
    - .:/app:rw
   ports:
     - "80"
   working_dir: '/app'
-  command: "nginx -c /app/stack/nginx/nginx.conf -g 'daemon off;'"
+  command: "nginx -c /app/nginx.conf -g 'daemon off;'"
 
 # The php service for interpreting php code
 fpm:

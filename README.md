@@ -1,22 +1,18 @@
 Docker Stack
-=========================================================================================
+============
 
-**Active development disclaimer**: Code is still being moved around and being updated while preparing for a stable release. That said, the stacks stemming from this project have been verified to work well for both local development and high availability multi-node setups deployed at AWS, Digital Ocean and Azure via [the container platform service Tutum](https://tutum.io)
+> **Active development disclaimer**: Code is still being moved around and being updated while preparing for a stable release. That said, the stacks stemming from this project have been verified to work well for both local development and high availability multi-node setups deployed at AWS, Digital Ocean and Azure via [the container platform service Tutum](https://tutum.io)
 
-## Develop, Build, Test, Deploy and Maintain your 12-factor web app using Docker
+
+Develop, Build, Test, Deploy and Maintain your 12-factor web app using Docker
+-----------------------------------------------------------------------------
 
 Uses [Docker Compose, Docker Machine and Docker 1.5.0+](http://blog.docker.com/2014/12/announcing-docker-machine-swarm-and-compose-for-orchestrating-distributed-apps/) to maintain a Docker-based "one-process-per-container" stack and development workflows for your 12-factor web apps.
 
 Enables easy app-specific orchestration of dockerized services (databases, mail servers, task runners, message queues etc)
 
-The stack can be deployed to any docker host/swarm or [the container platform service Tutum](https://tutum.io).
+The stack can be deployed to any docker host/swarm or [the container platform service Tutum](https://tutum.com).
 
-As a member of a developer team, the stack enables you to ditch Vagrant/Puppet/Chef while still maintaining a cross-platform local development workflow similar to the powerful `npm install` + `grunt serve` combo for javascript-based apps:
-
-    docker-compose run shell composer install
-    docker-compose up
-
-Includes sample documentation on how to use the stack for a wide range of web app development workflows, ranging from setting up the project for new developers to debugging software bugs in production.
 
 Requirements
 ------------
@@ -27,30 +23,64 @@ Requirements
  * git
  * a *nix shell (Windows users: Try Cygwin or Git bash)
 
+
 Installation
 ------------
 
 Clone and symlink to /usr/local/bin/:
 
-    git clone https://github.com/neam/docker-stack ~/.docker-stack
-    ln -s ~/.docker-stack/cli/docker-stack /usr/local/bin/docker-stack
+    git clone https://github.com/neam/docker-stack
+    cd docker-stack
+    ln -s $(pwd)/cli/docker-stack /usr/local/bin/docker-stack
 
-Hello World
+
+Get Started!
 ------------
+
+### Hello World
 
 Verify your installation by starting the default hello world stack:
 
-    docker-stack start
-
+    cd stacks/hello-world
+    docker-compose up -d
+    docker-compose ps
+    
 Visit the following url in your browser:
 
     docker-stack url
 
-You should see "Hello world! My hostname is ______________".
+You should see 
 
-Hint: On OSX, you can open the url directly from a terminal session:
+    Hello world! My hostname is ______________".
 
-    open $(docker-stack url)
+> Hint: On OSX, you can open the url directly from a terminal session:
+>
+>    open $(docker-stack url)
+
+
+### PHP-FPM + nginx
+
+Using official (vanilla) images, configuration is added by volumes.
+
+    cd stacks/php-nginx-vanilla
+    docker-compose up -d
+    docker-compose ps
+
+### Yii 2.0 Framework
+
+See [stack documentation](stacks/yii2/README.md)...
+
+
+Why `docker-stack`?
+-------------------
+
+As a member of a developer team, the stack enables you to ditch Vagrant/Puppet/Chef while still maintaining a cross-platform local development workflow similar to the powerful `npm install` + `grunt serve` combo for javascript-based apps:
+
+    docker-compose run shell composer install
+    docker-compose up
+
+Includes sample documentation on how to use the stack for a wide range of web app development workflows, ranging from setting up the project for new developers to debugging software bugs in production.
+
 
 Stacks
 ------
@@ -61,10 +91,6 @@ This section includes instructions for including docker-based stacks in your 12-
 - [PHP/Nginx/Memcache](stacks/php-nginx-memcache/README.md)
 - [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
 
-### Available Stacks
-
-- [Vanilla PHP + nginx](stacks/php-nginx-vanilla/README.md) official images
-- [Yii 2 Framework](stacks/yii2/README.md)
 
 Develop
 -------
@@ -78,6 +104,7 @@ This section includes boilerplate documentation for developers to hack on a proj
 - TODO: [Code generation](docs/25-local-dev-code-generation.md)
 - [Pulling in changes from team mates](docs/21-local-dev-pulling-in-changes-from-team-mates.md)
 
+
 Distribute
 ----------
 
@@ -85,6 +112,7 @@ This section includes boilerplate documentation on how to package and deploy you
 
 - [Build and push](docs/51-distribute-build-and-push.md)
 - TODO: [Deploy](docs/52-distribute-deploy.md)
+
 
 Release Management
 ------------------
@@ -96,9 +124,12 @@ This section includes boilerplate documentation on how to update and troubleshoo
 - TODO: [If something is wrong with the latest release](docs/62-if-something-is-wrong-with-the-latest-release.md)
 - TODO: [Staging new features](docs/63-staging-new-features.md)
 
+
 Advanced Usage
-----------------------------
+--------------
+
 - [Installing Docker Stack in your project](docs/80-contributing-installing-docker-stack-in-your-project.md)
+
 
 License
 -------
