@@ -112,6 +112,7 @@ This section includes instructions for using/adopting docker-based stacks for yo
 Available Stacks
 ----------------
 
+- [Hello World](stacks/hello-world/README.md)
 - [PHP/Nginx](stacks/php-nginx/README.md)
 - [Vanilla PHP/Nginx](stacks/php-nginx-vanilla/README.md)
 - [Debian PHP/Nginx/Memcache](stacks/debian-php-nginx.memcache/README.md)
