@@ -1,0 +1,3 @@
+export LOCAL_STACK_YML={BASEPATH}/stack/local.yml
+export REMOTE_STACK_YML={BASEPATH}/stack/deploy.yml
+export TUTUM_STACK_YML={BASEPATH}/stack/deploy-tutum.yml
