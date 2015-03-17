@@ -119,10 +119,10 @@ This section includes boilerplate documentation on how to update and troubleshoo
 - TODO: [Staging new features](docs/63-staging-new-features.md)
 
 
-Advanced Usage
---------------
+Misc
+----
 
-- [Installing Docker Stack in your project](docs/80-contributing-installing-docker-stack-in-your-project.md)
+- [Installing Docker Stack in your project](docs/80-misc-installing-docker-stack-in-your-project.md)
 
 
 License
