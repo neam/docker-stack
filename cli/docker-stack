@@ -10,9 +10,6 @@ fi
 export APP_HOME="$(pwd)"
 export SCRIPTDIR="$(dirname $0)"
 
-# Source local docker stack vars if .docker-stack-file is available
-[ -f ".docker-stack" ] && source .docker-stack
-
 # Source local env vars if .env-file is available
 [ -f ".env" ] && source .env
 
@@ -38,6 +35,9 @@ if [ "$DOCKER_STACK_SRC" == "" ]; then
     >&2 echo "Could not find a docker-stack installation"
     exit 1
 fi
+
+# Source local docker stack vars if .docker-stack-file is available
+[ -f ".docker-stack" ] && source .docker-stack
 
 # Auto-detect local stack yml
 if [ "$LOCAL_STACK_YML" == "" ]; then
@@ -87,6 +87,10 @@ fi
 # Run the actual command
 
 case $1 in
+"select" | "list" | "install")
+    $DOCKER_STACK_SRC/cli/$1.sh ${*:2}
+    exit 0
+    ;;
 "info")
     echo APP_HOME=$APP_HOME;
     echo DOCKER_STACK_SRC=$DOCKER_STACK_SRC;
@@ -116,10 +120,14 @@ case $1 in
     fi
     export STACK_YML=$TUTUM_STACK_YML;
     ;;
+*)
+    >&2 echo "Unknown command: $1"
+    exit 1
+    ;;
 esac
 
 case $2 in
-"url" | "select" | "list")
+"url")
     $DOCKER_STACK_SRC/cli/$2.sh ${*:3}
     ;;
 *)
