@@ -54,12 +54,12 @@ if [ "$LOCAL_STACK_YML" == "" ]; then
 
 fi
 
-# Auto-detect remote stack yml
-if [ "$REMOTE_STACK_YML" == "" ]; then
+# Auto-detect production stack yml
+if [ "$PRODUCTION_STACK_YML" == "" ]; then
 
     function chk {
         if [ -f "$1" ]; then
-            export REMOTE_STACK_YML=$1
+            export PRODUCTION_STACK_YML=$1
         fi
     }
 
@@ -95,7 +95,7 @@ case $1 in
     echo APP_HOME=$APP_HOME;
     echo DOCKER_STACK_SRC=$DOCKER_STACK_SRC;
     echo LOCAL_STACK_YML=$LOCAL_STACK_YML;
-    echo REMOTE_STACK_YML=$REMOTE_STACK_YML;
+    echo PRODUCTION_STACK_YML=$PRODUCTION_STACK_YML;
     echo TUTUM_STACK_YML=$TUTUM_STACK_YML;
     exit 0;
     ;;
@@ -106,12 +106,12 @@ case $1 in
     fi
     export STACK_YML=$LOCAL_STACK_YML;
     ;;
-"remote")
-    if [ "$REMOTE_STACK_YML" == "" ]; then
-        >&2 echo "Could not find the remote stack yml"
+"production")
+    if [ "$PRODUCTION_STACK_YML" == "" ]; then
+        >&2 echo "Could not find the production stack yml"
         exit 1
     fi
-    export STACK_YML=$REMOTE_STACK_YML;
+    export STACK_YML=$PRODUCTION_STACK_YML;
     ;;
 "tutum")
     if [ "$TUTUM_STACK_YML" == "" ]; then

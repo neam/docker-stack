@@ -14,7 +14,7 @@ Select a stack:
 Fire up the stack:
 
     docker-stack local start
-    open $(docker-stack local url)
+    docker-stack local url
 
 Any other necessary instructions (if any) are found in each stack's README.
 

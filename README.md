@@ -34,29 +34,46 @@ Clone and symlink to /usr/local/bin/:
     ln -s $(pwd)/cli/docker-stack /usr/local/bin/docker-stack
 
 
-Get Started!
-------------
+Usage
+-----
 
-### Hello World
-
-Verify your installation by starting the default hello world stack:
+Cd into your app directory:
 
     cd myapp
-    docker-stack select hello-world
+
+List available stacks:
+
+    docker-stack list
+
+Select a stack:
+
+    docker-stack select <stack-name>
+
+Fire up the stack locally:
+
     docker-stack local start
 
-Run the following command and visit the returned url in your browser:
+Visit the below returned url in your browser:
 
     docker-stack local url
 
-You should see 
-
-    Hello world! My hostname is ______________".
-
 > Hint: On OSX, you can open the url directly from a terminal session:
 >
->    open $(docker-stack url)
+>    open $(docker-stack local url)
 
+Build images for production deployment:
+
+    docker-stack production build
+
+Push built images:
+
+    docker-stack production build
+
+On a production docker host:
+
+    git clone myapp.git
+    cd myapp
+    docker-stack production start
 
 Why `docker-stack`?
 -------------------
