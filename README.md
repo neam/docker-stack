@@ -41,10 +41,10 @@ Get Started!
 
 Verify your installation by starting the default hello world stack:
 
-    cd stacks/hello-world
-    docker-compose up -d
-    docker-compose ps
-    
+    cd myapp
+    docker-stack select hello-world
+    docker-stack local start
+
 Run the following command and visit the returned url in your browser:
 
     docker-stack local url
