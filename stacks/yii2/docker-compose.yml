@@ -7,7 +7,8 @@
 
 # Includes a container to run commands locally - a Dockerized shell
 cli:
-  build: .
+  #build: .
+  image: schmunk42/php:5.6-cli-yii-2.0.3-app-basic
   volumes:
    - .:/app
   links:
