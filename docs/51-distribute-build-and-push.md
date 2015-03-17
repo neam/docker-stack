@@ -1,11 +1,11 @@
 Distribute - Build and push
 ===========================
 
-Build deployment images
+Build image that ships the source code into deployment:
 
-    docker build -f .stack.codebase.Dockerfile -t ${APP_ID}:${BRANCH} .
+    docker build -f .src.builder.Dockerfile -t ${APP_ID}:${BRANCH} .
 
-Deploy the built images to verify that it works:
+Deploy the production stack to verify that it works:
 
     docker-compose -f stack/deploy.yml up -d
 
