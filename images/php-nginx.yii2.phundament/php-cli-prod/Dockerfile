@@ -12,7 +12,8 @@ ENV PHUNDAMENT_PHPCLI_APT_GET_DATE 2015-03-10-23-33
 ENV TERM linux
 RUN apt-get update && \
     apt-get install -y \
-        mysql-client && \
+        mysql-client \
+        openssh-client && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
