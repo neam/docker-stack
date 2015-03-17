@@ -75,12 +75,16 @@ Stacks
 This section includes instructions for using/adopting docker-based stacks for your 12-factor web app.
 
 - [Adopting a Docker stack](docs/10-stacks-adopting-a-docker-stack.md)
+- [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
+
+
+Available Stacks
+----------------
+
 - [PHP/Nginx](stacks/php-nginx/README.md)
 - [Vanilla PHP/Nginx](stacks/php-nginx-vanilla/README.md)
 - [Debian PHP/Nginx/Memcache](stacks/debian-php-nginx.memcache/README.md)
 - [Yii 2.0 Framework](stacks/yii2/README.md)
-- [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
-
 
 Develop
 -------
