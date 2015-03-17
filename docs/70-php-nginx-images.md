@@ -33,7 +33,7 @@ Applications
 
 - `5.6-cli-2.0.3-yii-app-basic`
 
-### [`schmunk42/php`](https://registry.hub.docker.com/u/schmunk42/hhvm/)
+### [`schmunk42/hhvm`](https://registry.hub.docker.com/u/schmunk42/hhvm/)
 
 Framework runtime (`fpm`) can be used directly from [estebanmatias92/docker-hhvm](https://github.com/estebanmatias92/docker-hhvm),
 since these images contain all required PHP extensions.
