@@ -19,6 +19,9 @@
             "name": "Open Source Community"
         }
     ],
+    "bin": [
+        "cli/docker-stack"
+    ],
     "require": {
     },
     "require-dev": {

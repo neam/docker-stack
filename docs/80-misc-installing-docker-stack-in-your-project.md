@@ -8,3 +8,6 @@ The cli searches for a docker-stack installation in the following directories in
     node_modules/docker-stack/
     vendor/neam/docker-stack/
 
+Currently, composer installation is the most straightforward:
+
+    composer require "neam/docker-stack:*@dev" --prefer-source

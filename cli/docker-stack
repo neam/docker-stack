@@ -88,7 +88,7 @@ fi
 
 case $1 in
 "select" | "list" | "install")
-    $DOCKER_STACK_SRC/cli/$1.sh ${*:2}
+    bash $DOCKER_STACK_SRC/cli/$1.sh ${*:2}
     exit 0
     ;;
 "info")
@@ -128,7 +128,7 @@ esac
 
 case $2 in
 "url")
-    $DOCKER_STACK_SRC/cli/$2.sh ${*:3}
+    bash $DOCKER_STACK_SRC/cli/$2.sh ${*:3}
     ;;
 *)
     docker-compose -f $STACK_YML ${*:2}
