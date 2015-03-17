@@ -34,6 +34,13 @@ Clone and symlink to /usr/local/bin/:
     ln -s $(pwd)/cli/docker-stack /usr/local/bin/docker-stack
 
 
+Quick start - Example Yii 2
+-------------
+
+    docker-stack select yii2
+    docker-stack local start
+    docker-stack local url
+
 Usage
 -----
 

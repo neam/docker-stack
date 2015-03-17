@@ -25,6 +25,7 @@ if [ "$DOCKER_STACK_SRC" == "" ]; then
     chk bower_components/docker-stack
     chk node_modules/docker-stack
     chk vendor/neam/docker-stack
+    chk ./docker-stack
     chk ./.docker-stack
     chk ../docker-stack
     chk ../../docker-stack
