@@ -58,19 +58,6 @@ You should see
 >    open $(docker-stack url)
 
 
-### PHP-FPM + nginx
-
-Using official (vanilla) images, configuration is added by volumes.
-
-    cd stacks/php-nginx-vanilla
-    docker-compose up -d
-    docker-compose ps
-
-### Yii 2.0 Framework
-
-See [stack documentation](stacks/yii2/README.md)...
-
-
 Why `docker-stack`?
 -------------------
 
@@ -85,10 +72,12 @@ Includes sample documentation on how to use the stack for a wide range of web ap
 Stacks
 ------
 
-This section includes instructions for including docker-based stacks in your 12-factor web app repository.
+This section includes instructions for using/adopting docker-based stacks for your 12-factor web app.
 
 - [Adopting a Docker stack](docs/10-stacks-adopting-a-docker-stack.md)
-- [PHP/Nginx/Memcache](stacks/php-nginx-memcache/README.md)
+- [Vanilla PHP-FPM + nginx](stacks/php-nginx/README.md)
+- [Debian PHP/Nginx/Memcache](stacks/debian-php-nginx.memcache/README.md)
+- [Yii 2.0 Framework](stacks/yii2/README.md)
 - [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
 
 
