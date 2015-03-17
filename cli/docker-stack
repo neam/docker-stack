@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Uncomment or set env var to debug
-DOCKERSTACK_DEBUG=0
+#DOCKERSTACK_DEBUG=1
 
 if [ "$DOCKERSTACK_DEBUG" == "1" ]; then
     set -x;
@@ -21,21 +21,47 @@ chk bower_components/docker-stack
 chk node_modules/docker-stack
 chk vendor/neam/docker-stack
 chk ./.docker-stack
-
-# Find chosen stack
-function chk {
-    if [ -d "$1" ]; then
-        export STACK_HOME=$1
-    fi
-}
-
-chk vendor/neam/docker-stack/stacks/hello-world
-[ -f ".docker-stack" ] && chk $(cat .docker-stack)
-#chk ./stack
+chk ../docker-stack
+chk ../../docker-stack
+chk ../../../docker-stack
 
 if [ "$LIB_HOME" == "" ]; then
-    echo "Could not find a docker-stack installation"
+    >&2 echo "Could not find a docker-stack installation"
     exit 1
 fi
 
-make -f $LIB_HOME/cli/commands $@
+# Find chosen stack yml
+function chk {
+    if [ -f "$1" ]; then
+        export STACK_YML=$1
+    fi
+}
+
+chk vendor/neam/docker-stack/stacks/hello-world/local.yml
+chk ./stack/local.yml
+chk ./docker-compose.yml
+
+[ -f ".docker-stack" ] && chk $(cat .docker-stack)
+
+if [ "$STACK_YML" == "" ]; then
+    >&2 echo "Could not find the stack yml"
+    exit 1
+fi
+
+# Run the actual command
+
+case $1 in
+"url" | "select" | "list")
+    $LIB_HOME/cli/$1.sh ${*:2}
+    ;;
+"info")
+    echo APP_HOME=$APP_HOME;
+    echo LIB_HOME=$LIB_HOME;
+    echo STACK_HOME=$STACK_HOME;
+    ;;
+"local" | "remote" | "tutum")
+    docker-compose -f $(STACK_HOME)/$1.yml ${*:2}
+    ;;
+esac
+
+exit 0
