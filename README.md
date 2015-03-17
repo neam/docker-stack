@@ -35,10 +35,12 @@ Clone and symlink to /usr/local/bin/:
 
 
 Quick start - Example Yii 2
--------------
+---------------------------
 
-    docker-stack select yii2
-    docker-stack local start
+    composer create-project --prefer-dist yiisoft/yii2-app-basic:2.0.3 myapp
+    cd myapp
+    docker-stack install yii2
+    docker-stack local up -d
     docker-stack local url
 
 Usage
@@ -58,7 +60,7 @@ Select a stack:
 
 Fire up the stack locally:
 
-    docker-stack local start
+    docker-stack local up -d
 
 Visit the below returned url in your browser:
 
