@@ -47,7 +47,7 @@ Verify your installation by starting the default hello world stack:
     
 Visit the following url in your browser:
 
-    docker-stack url
+    docker-stack local url
 
 You should see 
 

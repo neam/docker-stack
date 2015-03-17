@@ -10,57 +10,120 @@ fi
 export APP_HOME="$(pwd)"
 export SCRIPTDIR="$(dirname $0)"
 
-# Find docker-stack installation
-function chk {
-    if [ -d "$1" ]; then
-        export LIB_HOME=$1
-    fi
-}
-chk ~/.docker-stack
-chk bower_components/docker-stack
-chk node_modules/docker-stack
-chk vendor/neam/docker-stack
-chk ./.docker-stack
-chk ../docker-stack
-chk ../../docker-stack
-chk ../../../docker-stack
+# Source local docker stack vars if .docker-stack-file is available
+[ -f ".docker-stack" ] && source .docker-stack
 
-if [ "$LIB_HOME" == "" ]; then
+# Source local env vars if .env-file is available
+[ -f ".env" ] && source .env
+
+# Auto-detect docker-stack installation
+if [ "$DOCKER_STACK_SRC" == "" ]; then
+
+    function chk {
+        if [ -d "$1" ]; then
+            export DOCKER_STACK_SRC=$1
+        fi
+    }
+    chk ~/.docker-stack
+    chk bower_components/docker-stack
+    chk node_modules/docker-stack
+    chk vendor/neam/docker-stack
+    chk ./.docker-stack
+    chk ../docker-stack
+    chk ../../docker-stack
+    chk ../../../docker-stack
+
+fi
+if [ "$DOCKER_STACK_SRC" == "" ]; then
     >&2 echo "Could not find a docker-stack installation"
     exit 1
 fi
 
-# Find chosen stack yml
-function chk {
-    if [ -f "$1" ]; then
-        export STACK_YML=$1
-    fi
-}
+# Auto-detect local stack yml
+if [ "$LOCAL_STACK_YML" == "" ]; then
 
-chk vendor/neam/docker-stack/stacks/hello-world/local.yml
-chk ./stack/local.yml
-chk ./docker-compose.yml
+    function chk {
+        if [ -f "$1" ]; then
+            export LOCAL_STACK_YML=$1
+        fi
+    }
 
-[ -f ".docker-stack" ] && chk $(cat .docker-stack)
+    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk ./stack/local.yml
+    chk ./docker-compose.yml
 
-if [ "$STACK_YML" == "" ]; then
-    >&2 echo "Could not find the stack yml"
-    exit 1
+fi
+
+# Auto-detect remote stack yml
+if [ "$REMOTE_STACK_YML" == "" ]; then
+
+    function chk {
+        if [ -f "$1" ]; then
+            export REMOTE_STACK_YML=$1
+        fi
+    }
+
+    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk ./stack/deploy.yml
+    chk ./docker-compose-production.yml
+
+fi
+
+# Auto-detect tutum stack yml
+if [ "$TUTUM_STACK_YML" == "" ]; then
+
+    function chk {
+        if [ -f "$1" ]; then
+            export TUTUM_STACK_YML=$1
+        fi
+    }
+
+    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk ./stack/deploy-tutum.yml
+    chk ./docker-compose-tutum.yml
+
 fi
 
 # Run the actual command
 
 case $1 in
-"url" | "select" | "list")
-    $LIB_HOME/cli/$1.sh ${*:2}
-    ;;
 "info")
     echo APP_HOME=$APP_HOME;
-    echo LIB_HOME=$LIB_HOME;
-    echo STACK_HOME=$STACK_HOME;
+    echo DOCKER_STACK_SRC=$DOCKER_STACK_SRC;
+    echo LOCAL_STACK_YML=$LOCAL_STACK_YML;
+    echo REMOTE_STACK_YML=$REMOTE_STACK_YML;
+    echo TUTUM_STACK_YML=$TUTUM_STACK_YML;
+    exit 0;
     ;;
-"local" | "remote" | "tutum")
-    docker-compose -f $(STACK_HOME)/$1.yml ${*:2}
+"local")
+    if [ "$LOCAL_STACK_YML" == "" ]; then
+        >&2 echo "Could not find the local stack yml"
+        exit 1
+    fi
+    export STACK_YML=$LOCAL_STACK_YML;
+    ;;
+"remote")
+    if [ "$REMOTE_STACK_YML" == "" ]; then
+        >&2 echo "Could not find the remote stack yml"
+        exit 1
+    fi
+    export STACK_YML=$REMOTE_STACK_YML;
+    ;;
+"tutum")
+    if [ "$TUTUM_STACK_YML" == "" ]; then
+        >&2 echo "Could not find the tutum stack yml"
+        exit 1
+    fi
+    export STACK_YML=$TUTUM_STACK_YML;
+    ;;
+esac
+
+case $2 in
+"url" | "select" | "list")
+    $DOCKER_STACK_SRC/cli/$2.sh ${*:3}
+    ;;
+*)
+    docker-compose -f $STACK_YML ${*:2}
     ;;
 esac
 
