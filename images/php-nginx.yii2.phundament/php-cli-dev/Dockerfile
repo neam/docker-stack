@@ -24,6 +24,19 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
 
+# Install lessc for asset conversion
+RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+    apt-get install --no-install-recommends -y \
+        nodejs && \
+    rm -r /var/lib/apt/lists/* && \
+    npm install -g less
+
+# Install linkchecker
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+        linkchecker && \
+    rm -r /var/lib/apt/lists/*
+
 # Install packages required for Yii 2.0 Framework codeception testing globally
 RUN composer global require  --prefer-dist \
         "codeception/codeception:2.0.*" "codeception/specify:*" "codeception/verify:*" && \
