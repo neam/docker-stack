@@ -55,12 +55,12 @@ Example:
         }
     },
 
-Build the server-config-generator image:
+Build the server config generator image:
 
-    docker build -t 'server-config-generator' vendor/neam/docker-stack/stacks/php-nginx-memcache/server-config-generator/
+    docker build -t 'nginx-php-server-config-generator' vendor/neam/docker-stack/generators/nginx-php-server-config-generator/
 
 Then generate php and nginx config:
 
-    docker run -v $(pwd):/app server-config-generator /generator/parse-composer-json.sh
-    docker run -v $(pwd):/app server-config-generator /generator/generate-nginx-config.sh
-    docker run -v $(pwd):/app server-config-generator /generator/generate-php-config.sh
+    docker run -v $(pwd):/app nginx-php-server-config-generator /generator/parse-composer-json.sh
+    docker run -v $(pwd):/app nginx-php-server-config-generator /generator/generate-nginx-config.sh
+    docker run -v $(pwd):/app nginx-php-server-config-generator /generator/generate-php-config.sh
