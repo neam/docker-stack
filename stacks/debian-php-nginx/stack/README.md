@@ -1,12 +1,11 @@
-Stacks - PHP/Nginx/Memcache
+Stacks - Debian PHP/Nginx
 ===================================
 
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
-* Uses official PHP-FPM and Nginx Docker containers
+* Uses a Debian-derived PHP-FPM container and the official Nginx Docker containers
 * Includes boilerplate configuration with Docker-specific enhancements
-* (Optional) a PHP-FPM an Nginx server configuration generator for generating configuration based on your composer.json
 
 ## Installation
 
@@ -35,7 +34,7 @@ Change and reload nginx configuration on-the-fly:
     nano /etc/nginx/nginx.conf
     nginx -s reload
 
-### Add your composer github token before build
+### Add your composer github token before building the "src" image
 
     export COMPOSER_GITHUB_TOKEN=foofoofoofoofoofoofoofoofoofoo
     echo $COMPOSER_GITHUB_TOKEN > composer.github.token
