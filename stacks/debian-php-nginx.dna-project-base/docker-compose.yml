@@ -1,13 +1,29 @@
 # Docker compose configuration for local development
 
+# Data read-only container that includes app source code at /app and generates
+# some configuration files generated based on env vars and composer.json.
+# /app is subsequently used as document root in php-fpm and nginx config
+src:
+  image: debian:jessie
+  volumes:
+   - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+
+# Data read-write container to have a temporary file system available to stack
+# containers to support file uploads and other local file manipulations
+files:
+  image: debian:jessie
+  volumes:
+   - .files:/files:rw
+
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
 web:
   image: nginx:1.7
   links:
     - php
-    - memcached
-  volumes:
-   - .:/app:rw
+#    - memcached
+  volumes_from:
+    - src
+    - files
   ports:
     - "80"
     - "443"
@@ -18,25 +34,27 @@ web:
 
 # The php service for interpreting php code
 php:
-  #build: stack/php/image/
-  image: neam/docker-stack-debian-php:5.6.6-fpm
+  image: neam/dna-project-base-debian-php:5.6.6-fpm
   links:
     - mailcatcher
-    - memcached
-  volumes:
-   - .:/app
+#    - memcached
+  volumes_from:
+    - src
+    - files
   ports:
    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'off'
+  env_file:
+   - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
 # Memcached server for serving cached contents via the nginx-memcache plugin
-memcached:
-  image: memcached:1.4.22
-  ports:
-    - "11211"
+#memcached:
+#  image: memcached:1.4.22
+#  ports:
+#    - "11211"
 
 # Mailcatcher server for catching outgoing email when not in production
 mailcatcher:
@@ -48,18 +66,32 @@ mailcatcher:
 # A container to run builder commands locally
 builder:
   #build: vendor/neam/docker-stack/base-images/web-app-builder/
-  image: neam/web-app-builder
-  volumes:
-   - .:/app
+  image: neam/php-app-builder
+  volumes_from:
+    - src
+    - files
+  working_dir: '/app'
+  command: "true"
+
+# A container to run tester commands locally
+tester:
+  #build: vendor/neam/docker-stack/base-images/web-app-builder/
+  image: neam/php-app-tester
+  links:
+    - web
+  volumes_from:
+    - src
+    - files
   working_dir: '/app'
   command: "true"
 
 # A container to run worker/administration commands locally
 worker:
   #build: vendor/neam/docker-stack/base-images/web-app-worker/
-  image: neam/web-app-worker
-  volumes:
-   - .:/app
+  image: neam/php-app-worker
+  volumes_from:
+    - src
+    - files
   working_dir: '/app'
   command: "true"
 
@@ -67,11 +99,14 @@ worker:
 info:
   image: phundament/app:development
   links:
+    - src
+    - files
     - web
     - php
-    - memcached
-  volumes:
-   - .:/app
+#    - memcached
+  volumes_from:
+    - src
+    - files
   working_dir: '/app'
   command: "true"
 
