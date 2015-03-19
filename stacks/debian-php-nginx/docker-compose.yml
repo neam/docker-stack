@@ -1,23 +1,13 @@
-# Data only container that includes app source code at /app and generates
-# some configuration files generated based on env vars and composer.json.
-# /app is subsequently used as document root in php-fpm and nginx config
-src:
-  image: user/project-files:foo
-  volumes:
-   - /app
-  working_dir: '/app'
-  environment:
-    FOO: bar
+# Docker compose configuration for local development
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
 web:
   image: nginx:1.7
   links:
-    - src
     - php
     - memcached
-  volumes_from:
-    - src
+  volumes:
+   - .:/app:rw
   ports:
     - "80"
     - "443"
@@ -28,13 +18,12 @@ web:
 
 # The php service for interpreting php code
 php:
+  #build: stack/php/image/
   image: neam/docker-stack-debian-php:5.6.6-fpm
   links:
-    - src
-    - mailcatcher
     - memcached
-  volumes_from:
-    - src
+  volumes:
+   - .:/app
   ports:
    - "9000"
   environment:
@@ -42,18 +31,35 @@ php:
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
-# Memcached server for serving cached contents via the nginx-memcache plugin
-memcached:
-  image: memcached:1.4.22
-  ports:
-    - "11211"
+# A container to run builder commands locally
+builder:
+  #build: vendor/neam/docker-stack/base-images/web-app-builder/
+  image: neam/web-app-builder
+  volumes:
+   - .:/app
+  working_dir: '/app'
+  command: "true"
 
-# Mailcatcher server for catching outgoing email when not in production
-mailcatcher:
-  image: nisenabe/mailcatcher
-  ports:
-    - "25"
-    - "1080"
+# A container to run worker/administration commands locally
+worker:
+  #build: vendor/neam/docker-stack/base-images/web-app-worker/
+  image: neam/web-app-worker
+  volumes:
+   - .:/app
+  working_dir: '/app'
+  command: "true"
+
+# A container that is linked to and thus can output linked information about running containers locally
+info:
+  image: phundament/app:development
+  links:
+    - web
+    - php
+    - memcached
+  volumes:
+   - .:/app
+  working_dir: '/app'
+  command: "true"
 
 # Selenium...
 
