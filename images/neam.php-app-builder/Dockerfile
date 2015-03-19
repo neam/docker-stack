@@ -1,6 +1,6 @@
-# Base image - Web app builder
+# Base image - PHP app builder
 # -----------------------------------------------------
-# Example/base "catch-all" web app builder image to use for installing app dependencies and running common build tasks
+# Example/base "catch-all" php app builder image to use for installing app dependencies and running common build tasks
 #
 # Includes:
 #  - Node.js 0.10
@@ -12,12 +12,14 @@
 #  - Jq
 #  - Yeoman
 #  - Composer
+#  - PHP with curl and mysql extensions
 #  - and more (see below)
 #
-# Available on docker hub as neam/web-app-builder
+# Available on docker hub as neam/php-app-builder
 #
 # Build by running:
-#     docker build -t neam/web-app-builder .
+#     docker build -t neam/php-app-builder .
+#     docker push neam/php-app-builder
 #
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
@@ -33,7 +35,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-03-12 03:18"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-03-19 10:50"
 RUN apt-get update && \
     apt-get upgrade -y -q
 
@@ -49,17 +51,17 @@ RUN apt-get install -y -q \
         sed \
         vim
 
+# Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
+RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+  echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
+  apt-get install -y nodejs=0.10.*
+
 # Version control systems
 RUN apt-get install -y -q \
         git-flow \
         git-svn \
         mercurial \
         subversion
-
-# Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
-RUN curl -sL https://deb.nodesource.com/setup | bash - && \
-  echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
-  apt-get install -y nodejs=0.10.*
 
 # Clojure compiler
 ENV IMAGE_CLI_CLOSURE_COMPILER 2015-03-10-23-33
@@ -71,9 +73,14 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
 RUN npm install -g yo grunt-cli bower
 RUN npm install -g gulp
 
-# Install PHP
+# Install PHP with mysql
 RUN apt-get install -y -q \
-        php5-cli
+        php5-cli \
+        php5-mysql
+
+# For erb templates
+RUN apt-get install -y -q \
+        ruby-full
 
 # Clean apt caches
 RUN apt-get clean && \
