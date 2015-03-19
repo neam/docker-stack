@@ -6,7 +6,6 @@
 FROM php:5.6-fpm
 
 # Add PHP-FPM + nginx configuration
-ADD conf.d/* /usr/local/etc/php/conf.d/
 ADD pool.d/* /usr/local/etc/php/pool.d/
 ADD php-fpm.conf /usr/local/etc/php-fpm.conf
 

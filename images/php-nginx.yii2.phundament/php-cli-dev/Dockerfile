@@ -1,7 +1,7 @@
 # Docker image for Phundament 4 applications
 # ------------------------------------------
 #
-# CLI tools
+# CLI tools (dev)
 #
 
 FROM phundament/php:5.6-cli-4.0.0-prod
@@ -46,7 +46,7 @@ RUN composer global require  --prefer-dist \
 WORKDIR /app
 ENV PHUNDAMENT_PHP_BUILDER_CREATE_PROJECT 2015-03-10-23-33
 RUN /usr/local/bin/composer install --prefer-dist && \
-    /usr/local/bin/composer dumpautoload --optimize
+    composer dumpautoload --optimize
 
 # Setup application environment
 ENV APP_ENABLE_AUTOMIGRATIONS 1

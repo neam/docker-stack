@@ -25,6 +25,7 @@ test: test-stack-php-nginx-vanilla-mount test-stack-php-nginx
 
 test-stack-php-nginx-vanilla-mount:
 	cd stacks/php-nginx-vanilla && \
+	    docker-compose build && \
 	    docker-compose up -d && \
 	    docker-compose ps && \
 	    docker-compose run cli env && \
@@ -32,6 +33,7 @@ test-stack-php-nginx-vanilla-mount:
 
 test-stack-php-nginx:
 	cd stacks/php-nginx && \
+		docker-compose build && \
 	    docker-compose run cli php -v && \
 	    docker-compose up -d && \
 	    docker-compose ps && \

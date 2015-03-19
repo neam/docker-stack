@@ -1,7 +1,7 @@
 # Docker image for Phundament 4 applications
 # ------------------------------------------
 #
-# CLI tools
+# CLI tools (prod)
 #
 
 FROM schmunk42/php:5.6-cli-yii-2.0.3-app-basic

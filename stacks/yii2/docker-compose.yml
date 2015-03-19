@@ -7,8 +7,9 @@
 
 # Includes a container to run commands locally - a Dockerized shell
 cli:
-  #build: .
+  # Use PHP image from Docker Hub or build from Dockerfile, if you need to add i.e. PHP extensions
   image: schmunk42/php:5.6-cli-yii-2.0.3-app-basic
+  #build: .
   volumes:
    - .:/app
   links:
