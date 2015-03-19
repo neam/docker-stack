@@ -33,17 +33,11 @@ In each new terminal session, run (preferably by adding to ~/.bashrc or similar)
 
     $(boot2docker shellinit)
 
-## Step 2 - Connect to your local docker host
+## Step 2 - Install app dependencies
 
-Needs to be done before running docker commands:
+    docker-stack local run builder stack/src/install-deps.sh
 
-    source .local-docker-host
-
-## Step 3 - Install app dependencies
-
-    docker-compose run shell stack/src/install-deps.sh
-
-## Step 4 - Initialize your local configuration file
+## Step 3 - Initialize your local configuration file
 
 Create your local configuration file for sensitive configuration directives:
 
@@ -51,21 +45,21 @@ Create your local configuration file for sensitive configuration directives:
 
 Open it up an make sure that all sensitive directives are correctly entered.
 
-## Step 5 - Run
+## Step 4 - Run
 
 Fire up your local docker stack:
 
-    docker-compose up
+    docker-stack local up
 
-## Step 6 - Initialize the database with a relevant dataset
+## Step 5 - Initialize the database with a relevant dataset
 
 * Follow the instructions in [Update to the latest changes](21-local-dev-update-to-the-latest-changes.md)
 
-## Step 7 - See your app in action
+## Step 6 - See your app in action
 
 Find out the ports that your stack is listening on:
 
-    docker-compose ps
+    docker-stack local ps
 
 Open up relevant urls in the browser to see your app in action.
 
