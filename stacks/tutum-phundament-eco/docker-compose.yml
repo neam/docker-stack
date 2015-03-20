@@ -1,0 +1,24 @@
+#
+# Tutum stack: phundament-eco
+#
+
+reverseproxy:
+    image: jwilder/nginx-proxy
+    tags:
+        - proxy
+    ports:
+        - 80:80
+    volumes:
+        - /var/run/docker.sock:/tmp/docker.sock
+
+db:
+    tags:
+        - data
+    image: mariadb
+    environment:
+        MYSQL_ROOT_PASSWORD: CHANGE_ME_CHANGE_ME_CHANGE_ME_NOW
+
+redis:
+    tags:
+        - data
+    image: redis
