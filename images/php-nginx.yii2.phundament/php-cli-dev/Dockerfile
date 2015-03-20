@@ -6,9 +6,10 @@
 
 FROM phundament/php:5.6-cli-4.0.0-prod
 MAINTAINER Tobias Munk <tobias@diemeisterei.de>
+ENV IMAGE PHUNDAMENT_PHP_CLI_DEV
 
 # Install system development packages
-ENV PHUNDAMENT_PHP_BUILDER_APT_GET_DATE 2015-03-10-23-33
+ENV TRIGGER_APT_GET_INSTALL 2015-03-10-23-33
 ENV TERM linux
 RUN apt-get update && \
     apt-get install -y \
@@ -19,7 +20,7 @@ RUN apt-get update && \
 
 # Install extra development packages
 WORKDIR /root
-ENV PHUNDAMENT_PHP_BUILDER_CLOSURE_COMPILER 2015-03-10-23-33
+ENV TRIGGER_CLOSURE_COMPILER 2015-03-10-23-33
 RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler-20150126.tar.gz && \
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
@@ -42,14 +43,21 @@ RUN composer global require  --prefer-dist \
         "codeception/codeception:2.0.*" "codeception/specify:*" "codeception/verify:*" && \
     composer global dumpautoload --optimize
 
-# Install application development packages
+
+# Install application template and core extension
+# Phundament 4 and its extensions can be used directly from the image or serve as local cache
 WORKDIR /app
-ENV PHUNDAMENT_PHP_BUILDER_CREATE_PROJECT 2015-03-10-23-33
-RUN /usr/local/bin/composer install --prefer-dist && \
+ENV TRIGGER_CREATE_PROJECT 2015-03-10-23-33
+ADD config.json /root/.composer/config.json
+RUN rm -rf /app
+RUN composer create-project --prefer-dist \
+        phundament/app:4.0.0-beta13 \
+        /app && \
     composer dumpautoload --optimize
 
 # Setup application environment
 ENV APP_ENABLE_AUTOMIGRATIONS 1
 RUN cp .env-dist .env
+
 
 CMD ["/app/yii"]
