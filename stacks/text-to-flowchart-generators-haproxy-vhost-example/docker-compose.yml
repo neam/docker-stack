@@ -9,9 +9,9 @@ web:
 plantuml:
   image: neam/plantuml-server
   environment:
-    VIRTUAL_HOST: 'plantuml-server.example.com'
+    - VIRTUAL_HOST: 'plantuml-server.example.com'
 
 scruffy:
   image: neam/scruffy-server
   environment:
-    VIRTUAL_HOST: 'scruffy-server.example.com'
+    - VIRTUAL_HOST: 'scruffy-server.example.com'
