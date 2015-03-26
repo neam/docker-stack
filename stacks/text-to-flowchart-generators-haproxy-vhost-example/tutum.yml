@@ -15,7 +15,7 @@ web:
 plantuml:
   image: neam/plantuml-server
   environment:
-    - VIRTUAL_HOST: 'plantuml-server.example.com'
+    VIRTUAL_HOST: 'plantuml-server.example.com'
   # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - cluster
@@ -25,7 +25,7 @@ plantuml:
 scruffy:
   image: neam/scruffy-server
   environment:
-    - VIRTUAL_HOST: 'scruffy-server.example.com'
+    VIRTUAL_HOST: 'scruffy-server.example.com'
   # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - cluster
