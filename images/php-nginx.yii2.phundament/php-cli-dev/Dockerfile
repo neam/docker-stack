@@ -46,13 +46,13 @@ RUN composer global require  --prefer-dist \
 
 # Install application template and core extension
 # Phundament 4 and its extensions can be used directly from the image or serve as local cache
-WORKDIR /app
+WORKDIR /app-tmp
 ENV TRIGGER_CREATE_PROJECT 2015-03-10-23-33
 ADD config.json /root/.composer/config.json
-RUN rm -rf /app
+RUN rm -rf /app-tmp
 RUN composer create-project --prefer-dist \
         phundament/app:4.0.0-beta13 \
-        /app && \
+        /app-tmp && \
     composer dumpautoload --optimize
 
 # Setup application environment
