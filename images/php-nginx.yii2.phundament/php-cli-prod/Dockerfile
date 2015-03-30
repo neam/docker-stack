@@ -17,3 +17,5 @@ RUN apt-get update && \
         openssh-client && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /app
