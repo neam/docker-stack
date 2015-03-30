@@ -35,7 +35,7 @@ In each new terminal session, run (preferably by adding to ~/.bashrc or similar)
 
 ## Step 2 - Install app dependencies
 
-    docker-stack local run builder stack/src/install-deps.sh
+    docker-compose run builder stack/src/install-deps.sh
 
 ## Step 3 - Initialize your local configuration file
 
@@ -49,7 +49,7 @@ Open it up an make sure that all sensitive directives are correctly entered.
 
 Fire up your local docker stack:
 
-    docker-stack local up
+    docker-compose up
 
 ## Step 5 - Initialize the database with a relevant dataset
 
@@ -59,7 +59,7 @@ Fire up your local docker stack:
 
 Find out the ports that your stack is listening on:
 
-    docker-stack local ps
+    docker-compose ps
 
 Open up relevant urls in the browser to see your app in action.
 

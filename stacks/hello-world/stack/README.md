@@ -4,7 +4,7 @@ Verify your installation by starting the default hello world stack:
 
     cd myapp
     docker-stack select hello-world
-    docker-stack local start
+    docker-compose start
 
 Visit the below returned url in your browser:
 

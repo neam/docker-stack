@@ -40,7 +40,7 @@ Quick start - Example Yii 2
     composer create-project --prefer-dist yiisoft/yii2-app-basic:2.0.3 myapp
     cd myapp
     docker-stack install yii2
-    docker-stack local up -d
+    docker-compose up -d
     docker-stack local url
 
 > Hint: On OSX, you can open the url directly from a terminal session:
@@ -65,7 +65,7 @@ Select or install a stack:
 
 Fire up the stack locally:
 
-    docker-stack local up -d
+    docker-compose up -d
 
 Visit the below returned url in your browser:
 

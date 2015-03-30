@@ -13,7 +13,7 @@ Select a stack:
 
 Fire up the stack:
 
-    docker-stack local start
+    docker-compose start
     docker-stack local url
 
 Any other necessary instructions (if any) are found in each stack's README.
