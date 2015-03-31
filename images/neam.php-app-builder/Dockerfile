@@ -12,6 +12,7 @@
 #  - Jq
 #  - Yeoman
 #  - Composer
+#  - Bundler
 #  - PHP with curl and mysql extensions
 #  - and more (see below)
 #
@@ -69,8 +70,8 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
 
-# Yeoman - Yo, Grunt, Gulp, Bower
-RUN npm install -g yo grunt-cli bower
+# Yeoman - Yo, Grunt, Gulp, Bower, Coffee Script
+RUN npm install -g yo grunt-cli bower coffee-script
 RUN npm install -g gulp
 
 # Install PHP with curl & mysql
@@ -79,9 +80,12 @@ RUN apt-get install -y -q \
         php5-curl \
         php5-mysql
 
-# For erb templates
+# For bundler and erb templates
 RUN apt-get install -y -q \
         ruby-full
+
+# Bundler
+RUN gem install bundler
 
 # Clean apt caches
 RUN apt-get clean && \
