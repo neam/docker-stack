@@ -34,7 +34,7 @@ web:
 
 # The php service for interpreting php code
 php:
-  image: neam/dna-project-base-debian-php:5.6.6-fpm
+  image: neam/dna-project-base-debian-php:5.6.7-fpm
   links:
     - mailcatcher
 #    - memcached

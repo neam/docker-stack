@@ -63,9 +63,13 @@ neam.php-app-images: debian-php-nginx
 	docker build -t neam/php-app-tester                       images/neam.php-app-tester
 	docker build -t neam/php-app-worker:tutum-debian-jessie   images/neam.php-app-worker
 
+neam.dna-project-base: debian-php-nginx
+  docker build -t neam/dna-project-base-debian-php:5.6.7-fpm  stacks/debian-php-nginx.dna-project-base/stack/php/image
+
 release-neam: build-neam
 	echo "Pushing images to Docker Hub..."
 	docker push neam/debian-php:5.6.7-fpm
 	docker push neam/php-app-builder
 	docker push neam/php-app-tester
 	docker push neam/php-app-worker:tutum-debian-jessie
+	docker push neam/dna-project-base-debian-php:5.6.7-fpm

@@ -82,3 +82,4 @@ RUN apt-get clean && \
 
 # Add script to run worker cmd
 COPY run-worker-cmd.sh /run-worker-cmd.sh
+RUN chmod +x /run-worker-cmd.sh
