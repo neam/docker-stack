@@ -12,6 +12,7 @@
 #  - Jq
 #  - Yeoman
 #  - Composer
+#  - Bundler
 #  - PHP with curl and mysql extensions
 #  - and more (see below)
 #
@@ -35,7 +36,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-03-19 10:50"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-03-31 10:58"
 RUN apt-get update && \
     apt-get upgrade -y -q
 
@@ -69,18 +70,22 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
 
-# Yeoman - Yo, Grunt, Gulp, Bower
-RUN npm install -g yo grunt-cli bower
+# Yeoman - Yo, Grunt, Gulp, Bower, Coffee Script
+RUN npm install -g yo grunt-cli bower coffee-script
 RUN npm install -g gulp
 
-# Install PHP with mysql
+# Install PHP with curl & mysql
 RUN apt-get install -y -q \
         php5-cli \
+        php5-curl \
         php5-mysql
 
-# For erb templates
+# For bundler and erb templates
 RUN apt-get install -y -q \
         ruby-full
+
+# Bundler
+RUN gem install bundler
 
 # Clean apt caches
 RUN apt-get clean && \

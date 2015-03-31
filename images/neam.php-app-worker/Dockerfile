@@ -12,15 +12,17 @@
 #  - PHP with curl and mysql extensions
 #  - and more (see below)
 #
-# Available on docker hub as neam/web-app-worker
+# Available on docker hub as neam/php-app-worker
 #
 # Build by running:
-#     docker build -t neam/web-app-worker .
-#     docker push neam/web-app-worker
+#     docker build -t neam/php-app-worker:tutum-debian-jessie .
+#     docker push neam/php-app-worker:tutum-debian-jessie
 #
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
-FROM debian:jessie
+# Awaiting PR
+FROM neam/tutum-debian-jessie
+#FROM tutum/debian:jessie
 
 # Prepare Debian environment
 ENV DEBIAN_FRONTEND noninteractive
@@ -32,7 +34,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-03-19 11:01"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-03-31 10:43"
 RUN apt-get update && \
     apt-get upgrade -y -q
 
@@ -57,7 +59,7 @@ RUN curl -sL https://deb.nodesource.com/setup | bash - && \
 RUN apt-get install -y -q \
         mysql-client
 
-# Install PHP with mysql
+# Install PHP with curl & mysql
 RUN apt-get install -y -q \
         php5-cli \
         php5-curl \
@@ -77,3 +79,7 @@ RUN apt-get install -y -q s3cmd=1.5.0* || (echo "s3cmd \n $(apt-cache show s3cmd
 # Clean apt caches
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Add script to run worker cmd
+COPY run-worker-cmd.sh /run-worker-cmd.sh
+RUN chmod +x /run-worker-cmd.sh
