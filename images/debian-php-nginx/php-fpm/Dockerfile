@@ -1,7 +1,7 @@
 # Dockerfile for PHP-FPM 5.6.6 built for PHP/Nginx/Memcache docker-stack
 # ===============================================================
-#   docker build -f Dockerfile-base -t neam/debian-php:5.6.6-fpm .
-#   docker push neam/debian-php:5.6.6-fpm
+#   docker build -f Dockerfile-base -t neam/debian-php:5.6.7-fpm .
+#   docker push neam/debian-php:5.6.7-fpm
 
 FROM debian:jessie
 
@@ -23,7 +23,7 @@ RUN apt-get update && \
 
 # Install specific version of PHP-FPM (if not available - show what versions were available in debian jessie at the moment of APT_DOCKER_CACHE_TRIGGER above)
 RUN apt-get install -y -q \
-        php5-fpm=5.6.6* \
+        php5-fpm=5.6.7* \
   || (echo "php5-cli \n $(apt-cache show php5-cli | grep -i version)" && \
       echo "php5-fpm \n $(apt-cache show php5-fpm | grep -i version)" && \
       exit 1)
