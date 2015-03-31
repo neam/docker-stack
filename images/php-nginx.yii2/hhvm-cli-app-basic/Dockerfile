@@ -22,4 +22,4 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 ADD config.json /root/.composer/config.json
 RUN composer create-project --prefer-dist \
         yiisoft/yii2-app-basic:2.0.3 \
-        /app-tmp
+        /app-src
