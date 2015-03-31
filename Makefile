@@ -56,7 +56,7 @@ release-schmunk42: build-schmunk42
 build-neam: debian-php-nginx neam.php-app-images
 
 debian-php-nginx:
-	docker build -t neam/debian-php:5.6.6-fpm         images/debian-php-nginx/php-fpm
+	docker build -t neam/debian-php:5.6.7-fpm         images/debian-php-nginx/php-fpm
 
 neam.php-app-images: debian-php-nginx
 	docker build -t neam/php-app-builder                      images/neam.php-app-builder
@@ -65,7 +65,7 @@ neam.php-app-images: debian-php-nginx
 
 release-neam: build-neam
 	echo "Pushing images to Docker Hub..."
-	docker push neam/debian-php:5.6.6-fpm
+	docker push neam/debian-php:5.6.7-fpm
 	docker push neam/php-app-builder
 	docker push neam/php-app-tester
 	docker push neam/php-app-worker:tutum-debian-jessie
