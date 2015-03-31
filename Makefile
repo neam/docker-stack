@@ -4,7 +4,7 @@ default: build
 
 all: build
 
-build: php-nginx yii2 phundament
+build-schmunk42: php-nginx yii2 phundament
 
 php-nginx:
 	docker build -t schmunk42/nginx:1.7          images/php-nginx/nginx
@@ -46,9 +46,26 @@ test-phundament:
 	    docker-compose up -d && \
 	    docker-compose stop
 
-release: build
+release-schmunk42: build-schmunk42
 	echo "Pushing images to Docker Hub..."
 	docker push schmunk42/nginx
 	docker push schmunk42/php
 	docker push schmunk42/hhvm
 	docker push phundament/php
+
+build-neam: debian-php-nginx neam.php-app-images
+
+debian-php-nginx:
+	docker build -t neam/debian-php:5.6.6-fpm         images/debian-php-nginx/php-fpm
+
+neam.php-app-images: debian-php-nginx
+	docker build -t neam/php-app-builder                      images/neam.php-app-builder
+	docker build -t neam/php-app-tester                       images/neam.php-app-tester
+	docker build -t neam/php-app-worker:tutum-debian-jessie   images/neam.php-app-worker
+
+release-neam: build-neam
+	echo "Pushing images to Docker Hub..."
+	docker push neam/debian-php:5.6.6-fpm
+	docker push neam/php-app-builder
+	docker push neam/php-app-tester
+	docker push neam/php-app-worker:tutum-debian-jessie

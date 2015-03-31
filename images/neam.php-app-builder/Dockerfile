@@ -73,9 +73,10 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
 RUN npm install -g yo grunt-cli bower
 RUN npm install -g gulp
 
-# Install PHP with mysql
+# Install PHP with curl & mysql
 RUN apt-get install -y -q \
         php5-cli \
+        php5-curl \
         php5-mysql
 
 # For erb templates
