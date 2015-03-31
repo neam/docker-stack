@@ -58,4 +58,5 @@ RUN composer create-project --prefer-dist \
 WORKDIR /app
 ENV APP_ENABLE_AUTOMIGRATIONS 1
 
+
 CMD ["/app/yii"]
