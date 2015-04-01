@@ -70,6 +70,9 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
 
+# Build essential is necessary to compile some binary dependencies
+RUN apt-get install build-essential -y -q
+
 # Yeoman - Yo, Grunt, Gulp, Bower, Coffee Script
 RUN npm install -g yo grunt-cli bower coffee-script
 RUN npm install -g gulp
