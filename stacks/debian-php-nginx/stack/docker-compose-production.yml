@@ -2,14 +2,15 @@
 # some configuration files generated based on env vars and composer.json.
 # /app is subsequently used as document root in php-fpm and nginx config
 src:
-  image: user/project-files:git-commit-%COMMITSHA%
+  image: user/project-src:git-commit-%COMMITSHA%
   volumes:
    - /app
+  working_dir: '/app'
 
 # Data read-write container to have a temporary file system available to stack
 # containers to support file uploads and other local file manipulations
 files:
-  image: debian:jessie
+  image: neam/files-empty-data-container
   volumes:
    - /files
 
@@ -17,7 +18,9 @@ files:
 web:
   image: nginx:1.7
   links:
+    - src
     - php
+#    - memcached
   volumes_from:
     - src
     - files
@@ -32,6 +35,10 @@ web:
 # The php service for interpreting php code
 php:
   image: neam/debian-php:5.6.7-fpm
+  links:
+    - src
+    - mailcatcher
+#    - memcached
   volumes_from:
     - src
     - files
@@ -43,16 +50,4 @@ php:
    - %ENV_FILE_DIR%/.env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
-
-# Selenium...
-
-# Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the container
-#tutumworker:
-#  image: debian:jessie
-#  volumes:
-#   - .:/app
-#  environment:
-#    APP_DIR: '/app'
-#    WORKER_CMD: '/bin/bash echo "Hello"'
-#  command: "/app/worker/run.sh"
 
