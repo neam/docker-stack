@@ -24,12 +24,14 @@ Basic PHP-FPM configuration
 
 ### [`schmunk42/php`](https://registry.hub.docker.com/u/schmunk42/php/)
 
-Framework runtime
+#### Framework runtime
 
 - `5.6-fpm-2.0.3-yii-runtime`
 - `5.6-cli-2.0.3-yii-runtime`
 
-Applications
+#### Applications
+
+Available for initial installation by copying from `/app-src`.
 
 - `5.6-cli-2.0.3-yii-app-basic`
 
@@ -46,6 +48,8 @@ Applications
 ## Phundament
 
 ### [`phundament/php`](https://registry.hub.docker.com/u/phundament/php/)
+
+Available for initial installation by copying from `/app-src`.
 
 - `5.6-cli-4.0.0-prod` Phundament 4 Application CLI (and data container)
 - `5.6-cli-4.0.0-dev` Phundament 4 Application with development packages (eg. closure-compiler, code-generation) aka. "builder"
