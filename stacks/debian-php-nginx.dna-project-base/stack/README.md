@@ -24,3 +24,8 @@ The local stack include optional containers that emulate upstream services outsi
 * `db` - A cloud database service such as Amazon RDS, Rackspace Cloud DB, ClearDB etc
 * `mailcatcher` - An SMTP service such as Gmail, Amazon Simple Mail Service, Foo etc
 * `proxy` - A reverse proxy or other routing layer on the server(s) that your public DNS is connected to
+
+### Using memcache
+
+TODO: Add instructions
+

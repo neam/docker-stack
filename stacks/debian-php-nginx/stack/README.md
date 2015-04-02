@@ -12,7 +12,7 @@ Stacks - Debian PHP/Nginx
 Clone/download a copy of this repository and copy the boilerplate files to your 12-factor app base dir.
 
     cd my-app
-    docker-stack install debian-php-nginx.memcache
+    docker-stack install debian-php-nginx
 
 Optionally, generation your project php/nginx base configuration: [Follow these instructions](../../generators/server-config-generator/README.md)
 
@@ -33,14 +33,4 @@ Change and reload nginx configuration on-the-fly:
     docker exec -it $NGINX_CID /bin/bash
     nano /etc/nginx/nginx.conf
     nginx -s reload
-
-### Add your composer github token before building the "src" image
-
-    export COMPOSER_GITHUB_TOKEN=foofoofoofoofoofoofoofoofoofoo
-    echo $COMPOSER_GITHUB_TOKEN > composer.github.token
-    echo "composer.github.token" >> .gitignore
-
-### Using memcache
-
-TODO: Add instructions
 
