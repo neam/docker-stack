@@ -21,6 +21,7 @@ git config advice.detachedHead false
 git checkout "$REV"
 git branch -f "$BRANCH"
 git checkout "$BRANCH"
+cp .env.dist .env
 git submodule update --init --recursive
 
 exit 0
