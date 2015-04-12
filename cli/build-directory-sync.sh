@@ -21,7 +21,13 @@ git config advice.detachedHead false
 git checkout "$REV"
 git branch -f "$BRANCH"
 git checkout "$BRANCH"
-cp .env.dist .env
 git submodule update --init --recursive
+
+if [ ! -f .env ]; then
+  cp .env.dist .env
+fi
+if [ ! -f deploy/config/secrets.php ]; then
+  cp deploy/config/secrets.dist.php deploy/config/secrets.php
+fi
 
 exit 0
