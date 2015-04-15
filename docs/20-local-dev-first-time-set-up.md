@@ -33,11 +33,7 @@ In each new terminal session, run (preferably by adding to ~/.bashrc or similar)
 
     $(boot2docker shellinit)
 
-## Step 2 - Install app dependencies
-
-    docker-compose run builder stack/src/install-deps.sh
-
-## Step 3 - Initialize your local configuration file
+## Step 2 - Initialize your local configuration file
 
 Create your local configuration file for sensitive configuration directives:
 
@@ -45,11 +41,15 @@ Create your local configuration file for sensitive configuration directives:
 
 Open it up an make sure that all sensitive directives are correctly entered.
 
-## Step 4 - Run
+## Step 4 - Initialize and run
 
 Fire up your local docker stack:
 
-    docker-compose up
+    docker-compose up -d
+
+## Step 3 - Install app dependencies
+
+    docker-compose run builder stack/src/install-deps.sh
 
 ## Step 5 - Initialize the database with a relevant dataset
 
