@@ -18,7 +18,8 @@ set -x
 cd "$BUILD_DIR"
 git fetch
 git config advice.detachedHead false
-git checkout "$REV"
+git reset --hard "$REV"
+git submodule foreach --recursive git reset --hard
 git branch -f "$BRANCH"
 git checkout "$BRANCH"
 git submodule update --init --recursive
