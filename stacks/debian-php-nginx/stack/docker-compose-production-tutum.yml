@@ -1,76 +1,104 @@
-# Data only container that includes app source code at /app and generates
-# some configuration files generated based on env vars and composer.json.
-# /app is subsequently used as document root in php-fpm and nginx config
-src:
-  image: tutum.co/adoveo/adoveo-web-src:git-commit-%COMMITSHA%
-  volumes:
-   - /app
-  # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
-  tags:
-    - cluster
-  # Update the service when a new version is pushed to the registry
-  autoredeploy: true
-
-# Data read-write container to have a temporary file system available to stack
-# containers to support file uploads and other local file manipulations
-files:
-  image: neam/files-empty-data-container
-  volumes:
-   - /files
-  # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
-  tags:
-    - cluster
-  # Update the service when a new version is pushed to the registry
-  autoredeploy: true
+# Docker compose configuration for tutum deployment
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
-web:
-  image: nginx:1.7
+%VIRTUAL_HOST_BASED_WEB_SERVICE_NAME%: # A unique service name makes it easier to identify in tutum ui and api
+  image: tutum.co/adoveo/adoveo-web-src-nginx:git-commit-%COMMITSHA%
   links:
-    - src
-    - php
+    - phphaproxy
+    - phpfiles
 #    - memcached
   volumes_from:
-    - src
-    - files
+    - phpfiles
   expose:
     - "80"
     - "443"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
     VIRTUAL_HOST: %VIRTUAL_HOST%
+%ENVIRONMENT_YAML%
   command: "/app/stack/nginx/run.sh"
-  # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
-    - cluster
-  # Update the service when a new version is pushed to the registry
-  autoredeploy: true
+    - ec-%DEPLOY_STABILITY_TAG%
+    - files-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false
   # Container distribution among nodes
   deployment_strategy: high_availability
 
-# The php service for interpreting php code
-php:
-  image: neam/dna-project-base-debian-php:5.6.7-fpm
+# HA Proxy for php service scaling
+phphaproxy:
+  image: tutum/haproxy
   links:
-    - src
+    - phpha
+  environment:
+    BACKEND_PORT: 9000
+    FRONTEND_PORT: 9000
+    MODE: tcp
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
+  tags:
+    - ec-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false
+  # Container distribution among nodes
+  deployment_strategy: high_availability
+  # Enable full Tutum API access so that the container can reconfigure itself
+  roles:
+      - global
+
+# The elastically scalable php service for interpreting php code without access to /files
+phpha:
+  image: tutum.co/adoveo/adoveo-web-src-php:git-commit-%COMMITSHA%
+  links:
     - mailcatcher
+    - redisphpsessionhandler
 #    - memcached
-  volumes_from:
-    - src
-    - files
   expose:
    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'off'
 %ENVIRONMENT_YAML%
   command: "/app/stack/php/run.sh"
-  # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
-    - cluster
-  # Update the service when a new version is pushed to the registry
-  autoredeploy: true
+    - ec-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false
   # Container distribution among nodes
   deployment_strategy: high_availability
+
+redisphpsessionhandler:
+  image: redis
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
+  tags:
+    - ec-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false
+
+# The single-node php service for interpreting php code with read-write access to user-generated files
+# (to support file uploads and other local file manipulations)
+phpfiles:
+  image: tutum.co/adoveo/adoveo-web-src-php:git-commit-%COMMITSHA%
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+#    - memcached
+  volumes:
+    - /files
+  expose:
+   - "9000"
+  environment:
+    DISPLAY_PHP_ERRORS: 'off'
+%ENVIRONMENT_YAML%
+  command: "/app/stack/php/run.sh"
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
+  tags:
+    - ec-%DEPLOY_STABILITY_TAG%
+    - files-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false
+  # Container distribution among nodes
+  deployment_strategy: emptiest_node
 
 # Memcached server for serving cached contents via the nginx-memcache plugin
 #memcached:
@@ -85,41 +113,43 @@ mailcatcher:
     - "25"
   ports:
     - "1080"
-  # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
-    - cluster
-  # Update the service when a new version is pushed to the registry
-  autoredeploy: true
+    - ec-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false
 
 # Selenium...
 
 # Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the service
-tutumworker:
-  image: neam/php-app-worker:tutum-debian-jessie
-  volumes_from:
-    - src
-    - files
-  environment:
-    APP_DIR: /app
-    WORKER_CMD: /bin/bash echo "Hello"
-%ENVIRONMENT_YAML%
-  command: "/run-worker-cmd.sh"
-  # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
-  tags:
-    - cluster
+#tutumworker:
+#  image: neam/php-app-worker:tutum-debian-jessie
+#  environment:
+#    APP_DIR: /app
+#    WORKER_CMD: /bin/bash echo "Hello"
+#%EN VIRONMENT_YAML%
+#  command: "/run-worker-cmd.sh"
+#  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
+#  tags:
+#    - cluster
 
 # For SSH access to run worker tasks manually in the cluster
 worker:
   image: neam/php-app-worker:tutum-debian-jessie
+  links:
+    - phpfiles
+#    - memcached
   ports:
     - "22"
   volumes_from:
-    - src
-    - files
+    - phpfiles
   environment:
     APP_DIR: /app
     AUTHORIZED_KEYS: 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAzKWDevt+KE0pmpFmqBbInWHo8RSowTI2qddpjeEO0vylPVZ7BxE1qYSoA0yLN4R5LdJzE44A5DR5/Vb4ytnwbo1xewZzrdwZyC7oVnkJFYSoE9HKeZytyRoICPKcgSOzG90Db8s8RvP3pKlqavQW0nXUVeS3ydBaHtuWuUZjJsFDUwOtIK++eoMOES1phDIFqr1AGFXn2V8bhpAJHGGFbC7aCSSwZE5xo56dZJGSwDLJEn8M5zN9saktM1HIPsqw7HIN1fbqZLQGYP8cAmjIC7FOc6Xyj2rHyF7CpLW6VUxHr6Gg/mDgs1K8sVSe8gjwwogRIq7o+KK9xdW6LjvnNw== motin@Fredrik-Motins-Macbook-Pro-2014.local'
 %ENVIRONMENT_YAML%
-  # Set "cluster" deploy tag to ensure this container is launched inside a cluster and not on a publicly facing node)
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
-    - cluster
+    - ec-%DEPLOY_STABILITY_TAG%
+    - files-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false

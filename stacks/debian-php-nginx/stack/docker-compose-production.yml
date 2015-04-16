@@ -1,47 +1,42 @@
-# Data only container that includes app source code at /app and generates
-# some configuration files generated based on env vars and composer.json.
-# /app is subsequently used as document root in php-fpm and nginx config
-src:
-  image: user/project-src:git-commit-%COMMITSHA%
-  volumes:
-   - /app
-  working_dir: '/app'
-
-# Data read-write container to have a temporary file system available to stack
-# containers to support file uploads and other local file manipulations
-files:
-  image: neam/files-empty-data-container
-  volumes:
-   - /files
+# Docker compose configuration for production docker-host deployment
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
 web:
-  image: nginx:1.7
+  image: tutum.co/adoveo/adoveo-web-src-nginx:git-commit-%COMMITSHA%
   links:
-    - src
-    - php
+    - phphaproxy
+    - phpfiles
 #    - memcached
   volumes_from:
-    - src
-    - files
+    - phpfiles
   ports:
     - "80"
     - "443"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
+    VIRTUAL_HOST: %VIRTUAL_HOST%
+  env_file:
+   - %ENV_FILE_DIR%/.env
   working_dir: '/app'
   command: "/app/stack/nginx/run.sh"
 
-# The php service for interpreting php code
-php:
-  image: neam/debian-php:5.6.7-fpm
+# HA Proxy for php service scaling
+phphaproxy:
+  image: tutum/haproxy
   links:
-    - src
+    - phpha
+  environment:
+    BACKEND_PORT: 9000
+    FRONTEND_PORT: 9000
+    MODE: tcp
+
+# The elastically scalable php service for interpreting php code without access to /files
+phpha:
+  image: tutum.co/adoveo/adoveo-web-src-php:git-commit-%COMMITSHA%
+  links:
     - mailcatcher
+    - redisphpsessionhandler
 #    - memcached
-  volumes_from:
-    - src
-    - files
   ports:
    - "9000"
   environment:
@@ -51,3 +46,37 @@ php:
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
+redisphpsessionhandler:
+  image: redis
+
+# The single-node php service for interpreting php code with read-write access to user-generated files
+# (to support file uploads and other local file manipulations)
+phpfiles:
+  image: tutum.co/adoveo/adoveo-web-src-php:git-commit-%COMMITSHA%
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+#    - memcached
+  ports:
+   - "9000"
+  environment:
+    DISPLAY_PHP_ERRORS: 'off'
+  env_file:
+   - %ENV_FILE_DIR%/.env
+  working_dir: '/app'
+  command: "/app/stack/php/run.sh"
+
+# Memcached server for serving cached contents via the nginx-memcache plugin
+#memcached:
+#  image: memcached:1.4.22
+#  ports:
+#    - "11211"
+
+# Mailcatcher server for catching outgoing email when not in production
+mailcatcher:
+  image: nisenabe/mailcatcher
+  ports:
+    - "25"
+    - "1080"
+
+# Selenium...
