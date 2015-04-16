@@ -23,9 +23,7 @@
 #
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
-# Awaiting PR
-FROM neam/tutum-debian-jessie
-#FROM tutum/debian:jessie
+FROM tutum/debian:jessie
 
 # Prepare Debian environment
 ENV DEBIAN_FRONTEND noninteractive
