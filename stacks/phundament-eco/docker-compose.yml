@@ -1,0 +1,17 @@
+#
+# Local stack: phundament-eco
+#
+reverseproxy:
+    image: jwilder/nginx-proxy
+    ports:
+        - 80:80
+    volumes:
+        - /var/run/docker.sock:/tmp/docker.sock
+
+db:
+    image: mariadb
+    environment:
+        MYSQL_ROOT_PASSWORD: CHANGE_ME_CHANGE_ME_CHANGE_ME_NOW
+
+redis:
+    image: redis
