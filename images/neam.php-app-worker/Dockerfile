@@ -4,6 +4,9 @@
 #
 # Includes:
 #  - Node.js 0.10
+#  - Git (incl Git Flow and Git Svn)
+#  - Mercurial
+#  - Subversion
 #  - MySQL Client
 #  - S3cmd
 #  - Curl
@@ -20,9 +23,7 @@
 #
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
-# Awaiting PR
-FROM neam/tutum-debian-jessie
-#FROM tutum/debian:jessie
+FROM tutum/debian:jessie
 
 # Prepare Debian environment
 ENV DEBIAN_FRONTEND noninteractive
@@ -54,6 +55,13 @@ RUN apt-get install -y -q \
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \
   echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
   apt-get install -y nodejs=0.10.*
+
+# Version control systems
+RUN apt-get install -y -q \
+        git-flow \
+        git-svn \
+        mercurial \
+        subversion
 
 # Database clients
 RUN apt-get install -y -q \

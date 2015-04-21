@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# show commands
+set -x
+
 # fail on any error
 set -o errexit
 

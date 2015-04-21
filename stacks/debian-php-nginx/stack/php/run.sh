@@ -17,6 +17,9 @@ cp /app/stack/php/php-fpm.conf /etc/php5/fpm/php-fpm.conf
 # Setup config variables only available at runtime
 sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/php5/fpm/conf.d/app.ini
 
+# Make sure files data media directory exists
+mkdir -p /files/$DATA/media
+
 if [ "$RUNNING_LOCALLY" == "1" ]; then
 
 for configfile in /app/stack/php/conf.d-local/*; do
@@ -32,6 +35,7 @@ done
 else
 
   # Prepare writable directories - TODO: Prevent app from writing to /app
+  chmod -R 777 /files/$DATA/media
   chmod -R 777 /app/foo/app/runtime
   chmod -R 777 /app/foo/www/assets
 

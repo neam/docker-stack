@@ -1,0 +1,19 @@
+# Docker compose configuration for tutum deployment router
+
+public%DEPLOY_STABILITY_TAG%:
+  image: tutum/haproxy
+  links:
+    - %VIRTUAL_HOST_BASED_WEB_SERVICE_NAME%
+  environment:
+    # Set 100k instead of default 4096 since we have experienced 7-20k simultaneous connections during a single campaign
+    MAXCONN: 100000
+  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
+  tags:
+    - public-%DEPLOY_STABILITY_TAG%
+  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
+  autoredeploy: false
+  # Container distribution among nodes
+  deployment_strategy: high_availability
+  # Enable full Tutum API access so that the container can reconfigure itself
+  roles:
+      - global
