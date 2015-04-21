@@ -32,7 +32,7 @@ RUN pecl install apcu-beta && echo extension=apcu.so > /usr/local/etc/php/conf.d
 
 # Install composer
 ENV PATH /root/.composer/vendor/bin:$PATH
-RUN curl -sS https://getcomposer.org/installer | php && \
+RUN curl -sS https://getcomposer.org/installer | php -- --version=1.0.0-alpha10 && \
     mv composer.phar /usr/local/bin/composer && \
-    composer global require "fxp/composer-asset-plugin:1.0.0" && \
+    composer global require "fxp/composer-asset-plugin:1.0.*" && \
     composer global dumpautoload --optimize
