@@ -16,10 +16,12 @@ yii2: php-nginx
 	docker build -t schmunk42/php:5.6-cli-yii-2.0.3-app-basic       images/php-nginx.yii2/php-cli-app-basic
 	# TODO: build process hangs with hhvm image --- docker build -t schmunk42/hhvm:3.5-cli-yii-2.0.3-app-basic      images/php-nginx.yii2/hhvm-cli-app-basic
 
+phundament: export version=4.0.0-beta13.1
 phundament: yii2
-	docker build -t phundament/php:5.6-fpm-4.0.0         images/php-nginx.yii2.phundament/php-fpm
-	docker build -t phundament/php:5.6-cli-4.0.0-prod    images/php-nginx.yii2.phundament/php-cli-prod
-	docker build -t phundament/php:5.6-cli-4.0.0-dev     images/php-nginx.yii2.phundament/php-cli-dev
+	docker build -t phundament/php:5.6-fpm-$(version)         images/php-nginx.yii2.phundament/php-fpm
+	docker build -t phundament/php:5.6-cli-$(version)-prod    images/php-nginx.yii2.phundament/php-cli-prod
+	docker build -t phundament/php:5.6-cli-$(version)-dev     images/php-nginx.yii2.phundament/php-cli-dev
+	docker tag -f phundament/php:5.6-cli-$(version)-dev phundament/php:latest
 
 test: test-stack-php-nginx-vanilla-mount test-stack-php-nginx
 

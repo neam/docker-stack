@@ -4,7 +4,7 @@
 # CLI tools (prod)
 #
 
-FROM schmunk42/php:5.6-cli-yii-2.0.3-app-basic
+FROM schmunk42/php:5.6-cli-yii-2.0.3-runtime
 MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 ENV IMAGE PHUNDAMENT_PHP_CLI_PROD
 

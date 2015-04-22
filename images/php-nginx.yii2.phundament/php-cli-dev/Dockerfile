@@ -58,5 +58,6 @@ RUN composer create-project --prefer-dist \
 WORKDIR /app
 ENV APP_ENABLE_AUTOMIGRATIONS 1
 
+# Display informational message, you can keep this container running with `tail -f /dev/null`
+CMD ["echo", "Phundament CLI and app-source container"]
 
-CMD ["/app/yii"]
