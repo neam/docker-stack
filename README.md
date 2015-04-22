@@ -11,7 +11,7 @@ Uses [Docker Compose, Docker Machine and Docker 1.5.0+](http://blog.docker.com/2
 
 Enables easy app-specific orchestration of dockerized services (databases, mail servers, task runners, message queues etc)
 
-The stack can be deployed to any docker host/swarm or [the container platform service Tutum](https://tutum.com).
+The stack can be deployed to any docker host/swarm or orchestrated via [the container platform service Tutum](https://tutum.com).
 
 
 Requirements
