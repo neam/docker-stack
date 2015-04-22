@@ -1,19 +1,32 @@
 # Docker compose configuration for tutum deployment router
 
-public%DEPLOY_STABILITY_TAG%:
-  image: tutum/haproxy
+router%DEPLOY_STABILITY_TAG%:
+  image: neam/tutum-haproxy-awaiting-prs
   links:
-    - %VIRTUAL_HOST_BASED_WEB_SERVICE_NAME%
+    - %VIRTUAL_HOST_BASED_WEB_SERVICE_NAME_1%
+    - %VIRTUAL_HOST_BASED_WEB_SERVICE_NAME_2%
+    - %VIRTUAL_HOST_BASED_WEB_SERVICE_NAME_3%
+    - %VIRTUAL_HOST_BASED_WEB_SERVICE_NAME_etc%
+  ports:
+    - "80"
+    - "443"
+    - "8088"
   environment:
     # Set 100k instead of default 4096 since we have experienced 7-20k simultaneous connections during a single campaign
     MAXCONN: 100000
+    # Some sort of protection for the stats endpoint
+    STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
+    # Set to adoveo's papertrailapp destination
+    RSYSLOG_DESTINATION: logs2.papertrailapp.com:54648
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - public-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: on_failure
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
   # Container distribution among nodes
-  deployment_strategy: high_availability
+  deployment_strategy: every_node
   # Enable full Tutum API access so that the container can reconfigure itself
   roles:
       - global

@@ -9,7 +9,7 @@
 #    - memcached
   volumes_from:
     - phpfiles
-  expose:
+  ports:
     - "80"
     - "443"
   environment:
@@ -38,6 +38,9 @@ phphaproxy:
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
+    - not-files-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: on_failure
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
   # Container distribution among nodes
@@ -62,6 +65,9 @@ phpha:
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
+    - not-files-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: on_failure
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
   # Container distribution among nodes
@@ -72,6 +78,9 @@ redisphpsessionhandler:
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
+    - not-files-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: on_failure
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
 
@@ -95,6 +104,8 @@ phpfiles:
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
     - files-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: on_failure
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
   # Container distribution among nodes
@@ -116,6 +127,9 @@ mailcatcher:
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
+    - not-files-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: on_failure
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
 
@@ -123,7 +137,7 @@ mailcatcher:
 
 # Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the service
 #tutumworker:
-#  image: neam/php-app-worker:tutum-debian-jessie
+#  image: neam/php-app-worker:0.2.0
 #  environment:
 #    APP_DIR: /app
 #    WORKER_CMD: /bin/bash echo "Hello"
@@ -135,7 +149,7 @@ mailcatcher:
 
 # For SSH access to run worker tasks manually in the cluster
 worker:
-  image: neam/php-app-worker:tutum-debian-jessie
+  image: neam/php-app-worker:0.2.0
   links:
     - phpfiles
 #    - memcached
@@ -151,5 +165,7 @@ worker:
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
     - files-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: on_failure
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false

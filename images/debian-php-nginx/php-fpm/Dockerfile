@@ -1,9 +1,9 @@
-# Dockerfile for PHP-FPM 5.6.6 built for PHP/Nginx/Memcache docker-stack
+# Dockerfile for PHP-FPM 5.6.7 built for PHP/Nginx/Memcache docker-stack
 # ===============================================================
-#   docker build -f Dockerfile-base -t neam/debian-php:5.6.7-fpm .
+#   docker build -f Dockerfile -t neam/debian-php:5.6.7-fpm .
 #   docker push neam/debian-php:5.6.7-fpm
 
-FROM debian:jessie
+FROM tutum/debian:jessie
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
