@@ -13,7 +13,7 @@ Select a stack:
 
 Fire up the stack:
 
-    docker-compose start
+    docker-compose up -d
     docker-stack local url
 
 Any other necessary instructions (if any) are found in each stack's README.
@@ -26,13 +26,18 @@ You can either fork the docker-stack repository and customize the files directly
 
     docker-stack install <stack-name>
 
+## The .docker-stack file
+
+The .docker-stack file is found in every stack and contains paths to the different yaml files used to describe the stack:
+ 
+ * `LOCAL_STACK_YML` - Docker compose configuration file for local development
+ * `PRODUCTION_STACK_YML` - Docker compose configuration file for portable deployment of the app on any docker host
+ * `TUTUM_STACK_YML` - Tutum stack yaml configuration file for portable deployment of the app using Tutum
+
 ## The general structure of existing stacks found in this repo
 
- * `docker-compose.yml` or `stack/local.yml` - Docker compose configuration file for local development
- * `stack/deploy.yml` - Docker compose configuration file for portable deployment of the app on any docker host
- * `stack/deploy-tutum.yml` - Docker compose configuration file for portable deployment of the app using Tutum
- * `stack/{container-type}/*` - Project-specific configuration files used by your stack
- * `stack/codebase/install-deps.sh` - Project-specific script for installation of dependencies
+ * `stack/{container-type}/*` - Configuration files used by your stack's containers
+ * `stack/src/install-deps.sh` - Project-specific script for installation of dependencies
 
 The container that exposes port 80 to the end-user should be called `web`.
 
