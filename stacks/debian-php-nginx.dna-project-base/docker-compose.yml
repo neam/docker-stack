@@ -100,7 +100,7 @@ builder:
   working_dir: '/app'
   command: "true"
 
-# A container to run tester commands locally
+# A container to run tester commands locally - start a shell by running stack/tester-shell.sh
 tester:
   #build: vendor/neam/docker-stack/base-images/php-app-tester/
   image: neam/php-app-tester:0.2.0
@@ -112,7 +112,7 @@ tester:
   working_dir: '/app'
   command: "true"
 
-# A container to run worker/administration commands locally
+# A container to run worker/administration commands locally - start a shell by running stack/shell.sh
 worker:
   #build: vendor/neam/docker-stack/base-images/php-app-worker/
   image: neam/php-app-worker:0.2.0

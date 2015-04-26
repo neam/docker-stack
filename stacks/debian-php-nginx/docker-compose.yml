@@ -74,42 +74,6 @@ mailcatcher:
     - "25"
     - "1080"
 
-# A container to run builder commands locally
-builder:
-  #build: vendor/neam/docker-stack/base-images/php-app-builder/
-  image: neam/php-app-builder:0.2.0
-  volumes:
-    - .:/app:rw
-    - .files:/files:rw
-    - ../set-deployment-target.inc.sh:/set-deployment-target.inc.sh
-    - ../.git:/.git
-    - ~/.composer:/root/.composer
-    - ~/.ssh:/root/.ssh:ro
-  working_dir: '/app'
-  command: "true"
-
-# A container to run tester commands locally
-tester:
-  #build: vendor/neam/docker-stack/base-images/php-app-tester/
-  image: neam/php-app-tester:0.2.0
-  links:
-    - web
-  volumes:
-    - .:/app:rw
-    - .files:/files:rw
-  working_dir: '/app'
-  command: "true"
-
-# A container to run worker/administration commands locally
-worker:
-  #build: vendor/neam/docker-stack/base-images/php-app-worker/
-  image: neam/php-app-worker:0.2.0
-  volumes:
-    - .:/app:rw
-    - .files:/files:rw
-  working_dir: '/app'
-  command: "true"
-
 # A container that is linked to and thus can output linked information about running containers locally
 info:
   image: debian:jessie
@@ -121,8 +85,5 @@ info:
     - phphaproxy
     - phpha
     - phpfiles
-    - builder
-    - tester
-    - worker
   working_dir: '/app'
   command: "true"

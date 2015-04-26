@@ -1,7 +1,7 @@
-# Project php docker image with source code
+# Project nginx docker image with source code
 # --------------------------------
 
-FROM neam/debian-php:5.6.7-fpm
+FROM nginx:1.7
 
 # Add source code to /src
 COPY . /app
