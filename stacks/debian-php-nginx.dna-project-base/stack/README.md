@@ -1,13 +1,53 @@
 Stacks - PHP/Nginx/Memcache - DNA Project Base
 ===================================
 
+## Features
+
+* Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
+* Uses a Debian-derived PHP-FPM container and the official Nginx Docker containers
+* Includes boilerplate configuration with Docker-specific enhancements
+* Includes both a PHP "files" container which uses a /files volume for stored user-uploaded files, and a PHP "ha" container which is not supposed to use any data volumes and thus can be scaled elastically
+* Compatible with deployment routines explained in [https://github.com/neam/yii-dna-deployment](https://github.com/neam/yii-dna-deployment)
+
 ## Installation
 
 Clone/download a copy of this repository and copy the boilerplate files to your 12-factor app base dir.
 
     cd my-app
-    docker-stack install debian-php-nginx.memcache
+    docker-stack install debian-php-nginx
     docker-stack install debian-php-nginx.memcache.dna-project-base
+
+Optionally, generation your project php/nginx base configuration: [Follow these instructions](../../generators/server-config-generator/README.md)
+
+Add your project php/nginx configuration includes to the `stack/nginx/` and `stack/php/` directories.
+
+## Usage
+
+To try this stack out-of-the-box after installing it, create the index php file expected by the default configuration:
+
+    mkdir -p foo/www
+    echo '<?php phpinfo();' > foo/www/index.php
+
+Also, you need the local files directory and the DATA environment variable to indicate where local files are stored:
+
+    mkdir -p .files/foo/media
+    echo 'DATA=foo' >> .env
+
+Fire up the stack locally:
+
+    docker-compose up -d
+
+Visit the below returned url in your browser:
+
+    docker-stack local url
+
+> Hint: On OSX, you can open the url directly from a terminal session:
+>
+>    open $(docker-stack local url)
+
+To scale the PHP "ha" service:
+
+    docker-compose scale phpha=3
 
 ## Local Extras
 
@@ -15,15 +55,13 @@ The local stack include optional containers that emulate upstream services outsi
 
 ### Explanation of the extra local containers
 
-* `db` - Runs a local MariaDB docker container with persistent data
+* (TODO) `db` - Runs a local MariaDB docker container with persistent data
 * `mailcatcher` - Runs a mailcatcher SMTP server
-* `proxy` - Runs a nginx reverse proxy using the configuration found in `project root``/../proxy`.
 
 ### Corresponding services in production
 
-* `db` - A cloud database service such as Amazon RDS, Rackspace Cloud DB, ClearDB etc
+* (TODO) `db` - A cloud database service such as Amazon RDS, Rackspace Cloud DB, ClearDB etc
 * `mailcatcher` - An SMTP service such as Gmail, Amazon Simple Mail Service, Foo etc
-* `proxy` - A reverse proxy or other routing layer on the server(s) that your public DNS is connected to
 
 ### Using memcache
 

@@ -7,15 +7,12 @@ web:
     - phphaproxy
     - phpfiles
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
-    - .files:/files:rw
+    - .:/app:rw
   ports:
     - "80"
     - "443"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
-  env_file:
-    - .env
   working_dir: '/app'
   command: "/app/stack/nginx/run.sh"
 
@@ -36,7 +33,7 @@ phpha:
     - mailcatcher
     - redisphpsessionhandler
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
   ports:
     - "9000"
   environment:
@@ -58,7 +55,7 @@ phpfiles:
     - mailcatcher
     - redisphpsessionhandler
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   ports:
     - "9000"
@@ -82,7 +79,7 @@ builder:
   #build: vendor/neam/docker-stack/base-images/php-app-builder/
   image: neam/php-app-builder:0.2.0
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
     - ../set-deployment-target.inc.sh:/set-deployment-target.inc.sh
     - ../.git:/.git
@@ -98,7 +95,7 @@ tester:
   links:
     - web
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   working_dir: '/app'
   command: "true"
@@ -108,7 +105,7 @@ worker:
   #build: vendor/neam/docker-stack/base-images/php-app-worker/
   image: neam/php-app-worker:0.2.0
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   working_dir: '/app'
   command: "true"
@@ -117,7 +114,7 @@ worker:
 info:
   image: debian:jessie
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   links:
     - web

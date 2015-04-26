@@ -6,6 +6,7 @@ Stacks - Debian PHP/Nginx
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
 * Uses a Debian-derived PHP-FPM container and the official Nginx Docker containers
 * Includes boilerplate configuration with Docker-specific enhancements
+* Includes both a PHP "files" container which uses a /files volume for stored user-uploaded files, and a PHP "ha" container which is not supposed to use any data volumes and thus can be scaled elastically
 
 ## Installation
 
@@ -25,10 +26,9 @@ To try this stack out-of-the-box after installing it, create the index php file 
     mkdir -p foo/www
     echo '<?php phpinfo();' > foo/www/index.php
 
-Also, you need the local files directory and the DATA environment variable to indicate where local files are stored:
+Also, you need a local `.env` where environment variables are specified which will be available to the PHP containers:
 
-    mkdir -p .files/foo/media
-    echo 'DATA=foo' >> .env
+    echo 'FOO=bar' >> .env
 
 Fire up the stack locally:
 
@@ -42,3 +42,6 @@ Visit the below returned url in your browser:
 >
 >    open $(docker-stack local url)
 
+To scale the PHP "ha" service:
+
+    docker-compose scale phpha=3
