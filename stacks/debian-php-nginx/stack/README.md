@@ -20,17 +20,25 @@ Add your project php/nginx configuration includes to the `stack/nginx/` and `sta
 
 ## Usage
 
-### Useful general commands
+To try this stack out-of-the-box after installing it, create the index php file expected by the default configuration:
 
-Change and reload php configuration on-the-fly:
+    mkdir -p foo/www
+    echo '<?php phpinfo();' > foo/www/index.php
 
-    docker exec -it $PHPFPM_CID /bin/bash
-    nano /usr/local/etc/php/php-fpm.ini
-    kill -USR2 $(ps aux | grep 'php-fpm: master process' | grep -v grep | awk '{ print $2 }')
+Also, you need the local files directory and the DATA environment variable to indicate where local files are stored:
 
-Change and reload nginx configuration on-the-fly:
+    mkdir -p .files/foo/media
+    echo 'DATA=foo' >> .env
 
-    docker exec -it $NGINX_CID /bin/bash
-    nano /etc/nginx/nginx.conf
-    nginx -s reload
+Fire up the stack locally:
+
+    docker-compose up -d
+
+Visit the below returned url in your browser:
+
+    docker-stack local url
+
+> Hint: On OSX, you can open the url directly from a terminal session:
+>
+>    open $(docker-stack local url)
 

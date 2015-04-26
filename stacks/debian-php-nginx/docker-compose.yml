@@ -15,7 +15,7 @@ web:
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
   env_file:
-   - .env
+    - .env
   working_dir: '/app'
   command: "/app/stack/nginx/run.sh"
 
@@ -38,12 +38,12 @@ phpha:
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
   ports:
-   - "9000"
+    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'on'
     RUNNING_LOCALLY: '1'
   env_file:
-   - .env
+    - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
@@ -61,12 +61,12 @@ phpfiles:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
   ports:
-   - "9000"
+    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'on'
     RUNNING_LOCALLY: '1'
   env_file:
-   - .env
+    - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
@@ -86,8 +86,8 @@ builder:
     - .files:/files:rw
     - ../set-deployment-target.inc.sh:/set-deployment-target.inc.sh
     - ../.git:/.git
-   - ~/.composer:/root/.composer
-   - ~/.ssh:/root/.ssh:ro
+    - ~/.composer:/root/.composer
+    - ~/.ssh:/root/.ssh:ro
   working_dir: '/app'
   command: "true"
 
