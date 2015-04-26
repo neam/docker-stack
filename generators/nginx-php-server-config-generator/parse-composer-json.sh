@@ -67,6 +67,10 @@ function package_php_includes() {
     jq --raw-output ".extra.${composer_extra_key}[\"php-includes\"] // [] | .[]" < "$BUILD_DIR/composer.json"
 }
 
+function package_php_service() {
+    jq --raw-output ".extra.${composer_extra_key}[\"php-service\"] // \"php\"" < "$BUILD_DIR/composer.json"
+}
+
 function package_nginx_includes() {
     jq --raw-output ".extra.${composer_extra_key}[\"nginx-includes\"] // [] | .[]" < "$BUILD_DIR/composer.json"
 }
@@ -114,6 +118,7 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   FRAMEWORK="$(package_framework)"
   PHP_EXTRA_CONFIG="$(package_php_config)"
   PHP_INCLUDES="$(package_php_includes)"
+  PHP_SERVICE="$(package_php_service)"
   COMPILE_CMD="$(package_compile_cmd)"
   NGINX_INCLUDES="$(package_nginx_includes)"
   NGINX_LOCATIONS="$(package_nginx_locations)"
@@ -122,7 +127,7 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   NEWRELIC_ENABLED="$(package_newrelic_enabled)"
 
   # Serialize the data
-  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT NEWRELIC_ENABLED > "$BUILD_DIR/stack/.serialized_composer_json_data.sh"
+  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES PHP_SERVICE COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT NEWRELIC_ENABLED > "$BUILD_DIR/stack/.serialized_composer_json_data.sh"
 
   status "Done! Results saved in $BUILD_DIR/stack/.serialized_composer_json_data.sh"
 

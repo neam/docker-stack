@@ -19,7 +19,7 @@ location ~ \.php {
     fastcgi_buffers 256 4k;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     fastcgi_param HTTPS $proxied_https;
-    fastcgi_pass php;
+    fastcgi_pass <%= ENV['PHP_SERVICE'] %>;
 }
 
 <% require 'rubygems' %>
@@ -46,7 +46,7 @@ location ~ \.php {
             fastcgi_buffers 256 4k;
             fastcgi_param SCRIPT_FILENAME $request_filename;
             fastcgi_param HTTPS $proxied_https;
-            fastcgi_pass php;
+            fastcgi_pass <%= location["php-service"] %>;
         }
 
     <% if location.has_key? "nginx-includes" %>

@@ -12,10 +12,6 @@ Example:
     "extra": {
         "server": {
             "framework": "yii-dna",
-            "engines": {
-                "php": "5.5.15",
-                "nginx": "1.4.4"
-            },
             "php-config": [
                 "upload_max_filesize=200M",
                 "post_max_size=200M",
@@ -28,29 +24,34 @@ Example:
                 "display_errors=${DISPLAY_PHP_ERRORS}",
                 "short_open_tag=on"
             ],
-            "document-root": "ui/frontend/web",
+            "document-root": "frontend/www",
             "index-document": "index.php",
             "memcached-key-prefix": "frontend",
+            "php-service": "phpha",
             "nginx-includes": [
                 "stack/nginx/include/location-defaults.conf"
             ],
             "nginx-locations": [
                 {
+                    "location": "/backend/",
+                    "document-root": "backend/www",
+                    "index-document": "index.php",
+                    "php-service": "phpfiles",
+                    "memcached-key-prefix": "backend",
+                    "nginx-includes": [
+                        "stack/nginx/include/location-defaults.conf"
+                    ]
+                },
+                {
                     "location": "/api/",
                     "document-root": "external-apis/rest-api/www",
                     "index-document": "index.php",
+                    "php-service": "phpha",
                     "memcached-key-prefix": "api",
                     "nginx-includes": [
                         "stack/nginx/include/location-defaults.conf"
                     ]
                 }
-            ],
-            "newrelic": false,
-            "log-files": [
-                "ui/frontend/app/runtime/application.log",
-                "external-apis/rest-api/app/runtime/application.log",
-                "/var/log/newrelic.log",
-                "/var/log/error.log",
             ]
         }
     },
