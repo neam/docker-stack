@@ -8,7 +8,7 @@ script_path=`dirname $0`
 cd $script_path/..
 
 # set config
-DBREF=adoveo
+DBREF=default
 
 # run actual commands
 cd ../docker-md-plugin/
