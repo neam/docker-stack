@@ -11,13 +11,13 @@ cd $script_path/..
 DBREF=default
 
 # run actual commands
-cd ../docker-md-plugin/
-./commands mariadb:create $DBREF
-MD_DATABASE_PORT=$(cat .mariadb/port_$DBREF)
-MD_DATABASE_PASSWORD=$(cat .mariadb/pwd_$DBREF)
+cd ../docker-persistent-db/
+./commands db:create $DBREF
+LOCAL_DATABASE_PORT=$(cat .db/port_$DBREF)
+LOCAL_DATABASE_PASSWORD=$(cat .db/pwd_$DBREF)
 cd -
 
-docker-compose run builder stack/db-set-local-config.sh $MD_DATABASE_PORT $MD_DATABASE_PASSWORD
+docker-compose run builder stack/db-set-local-config.sh $LOCAL_DATABASE_PORT $LOCAL_DATABASE_PASSWORD
 
 echo "Database ready and configured for local development"
 
