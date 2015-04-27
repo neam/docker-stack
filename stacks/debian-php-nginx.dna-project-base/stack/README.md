@@ -23,7 +23,7 @@ Clone/download a copy of this repository and copy the boilerplate files to your 
 
     cd my-app
     docker-stack install debian-php-nginx
-    docker-stack install debian-php-nginx.memcache.dna-project-base
+    docker-stack install debian-php-nginx.dna-project-base
 
 Optionally, generation your project php/nginx base configuration: [Follow these instructions](../../generators/server-config-generator/README.md)
 
