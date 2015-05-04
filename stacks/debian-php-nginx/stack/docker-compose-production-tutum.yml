@@ -7,8 +7,6 @@
     - phphaproxy
     - phpfiles
 #    - memcached
-  volumes_from:
-    - phpfiles
   ports:
     - "80"
     - "443"
@@ -20,9 +18,13 @@
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
-    - files-%DEPLOY_STABILITY_TAG%
+    - not-files-%DEPLOY_STABILITY_TAG%
+  # Auto-restart in case container dies unexpectedly
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
+  # Seqential deployment so that changes can be re-deployed without too much service interruption
+  sequential_deployment: true
   # Container distribution among nodes
   deployment_strategy: high_availability
 
@@ -35,12 +37,17 @@ phphaproxy:
     BACKEND_PORT: 9000
     FRONTEND_PORT: 9000
     MODE: tcp
+    # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
+    STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
+  ports:
+    - "9000"
+    - "1936"
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
     - not-files-%DEPLOY_STABILITY_TAG%
   # Auto-restart in case container dies unexpectedly
-  autorestart: on_failure
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
   # Container distribution among nodes
@@ -56,7 +63,7 @@ phpha:
     - mailcatcher
     - redisphpsessionhandler
 #    - memcached
-  expose:
+  ports:
    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'off'
@@ -67,20 +74,24 @@ phpha:
     - ec-%DEPLOY_STABILITY_TAG%
     - not-files-%DEPLOY_STABILITY_TAG%
   # Auto-restart in case container dies unexpectedly
-  autorestart: on_failure
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
+  # Seqential deployment so that changes can be re-deployed without too much service interruption
+  sequential_deployment: true
   # Container distribution among nodes
   deployment_strategy: high_availability
 
 redisphpsessionhandler:
   image: redis
+  ports:
+   - "6379"
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
     - not-files-%DEPLOY_STABILITY_TAG%
   # Auto-restart in case container dies unexpectedly
-  autorestart: on_failure
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
 
@@ -94,7 +105,7 @@ phpfiles:
 #    - memcached
   volumes:
     - /files
-  expose:
+  ports:
    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'off'
@@ -105,7 +116,7 @@ phpfiles:
     - ec-%DEPLOY_STABILITY_TAG%
     - files-%DEPLOY_STABILITY_TAG%
   # Auto-restart in case container dies unexpectedly
-  autorestart: on_failure
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
   # Container distribution among nodes
@@ -129,7 +140,7 @@ mailcatcher:
     - ec-%DEPLOY_STABILITY_TAG%
     - not-files-%DEPLOY_STABILITY_TAG%
   # Auto-restart in case container dies unexpectedly
-  autorestart: on_failure
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
 
@@ -166,6 +177,6 @@ worker:
     - ec-%DEPLOY_STABILITY_TAG%
     - files-%DEPLOY_STABILITY_TAG%
   # Auto-restart in case container dies unexpectedly
-  autorestart: on_failure
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
