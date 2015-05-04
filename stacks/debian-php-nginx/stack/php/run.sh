@@ -47,7 +47,9 @@ done
 else
 
   # Prepare writable directories
+  cd /app
   /app/stack/src/set-writable-remote.sh
+  cd -
 
 fi
 
