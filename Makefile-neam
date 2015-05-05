@@ -1,0 +1,31 @@
+
+# workaround for default action
+neam: build-neam
+
+build-neam: debian-php-nginx neam.php-app-images
+
+debian-php-nginx:
+	docker build -t neam/debian-php:5.6.7-fpm         images/debian-php-nginx/php-fpm
+
+neam.php-app-images: debian-php-nginx
+	docker build -t neam/php-app-builder  images/neam.php-app-builder
+	docker build -t neam/php-app-tester   images/neam.php-app-tester
+	docker build -t neam/php-app-worker   images/neam.php-app-worker
+
+neam.dna-project-base: debian-php-nginx
+  docker build -t neam/dna-project-base-debian-php:5.6.7-fpm  stacks/debian-php-nginx.dna-project-base/stack/php/image
+
+release-neam: export version=0.2.0
+release-neam: build-neam
+	echo "Tagging neam images as version $(version)"
+	docker tag -f neam/debian-php:5.6.7-fpm neam/debian-php:5.6.7-fpm-$(version)
+	docker tag -f neam/php-app-builder neam/php-app-builder:$(version)
+	docker tag -f neam/php-app-tester neam/php-app-tester:$(version)
+	docker tag -f neam/php-app-worker neam/php-app-worker:$(version)
+	docker tag -f neam/dna-project-base-debian-php:5.6.7-fpm neam/dna-project-base-debian-php:5.6.7-fpm-$(version)
+	echo "Pushing neam images to Docker Hub..."
+	docker push neam/debian-php:5.6.7-fpm-$(version)
+	docker push neam/php-app-builder:$(version)
+	docker push neam/php-app-tester:$(version)
+	docker push neam/php-app-worker:$(version)
+	docker push neam/dna-project-base-debian-php:5.6.7-fpm-$(version)

@@ -130,6 +130,7 @@ This section includes boilerplate documentation for developers to hack on a proj
 - TODO: [Working with tests](docs/24-local-dev-working-with-tests.md)
 - TODO: [Code generation](docs/25-local-dev-code-generation.md)
 - [Pulling in changes from team mates](docs/21-local-dev-pulling-in-changes-from-team-mates.md)
+- [Building Images](docs/71-building-images.md)
 
 
 Distribute
