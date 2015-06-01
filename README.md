@@ -13,7 +13,6 @@ Enables easy app-specific orchestration of dockerized services (databases, mail 
 
 The stack can be deployed to any docker host/swarm or orchestrated via [the container platform service Tutum](https://tutum.com).
 
-
 Requirements
 ------------
 
@@ -23,71 +22,17 @@ Requirements
  * git
  * a *nix shell (Windows users: Try Cygwin or Git bash)
 
+What is a stack?
+----------------
 
-Installation
-------------
+> A stack is a collection of services that make up an application in a specific environment. A stack file is a file in YAML format that define one or more services. The YAML reference is documented here.
 
-Clone and symlink to /usr/local/bin/:
+> A stack is a convenient way to automate the deployment of multiple services that are linked to each other, without the need to define one by one.
 
-    git clone https://github.com/neam/docker-stack
-    cd docker-stack
-    ln -s $(pwd)/cli/docker-stack /usr/local/bin/docker-stack
+> As stack files also define environment variables and related environment-specific configuration, it is recommended to use one stack file per environment (dev, test, prod...).
 
+See [tutum documentation](https://support.tutum.co/support/solutions/articles/5000569899-stacks)
 
-Quick start - Example Yii 2
----------------------------
-
-    composer create-project --prefer-dist yiisoft/yii2-app-basic:2.0.3 myapp
-    cd myapp
-    docker-stack install yii2
-    docker-compose up -d
-    docker-stack local url
-
-> Hint: On OSX, you can open the url directly from a terminal session:
->
->    open $(docker-stack local url)
-
-Usage
------
-
-Cd into your app directory:
-
-    cd myapp
-
-List available stacks:
-
-    docker-stack list
-
-Select or install a stack:
-
-    docker-stack select <stack-name>
-    docker-stack install <stack-name>
-
-Fire up the stack locally:
-
-    docker-compose up -d
-
-Visit the below returned url in your browser:
-
-    docker-stack local url
-
-> Hint: On OSX, you can open the url directly from a terminal session:
->
->    open $(docker-stack local url)
-
-Build images for production deployment:
-
-    docker-stack production build
-
-Push built images:
-
-    docker-stack production build
-
-On a production docker host:
-
-    git clone myapp.git
-    cd myapp
-    docker-stack production start
 
 Why `docker-stack`?
 -------------------
@@ -100,13 +45,24 @@ As a member of a developer team, the stack enables you to ditch Vagrant/Puppet/C
 Includes sample documentation on how to use the stack for a wide range of web app development workflows, ranging from setting up the project for new developers to debugging software bugs in production.
 
 
-Stacks
-------
+Command-line tools
+------------------
+
+> Note as of June 2015, the command-line tools are in alpha stage.
+
+### `docker-stack` CLI
 
 This section includes instructions for using/adopting docker-based stacks for your 12-factor web app.
 
+- [Overview](docs/10-docker-stack-cli.md)
 - [Adopting a Docker stack](docs/10-stacks-adopting-a-docker-stack.md)
 - [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
+
+### doma Makefile temples
+
+Control your stacks and applications with `Makefile` templates for `docker`, `docker-composer`, `tutum`, `aws-s3` or `mysql`.
+
+For full documentation see [GitHub](https://github.com/schmunk42/doma) Repository.
 
 
 Available Stacks
