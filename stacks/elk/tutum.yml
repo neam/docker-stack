@@ -1,10 +1,16 @@
 elasticsearchdata:
+  tags:
+   - staging
+   - data
   image: 'alpine'
   command: '/bin/true'
   volumes:
-  - '/data/elasticsearch:/usr/share/elasticsearch/data'
+   - '/data/elasticsearch:/usr/share/elasticsearch/data'
 
 elasticsearch:
+  tags:
+   - staging
+   - data
   image: 'elasticsearch:1.5'
   ports:
   - '9200:9200'
@@ -12,6 +18,9 @@ elasticsearch:
   - 'elasticsearchdata'
 
 logstash:
+  tags:
+   - staging
+   - data
   image: 'logstash'
   command: 'logstash -e ''input { syslog { port => 12345 type => "docker" } } output { elasticsearch_http { host => "elasticsearch" } }'''
   expose:
@@ -31,6 +40,9 @@ logspout:
   - logstash
 
 kibana:
+  tags:
+   - staging
+   - data
   image: marcbachmann/kibana4
   environment:
   - ELASTICSEARCH=http://elasticsearch:9200
