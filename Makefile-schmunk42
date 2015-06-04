@@ -3,7 +3,7 @@ schmunk42: build
 build: php-nginx yii2 phundament
 
 php-nginx:
-	docker pull schmunk42/nginx:1.7
+	docker pull nginx:1.7
 	docker pull php:5.6-cli
 	docker pull php:5.6-fpm
 	docker build -t schmunk42/nginx:1.7          images/php-nginx/nginx
@@ -15,7 +15,7 @@ yii2: php-nginx
 	docker build -t schmunk42/php:5.6-cli-yii-2.0.3-app-basic       images/php-nginx.yii2/php-cli-app-basic
 	docker build -t schmunk42/hhvm:3.5-cli-yii-2.0.3-app-basic      images/php-nginx.yii2/hhvm-cli-app-basic
 
-phundament: export version=4.0.0-beta13.4
+phundament: export version=4.0.0-rc1
 phundament: yii2
 	docker build -t phundament/php:5.6-fpm-$(version)         images/php-nginx.yii2.phundament/php-fpm
 	docker build -t phundament/php:5.6-cli-$(version)-prod    images/php-nginx.yii2.phundament/php-cli-prod
