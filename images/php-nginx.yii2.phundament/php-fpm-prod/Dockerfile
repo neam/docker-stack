@@ -5,7 +5,7 @@
 #
 
 FROM schmunk42/php:5.6-fpm-yii-2.0-runtime
-ENV IMAGE PHUNDAMENT_PHP_FPM
+ENV IMAGE PHUNDAMENT_PHP_FPM_PROD
 
 # Note: Source-code is used from phundament/php:cli
 

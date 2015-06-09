@@ -4,7 +4,7 @@
 # CLI tools (dev)
 #
 
-FROM phundament/php:5.6-cli-4.0.0-prod
+FROM phundament/php:5.6-cli-prod
 MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 ENV IMAGE PHUNDAMENT_PHP_CLI_DEV
 
