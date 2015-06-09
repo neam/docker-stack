@@ -1,6 +1,6 @@
 # PHP + nginx Docker images
 
-This document contains a description of the available PHP and HHVM images from this repository.
+This document contains a description of the available Docker images from this repository.
 
 > Note: `cli` containers also contain the application data, which is shared via `volumes_from`.
 
@@ -34,15 +34,6 @@ Basic PHP-FPM configuration
 Available for initial installation by copying from `/app-src`.
 
 - `5.6-cli-2.0.3-yii-app-basic`
-
-### [`schmunk42/hhvm`](https://registry.hub.docker.com/u/schmunk42/hhvm/)
-
-Framework runtime (`fpm`) can be used directly from [estebanmatias92/docker-hhvm](https://github.com/estebanmatias92/docker-hhvm),
-since these images contain all required PHP extensions.
-
-Applications
-
-- `3.5-cli-2.0.3-yii-app-basic`
 
 
 ## Phundament
