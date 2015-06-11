@@ -9,7 +9,6 @@ MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 ENV IMAGE PHUNDAMENT_PHP_CLI_DEV
 
 # Install system development packages
-ENV TRIGGER_APT_GET_INSTALL 2015-03-10-23-33
 ENV TERM linux
 
 # Install extra development packages
@@ -25,7 +24,6 @@ RUN curl -sL https://deb.nodesource.com/setup | bash - && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     npm install -g less
 
-ENV TRIGGER_CLOSURE_COMPILER 2015-03-10-23-33
 RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler-20150126.tar.gz && \
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
@@ -36,7 +34,6 @@ RUN composer global require  --prefer-dist \
     composer global dumpautoload --optimize
 
 # Install application template and core extensions to app-src directory for caching and installation
-ENV TRIGGER_CREATE_PROJECT 2015-03-10-23-33
 ADD config.json /root/.composer/config.json
 RUN rm -rf /app-src && \
     composer create-project --prefer-dist \

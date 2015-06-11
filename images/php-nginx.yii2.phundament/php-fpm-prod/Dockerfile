@@ -15,8 +15,8 @@ RUN apt-get update && \
         libssl-dev \
         --no-install-recommends && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    docker-php-ext-install ftp
+    docker-php-ext-install ftp && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # PHP configuration
 ADD conf.d-local/* /usr/local/etc/php/conf.d-local/

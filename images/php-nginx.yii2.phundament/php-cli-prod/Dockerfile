@@ -9,7 +9,6 @@ MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 ENV IMAGE PHUNDAMENT_PHP_CLI_PROD
 
 # Install system development packages
-ENV TRIGGER_APT_GET_DATE 2015-03-10-23-33
 ENV TERM linux
 RUN apt-get update && \
     apt-get install -y \
