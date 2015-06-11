@@ -23,3 +23,13 @@ ENV TRIGGER_CLOSURE_COMPILER 2015-06-08-23-20
 RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler-20150126.tar.gz && \
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
+
+# install xdebug
+RUN pecl install xdebug && \
+    echo "zend_extension=xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini && \
+    echo "xdebug.remote_enable=0" >> /usr/local/etc/php/conf.d/xdebug.ini && \
+    echo "xdebug.remote_autostart=0" >> /usr/local/etc/php/conf.d/xdebug.ini && \
+    echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/xdebug.ini && \
+    echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini && \
+    echo "xdebug.idekey=PHPStorm" >> /usr/local/etc/php/conf.d/xdebug.ini && \
+    echo "xdebug.extended_info=1" >> /usr/local/etc/php/conf.d/xdebug.ini
