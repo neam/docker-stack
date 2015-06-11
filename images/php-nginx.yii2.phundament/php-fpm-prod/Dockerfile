@@ -9,6 +9,15 @@ ENV IMAGE PHUNDAMENT_PHP_FPM_PROD
 
 # Note: Source-code is used from phundament/php:cli
 
+# Install FTP extension for accessing remote file-systems
+RUN apt-get update && \
+    apt-get -y install \
+        libssl-dev \
+        --no-install-recommends && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    docker-php-ext-install ftp
+
 # PHP configuration
 ADD conf.d-local/* /usr/local/etc/php/conf.d-local/
 
