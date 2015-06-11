@@ -18,7 +18,6 @@ mariadb:
         - staging
     image: tutum/mariadb
     environment:
-        MYSQL_ROOT_PASSWORD: ___CHANGE_ME___CHANGE_ME___CHANGE_ME___
         MARIADB_PASS: ___THIS_PASSWORD_CAN_BE_USED_WITH_THE_ADMIN_USER_TO_CREATE_A_DB___
 
 redis:
