@@ -33,11 +33,11 @@ RUN composer global require  --prefer-dist \
         "codeception/codeception:2.0.*" "codeception/specify:*" "codeception/verify:*" && \
     composer global dumpautoload --optimize
 
-# Install application template and core extensions to app-src directory for caching and installation
+# Install application template and core extensions to app-src directory for caching and installation by copying files.
 ADD config.json /root/.composer/config.json
 RUN rm -rf /app-src && \
     composer create-project --prefer-dist \
-        phundament/app:4.0.0-beta13 \
+        phundament/app:4.0.0-rc1 \
         /app-src && \
     composer dumpautoload -d /app-src --optimize
 
