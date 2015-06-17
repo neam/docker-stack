@@ -4,8 +4,7 @@
 FROM schmunk42/php:5.6-cli-yii-2.0-runtime
 MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 
-# Fill composer cache with packages
-ADD config.json /root/.composer/config.json
+# Install application to cache packages and make source available for installation via copy
 RUN composer create-project --prefer-dist \
         yiisoft/yii2-app-basic:2.0.3 \
         /yii2-src
