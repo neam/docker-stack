@@ -31,7 +31,7 @@ Basic PHP-FPM configuration
 
 #### Applications
 
-Available for initial installation by copying from `/app-src`.
+Available for initial installation by copying from `/yii2-src`.
 
 - `5.6-cli-2.0.3-yii-app-basic`
 
@@ -40,7 +40,7 @@ Available for initial installation by copying from `/app-src`.
 
 ### [`phundament/php`](https://registry.hub.docker.com/u/phundament/php/)
 
-Available for initial installation by copying from `/app-src`.
+Available for initial installation by copying from `/phundament-src`.
 
 - `5.6-cli-4.0.0-prod` Phundament 4 Application CLI (and data container)
 - `5.6-cli-4.0.0-dev` Phundament 4 Application with development packages (eg. closure-compiler, code-generation) aka. "builder"

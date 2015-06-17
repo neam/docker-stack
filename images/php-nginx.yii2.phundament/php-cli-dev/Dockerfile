@@ -33,17 +33,21 @@ RUN composer global require  --prefer-dist \
         "codeception/codeception:2.0.*" "codeception/specify:*" "codeception/verify:*" && \
     composer global dumpautoload --optimize
 
-# Install application template and core extensions to app-src directory for caching and installation by copying files.
+# Install application template and core extensions to `phundament-src` directory for caching and installation by copying files.
 ADD config.json /root/.composer/config.json
-RUN rm -rf /app-src && \
+RUN rm -rf /phundament-src && \
     composer create-project --prefer-dist \
         phundament/app:4.0.0-rc1 \
-        /app-src && \
-    composer dumpautoload -d /app-src --optimize
+        /phundament-src && \
+    composer dumpautoload -d /phundament-src --optimize
 
 # Setup application environment
 WORKDIR /app
 
-# Display informational message, you can keep this container running with `tail -f /dev/null`
-CMD ["echo", "Phundament CLI and app-source container"]
+# Display , you can keep this container running with `tail -f /dev/null`
+RUN echo "Informational message" && \
+    echo "---------------------" && \
+    echo "Phundament CLI and app-source container" && \
+    echo "This container has a non-resources consuming run command (CMD) to improve stack stability with one-off commands."
+CMD ["tail", "-f", "/dev/null"]
 
