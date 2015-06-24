@@ -22,7 +22,7 @@ RUN curl -sL https://deb.nodesource.com/setup | bash - && \
         nodejs && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    npm install -g less
+    npm install -g less docco
 
 RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler-20150126.tar.gz && \
     tar -xzf /root/compiler.tar.gz && \
