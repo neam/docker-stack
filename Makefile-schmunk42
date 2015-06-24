@@ -54,7 +54,6 @@ test-stack-php-nginx:
 		docker-compose build && \
 	    docker-compose run cli php -v && \
 	    docker-compose up -d && \
-	    curl http://$(DOCKER_HOST_IP):`docker-compose web nginx` && \
 	    docker-compose ps && \
 	    docker-compose run cli env && \
 	    docker-compose stop
