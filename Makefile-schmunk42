@@ -6,19 +6,18 @@ build-php-nginx:
 	docker pull nginx:1.9
 	docker pull php:5.6-cli
 	docker pull php:5.6-fpm
-	docker build -t schmunk42/nginx:1.9          images/php-nginx/nginx
-	docker build -t schmunk42/php:5.6-fpm        images/php-nginx/php-fpm
+	docker build -t schmunk42/nginx:1.9          images/schmunk42/nginx
+	docker build -t schmunk42/php:5.6-fpm        images/schmunk42/php/fpm
 
 build-yii2: build-php-nginx
-	docker build -t schmunk42/php:5.6-fpm-yii-2.0-runtime         images/php-nginx.yii2/php-fpm-runtime
-	docker build -t schmunk42/php:5.6-cli-yii-2.0-runtime         images/php-nginx.yii2/php-cli-runtime
-	###docker build -t schmunk42/php:5.6-cli-yii-2.0.3-app-basic       images/php-nginx.yii2/php-cli-app-basic
+	docker build -t schmunk42/php:5.6-fpm-yii-2.0-runtime         images/schmunk42/php/fpm-yii-runtime
+	docker build -t schmunk42/php:5.6-cli-yii-2.0-runtime         images/schmunk42/php/cli-yii-runtime
 
 build-phundament: build-yii2
-	docker build -t phundament/php:5.6-fpm-prod    images/php-nginx.yii2.phundament/php-fpm-prod
-	docker build -t phundament/php:5.6-fpm-dev     images/php-nginx.yii2.phundament/php-fpm-dev
-	docker build -t phundament/php:5.6-cli-prod    images/php-nginx.yii2.phundament/php-cli-prod
-	docker build -t phundament/php:5.6-cli-dev     images/php-nginx.yii2.phundament/php-cli-dev
+	docker build -t phundament/php:5.6-fpm-prod    images/phundament/php/fpm-prod
+	docker build -t phundament/php:5.6-fpm-dev     images/phundament/php/fpm-dev
+	docker build -t phundament/php:5.6-cli-prod    images/phundament/php/cli-prod
+	docker build -t phundament/php:5.6-cli-dev     images/phundament/php/cli-dev
 	docker tag -f 	phundament/php:5.6-cli-dev 	   phundament/php:latest
 
 tag: export version=4.0.0-rc3
