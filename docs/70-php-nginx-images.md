@@ -11,6 +11,7 @@ This document contains a description of the available Docker images from this re
 Basic nginx configuration
 
 - `1.7`
+- `1.9`
 
 ### [`schmunk42/php`](https://registry.hub.docker.com/u/schmunk42/php/)
 

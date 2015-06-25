@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# This script is run within the nginx:1.7-based container on start
-
 # Fail on any error
 set -o errexit
 

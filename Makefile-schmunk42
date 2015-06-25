@@ -3,10 +3,10 @@ schmunk42: build
 build: build-php-nginx build-yii2 build-phundament
 
 build-php-nginx:
-	docker pull nginx:1.7
+	docker pull nginx:1.9
 	docker pull php:5.6-cli
 	docker pull php:5.6-fpm
-	docker build -t schmunk42/nginx:1.7          images/php-nginx/nginx
+	docker build -t schmunk42/nginx:1.9          images/php-nginx/nginx
 	docker build -t schmunk42/php:5.6-fpm        images/php-nginx/php-fpm
 
 build-yii2: build-php-nginx

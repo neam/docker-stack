@@ -2,7 +2,7 @@
 # -------------
 # Basic nginx + php:fpm setup
 
-FROM nginx:1.7
+FROM nginx:1.9
 
 ADD nginx.conf /etc/nginx/nginx.conf
 
