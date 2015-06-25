@@ -3,7 +3,7 @@
 #
 reverseproxy:
     command: "sh -c 'echo \"server_tokens off;\nclient_max_body_size 512m;\" > /etc/nginx/conf.d/my_proxy.conf; forego start -r'"
-    image: jwilder/nginx-proxy
+    image: schmunk42/nginx-proxy
     ports:
         - 80:80
     volumes:
@@ -15,4 +15,4 @@ mariadb:
         MARIADB_PASS: secretadmin
 
 redis:
-    image: redis
+    image: redis:3.0
