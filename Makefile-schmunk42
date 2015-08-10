@@ -20,12 +20,12 @@ build-phundament: build-yii2
 	docker build -t phundament/php:5.6-cli-dev     images/phundament/php/cli-dev
 	docker tag -f 	phundament/php:5.6-cli-dev 	   phundament/php:latest
 
-tag: export version=4.0.0-rc3
+tag: export version=4.0.0
 tag:
 	#
 	# Tagging images
 	#
-	docker tag phundament/php:5.6-fpm-prod  	phundament/php:5.6-fpm-$(version)-prod
+	docker tag phundament/php:5.6-fpm-prod  phundament/php:5.6-fpm-$(version)-prod
 	docker tag phundament/php:5.6-fpm-dev  	phundament/php:5.6-fpm-$(version)-dev
 	docker tag phundament/php:5.6-cli-prod	phundament/php:5.6-cli-$(version)-prod
 	docker tag phundament/php:5.6-cli-dev	phundament/php:5.6-cli-$(version)-dev
@@ -58,7 +58,7 @@ test-stack-php-nginx:
 	    docker-compose stop
 
 test-phundament:
-	cd stacks/php-nginx.yii2.phundament && \
+	cd stacks/phundament/spawn && \
 	    docker-compose build && \
 	    docker-compose up -d && \
 	    docker-compose stop

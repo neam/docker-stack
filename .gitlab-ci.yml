@@ -1,0 +1,4 @@
+rspec:
+    script: "bash tests/run.sh"
+    only:
+        - develop
