@@ -18,12 +18,16 @@ web:
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: tutum/haproxy
+  image: neam/tutum-haproxy-awaiting-prs
   links:
     - phpha
+  ports:
+    # Publish stats port
+    - "8088" # TODO: Switch to 1936 when using latest tutum master again
   environment:
     BACKEND_PORT: 9000
     FRONTEND_PORT: 9000
+    STATS_AUTH: stats:stats
     MODE: tcp
 
 # The highly available php service for interpreting php code without access to /files

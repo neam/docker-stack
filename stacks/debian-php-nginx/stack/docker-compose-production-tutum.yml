@@ -30,7 +30,7 @@
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: tutum/haproxy
+  image: neam/tutum-haproxy-awaiting-prs
   links:
     - phpha
   environment:
@@ -41,7 +41,7 @@ phphaproxy:
     STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
   ports:
     - "9000"
-    - "1936"
+    - "8088" # TODO: Switch to 1936 when using latest tutum master again
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%

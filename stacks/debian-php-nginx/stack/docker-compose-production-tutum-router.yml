@@ -11,7 +11,7 @@ router%DEPLOY_STABILITY_TAG%:
   ports:
     - "80"
     - "443"
-    - "8088" # Haproxy Statistics endpoint
+    - "8088" # Haproxy Statistics endpoint TODO: Switch to 1936 when using latest tutum master again
   environment:
     # Set 100k instead of default 4096 since we have experienced 7-20k simultaneous connections during high load (and even a t2.small instance handles way more than 4096 simultaneous connections)
     MAXCONN: 100000
