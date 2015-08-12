@@ -32,7 +32,7 @@ phphaproxy:
 
 # The highly available php service for interpreting php code without access to /files
 phpha:
-  image: neam/dna-project-base-debian-php:5.6.7-fpm-0.2.0
+  image: neam/dna-project-base-debian-php:5.6.9-fpm-0.2.2
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -55,7 +55,7 @@ redisphpsessionhandler:
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
 phpfiles:
-  image: neam/dna-project-base-debian-php:5.6.7-fpm-0.2.0
+  image: neam/dna-project-base-debian-php:5.6.9-fpm-0.2.2
   links:
     - mailcatcher
     - redisphpsessionhandler

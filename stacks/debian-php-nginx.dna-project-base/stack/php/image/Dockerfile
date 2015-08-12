@@ -1,9 +1,9 @@
-# Dockerfile for PHP-FPM 5.6.7 built for PHP/Nginx DNA Project Base docker-stack
+# Dockerfile for PHP-FPM 5.6.9 built for PHP/Nginx DNA Project Base docker-stack
 # ===============================================================
-#   docker build -t neam/dna-project-base-debian-php:5.6.7-fpm-0.2.1 .
-#   docker push neam/dna-project-base-debian-php:5.6.7-fpm-0.2.1
+#   docker build -t neam/dna-project-base-debian-php:5.6.9-fpm-0.2.2 .
+#   docker push neam/dna-project-base-debian-php:5.6.9-fpm-0.2.2
 
-FROM neam/debian-php:5.6.7-fpm
+FROM neam/debian-php:5.6.9-fpm
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 

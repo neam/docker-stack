@@ -18,12 +18,12 @@
 # Available on docker hub as neam/php-app-worker
 #
 # Build by running:
-#     docker build -t neam/php-app-worker:tutum-debian-jessie .
-#     docker push neam/php-app-worker:tutum-debian-jessie
+#     docker build -t neam/php-app-worker:debian-jessie .
+#     docker push neam/php-app-worker:debian-jessie
 #
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
-FROM tutum/debian:jessie
+FROM debian:jessie
 
 # Prepare Debian environment
 ENV DEBIAN_FRONTEND noninteractive
