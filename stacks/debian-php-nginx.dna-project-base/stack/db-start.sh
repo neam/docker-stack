@@ -10,6 +10,12 @@ cd $script_path/..
 # set config
 DBREF=default
 
+# install if not installed
+if [ ! -d ../docker-persistent-db/ ]; then
+  git clone --recursive https://github.com/neam/docker-persistent-db.git ../docker-persistent-db/
+  ../docker-persistent-db/install
+fi
+
 # run actual commands
 cd ../docker-persistent-db/
 ./commands db:create $DBREF
