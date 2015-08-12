@@ -145,38 +145,3 @@ mailcatcher:
   autoredeploy: false
 
 # Selenium...
-
-# Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the service
-#tutumworker:
-#  image: neam/php-app-worker:0.2.0
-#  environment:
-#    APP_DIR: /app
-#    WORKER_CMD: /bin/bash echo "Hello"
-#%EN VIRONMENT_YAML%
-#  command: "/run-worker-cmd.sh"
-#  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
-#  tags:
-#    - cluster
-
-# For SSH access to run worker tasks manually in the cluster
-worker:
-  image: neam/php-app-worker:0.2.0
-  links:
-    - phpfiles
-#    - memcached
-  ports:
-    - "22"
-  volumes_from:
-    - phpfiles
-  environment:
-    APP_DIR: /app
-    AUTHORIZED_KEYS: 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAzKWDevt+KE0pmpFmqBbInWHo8RSowTI2qddpjeEO0vylPVZ7BxE1qYSoA0yLN4R5LdJzE44A5DR5/Vb4ytnwbo1xewZzrdwZyC7oVnkJFYSoE9HKeZytyRoICPKcgSOzG90Db8s8RvP3pKlqavQW0nXUVeS3ydBaHtuWuUZjJsFDUwOtIK++eoMOES1phDIFqr1AGFXn2V8bhpAJHGGFbC7aCSSwZE5xo56dZJGSwDLJEn8M5zN9saktM1HIPsqw7HIN1fbqZLQGYP8cAmjIC7FOc6Xyj2rHyF7CpLW6VUxHr6Gg/mDgs1K8sVSe8gjwwogRIq7o+KK9xdW6LjvnNw== motin@Fredrik-Motins-Macbook-Pro-2014.local'
-%ENVIRONMENT_YAML%
-  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
-  tags:
-    - ec-%DEPLOY_STABILITY_TAG%
-    - files-%DEPLOY_STABILITY_TAG%
-  # Auto-restart in case container dies unexpectedly
-  autorestart: always
-  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
-  autoredeploy: false

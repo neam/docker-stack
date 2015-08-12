@@ -25,3 +25,45 @@ RUN apt-get install -y -q \
         php5-mongo \
         php5-xsl \
         php5-apcu
+
+# ====
+# Install enough to be able to run administrative commands directly from within the php containers
+# ====
+
+# Enable editors and general tools for administration processes
+ENV TERM xterm
+RUN apt-get install -y -q \
+        curl \
+        wget \
+        htop \
+        less \
+        jq \
+        nano \
+        sed \
+        vim
+
+# Version control systems
+RUN apt-get install -y -q \
+        git-flow \
+        git-svn \
+        mercurial \
+        subversion
+
+# Database clients
+RUN apt-get install -y -q \
+        mysql-client
+
+# For erb templates
+RUN apt-get install -y -q \
+        ruby-full
+
+# Add external apt repositories
+RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | apt-key add -
+RUN wget -O/etc/apt/sources.list.d/s3tools.list http://s3tools.org/repo/deb-all/stable/s3tools.list
+
+# Install s3cmd
+RUN apt-get install -y -q s3cmd=1.5.0* || (echo "s3cmd \n $(apt-cache show s3cmd | grep -i version)" && exit 1)
+
+# Clean apt caches
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
