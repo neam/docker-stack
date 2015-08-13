@@ -17,7 +17,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-08-03 14:20"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-08-13 10:53"
 RUN apt-get update && \
     apt-get upgrade -y -q
 
