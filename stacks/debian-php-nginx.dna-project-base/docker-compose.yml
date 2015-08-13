@@ -47,7 +47,9 @@ phpha:
     - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
+    EXCLUDE_PORTS: 22
   env_file:
     - .env
   working_dir: '/app'
@@ -71,7 +73,9 @@ phpfiles:
     - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
+    EXCLUDE_PORTS: 22
   env_file:
     - .env
   working_dir: '/app'

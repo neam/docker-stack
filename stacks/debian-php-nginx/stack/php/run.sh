@@ -19,6 +19,7 @@ cp /app/stack/php/php-fpm.conf /etc/php5/fpm/php-fpm.conf
 
 # Setup config variables only available at runtime
 sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/php5/fpm/conf.d/app.ini
+sed -i "s|\${XDEBUG_DEFAULT_ENABLE}|${XDEBUG_DEFAULT_ENABLE}|" /etc/php5/fpm/conf.d/app.ini
 
 # Ensures all newly created files will be 775, instead of the debian default of 755
 # Overcomes the problem of docker-produced files in a shared-volume not being
