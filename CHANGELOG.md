@@ -14,6 +14,7 @@ CHANGELOG
 - Min: Omitting PHP warning about $HTTP_RAW_POST_DATA
 - Min: Added Xdebug default enable setting env var to php images
 - Upg: All debian packages updated as per 2015-08-13 10:53
+- Min: Some tweaks to stack documentation
 
 ## 0.2.0 (Released 2015-04-23)
 
