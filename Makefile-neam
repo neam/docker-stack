@@ -15,7 +15,7 @@ neam.php-app-images: debian-php-nginx
 neam.dna-project-base: debian-php-nginx
   docker build -t neam/dna-project-base-debian-php:5.6.9-fpm  stacks/debian-php-nginx.dna-project-base/stack/php/image
 
-release-neam: export version=0.2.2
+release-neam: export version=0.3.0
 release-neam: build-neam
 	echo "Tagging neam images as version $(version)"
 	docker tag -f neam/debian-php:5.6.9-fpm neam/debian-php:5.6.9-fpm-$(version)
