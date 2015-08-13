@@ -73,7 +73,7 @@ Available Stacks
 - [Vanilla PHP/Nginx](stacks/php-nginx-vanilla/README.md)
 - [Debian PHP/Nginx/Memcache](stacks/debian-php-nginx.memcache/README.md)
 - [Yii 2.0 Framework](stacks/yii2/README.md)
-- [DNA Project Base](stacks/debian-php-nginx.memcache.dna-project-base/README.md)
+- [DNA Project Base](stacks/debian-php-nginx.dna-project-base/README.md)
 
 Develop
 -------
