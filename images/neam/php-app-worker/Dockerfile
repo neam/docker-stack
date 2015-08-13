@@ -87,7 +87,3 @@ RUN apt-get install -y -q s3cmd=1.5.0* || (echo "s3cmd \n $(apt-cache show s3cmd
 # Clean apt caches
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Add script to run worker cmd
-COPY run-worker-cmd.sh /run-worker-cmd.sh
-RUN chmod +x /run-worker-cmd.sh

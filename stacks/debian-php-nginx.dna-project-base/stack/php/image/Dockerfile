@@ -8,7 +8,7 @@ FROM neam/debian-php:5.6.9-fpm
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-05-25 17:24"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-08-13 10:53"
 RUN apt-get update && \
     apt-get upgrade -y -q
 

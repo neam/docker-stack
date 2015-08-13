@@ -2,18 +2,21 @@
 # workaround for default action
 neam: build-neam
 
-build-neam: debian-php-nginx neam.php-app-images
+build-neam: debian-php-nginx neam.php-app-images neam.dna-project-base
 
 debian-php-nginx:
+	echo "Building debian-php-nginx images"
 	docker build -t neam/debian-php:5.6.9-fpm         images/neam/debian-php-nginx/php-fpm
 
 neam.php-app-images: debian-php-nginx
+	echo "Building neam.php-app-images images"
 	docker build -t neam/php-app-builder  images/neam/php-app-builder
 	docker build -t neam/php-app-tester   images/neam/php-app-tester
 	docker build -t neam/php-app-worker   images/neam/php-app-worker
 
 neam.dna-project-base: debian-php-nginx
-  docker build -t neam/dna-project-base-debian-php:5.6.9-fpm  stacks/debian-php-nginx.dna-project-base/stack/php/image
+	echo "Building neam.dna-project-base images"
+	docker build -t neam/dna-project-base-debian-php:5.6.9-fpm  stacks/debian-php-nginx.dna-project-base/stack/php/image
 
 release-neam: export version=0.3.0
 release-neam: build-neam
