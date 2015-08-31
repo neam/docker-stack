@@ -1,0 +1,20 @@
+registry2:
+  image: registry:2
+  ports:
+    - 5000:5000
+  links:
+    - redis:REDIS
+  #volumes:
+  #  - ./data:/var/lib/registry
+  environment:
+    - REGISTRY_PROXY_REMOTEURL="https://registry-1.docker.io"
+    - REGISTRY_PROXY_USERNAME=schmunk42
+    - REGISTRY_PROXY_PASSWORD=
+    - REGISTRY_REDIS_ADDR="REDIS:6379"
+    #- REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR=inmemory
+redis:
+  image: redis
+  expose:
+    - 6379
+  ports:
+    - 6379:6379
