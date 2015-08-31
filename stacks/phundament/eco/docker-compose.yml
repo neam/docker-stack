@@ -13,6 +13,7 @@ mariadb:
     image: tutum/mariadb:10.1
     environment:
         MARIADB_PASS: secretadmin
+    container_name: mysql1
 
 redis:
     image: redis:3.0
