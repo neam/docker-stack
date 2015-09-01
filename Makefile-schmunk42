@@ -1,3 +1,5 @@
+version := 4.0.1
+
 schmunk42: build
 
 build: build-php-nginx build-yii2 build-phundament
@@ -20,7 +22,6 @@ build-phundament: build-yii2
 	docker build -t phundament/php:5.6-cli-dev     images/phundament/php/cli-dev
 	docker tag -f 	phundament/php:5.6-cli-dev 	   phundament/php:latest
 
-tag: export version=4.0.1
 tag:
 	#
 	# Tagging images
