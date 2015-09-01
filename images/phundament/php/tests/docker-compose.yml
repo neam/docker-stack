@@ -19,7 +19,7 @@ appcli:
 appfpm:
   image: phundament/php:5.6-fpm-dev
   volumes_from:
-    - appsrc
+    - 'appsrc'
   links:
     - 'mariadb:DB'
 
@@ -29,7 +29,7 @@ appnginx:
   links:
     - 'appfpm:PHPFPM'
   volumes_from:
-    - appsrc
+    - 'appsrc'
   ports:
     - '80'
   environment:
@@ -50,4 +50,4 @@ mariadb:
   ports:
     - '3306'
   environment:
-    MARIADB_PASS: secretadmin
+    MARIADB_PASS: 'secretadmin'

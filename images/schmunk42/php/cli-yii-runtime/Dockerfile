@@ -5,7 +5,6 @@ FROM php:5.6-cli
 MAINTAINER Tobias Munk <tobias@diemeisterei.de>
 
 # Install system packages for PHP extensions required for Yii 2.0 Framework
-ENV IMAGE_PHPCLI_APT_GET_DATE 2015-03-10-23-33
 RUN apt-get update && \
     apt-get -y install \
             g++ \
@@ -18,7 +17,7 @@ RUN apt-get update && \
             libpng12-dev \
             zlib1g-dev \
         --no-install-recommends && \
-    rm -r /var/lib/apt/lists/*
+    rm -r /var/lib/apt/lists/* # 150901
 
 # Install PHP extensions required for Yii 2.0 Framework
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ && \
