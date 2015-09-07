@@ -1,26 +1,25 @@
-# Base image - PHP app builder
+# Base image - PHP app worker
 # -----------------------------------------------------
-# Example/base "catch-all" php app builder image to use for installing app dependencies and running common build tasks
+# Example/base "catch-all" php app worker image to use to run administration processes in production deployments
 #
 # Includes:
 #  - Node.js 0.10
 #  - Git (incl Git Flow and Git Svn)
 #  - Mercurial
 #  - Subversion
+#  - MySQL Client
+#  - S3cmd
 #  - Curl
 #  - Wget
 #  - Jq
-#  - Yeoman
-#  - Composer
-#  - Bundler
 #  - PHP with curl and mysql extensions
 #  - and more (see below)
 #
-# Available on docker hub as neam/php-app-builder
+# Available on docker hub as neam/php-app-worker
 #
 # Build by running:
-#     docker build -t neam/php-app-builder .
-#     docker push neam/php-app-builder
+#     docker build -t neam/php-app-worker:debian-jessie .
+#     docker push neam/php-app-worker:debian-jessie
 #
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
@@ -36,7 +35,7 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-03-31 10:58"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-08-13 10:53"
 RUN apt-get update && \
     apt-get upgrade -y -q
 
@@ -64,18 +63,9 @@ RUN apt-get install -y -q \
         mercurial \
         subversion
 
-# Clojure compiler
-ENV IMAGE_CLI_CLOSURE_COMPILER 2015-03-10-23-33
-RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler-20150126.tar.gz && \
-    tar -xzf /root/compiler.tar.gz && \
-    rm /root/compiler.tar.gz
-
-# Build essential is necessary to compile some binary dependencies
-RUN apt-get install build-essential -y -q
-
-# Yeoman - Yo, Grunt, Gulp, Bower, Coffee Script
-RUN npm install -g yo grunt-cli bower coffee-script
-RUN npm install -g gulp
+# Database clients
+RUN apt-get install -y -q \
+        mysql-client
 
 # Install PHP with curl & mysql
 RUN apt-get install -y -q \
@@ -83,20 +73,17 @@ RUN apt-get install -y -q \
         php5-curl \
         php5-mysql
 
-# For bundler and erb templates
+# For erb templates
 RUN apt-get install -y -q \
         ruby-full
 
-# Bundler
-RUN gem install bundler
+# Add external apt repositories
+RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | apt-key add -
+RUN wget -O/etc/apt/sources.list.d/s3tools.list http://s3tools.org/repo/deb-all/stable/s3tools.list
+
+# Install s3cmd
+RUN apt-get install -y -q s3cmd=1.5.0* || (echo "s3cmd \n $(apt-cache show s3cmd | grep -i version)" && exit 1)
 
 # Clean apt caches
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Install composer && global asset plugin (a Yii 2.0 requirement)
-ENV COMPOSER_HOME /root/.composer
-ENV PATH /root/.composer/vendor/bin:$PATH
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    /usr/local/bin/composer global require "fxp/composer-asset-plugin:1.0.*" && \
-    /usr/local/bin/composer global dumpautoload --optimize

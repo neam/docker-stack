@@ -4,4 +4,5 @@
 set -o errexit
 
 git pull
+git submodule init
 git submodule update --recursive

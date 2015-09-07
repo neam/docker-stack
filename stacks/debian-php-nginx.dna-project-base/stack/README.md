@@ -54,25 +54,31 @@ Visit the below returned urls in your browser:
 
 > Hint: On OSX, you can open the url directly from a terminal session:
 >
->    open $(docker-stack local url)
->    open $(docker-stack local url /backend/)
+>    stack/open-browser.sh
+>    stack/open-browser.sh /backend/
 
 To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
 
+## Deployment
+
+For thorough instructions and helpers scripts:
+ 
+    composer install neam/yii-dna-deployment
+
+Then, follow instructions under `vendor/neam/yii-dna-deployment/README.md`
+
 ## Local Extras
 
 The local stack include optional containers that emulate upstream services outside of your control. Simply comment them out if you do not need them.
 
-### Explanation of the extra local containers
+### Explanation of the extra local container
 
-* (TODO) `db` - Runs a local MariaDB docker container with persistent data
 * `mailcatcher` - Runs a mailcatcher SMTP server
 
-### Corresponding services in production
+### Corresponding service in production
 
-* (TODO) `db` - A cloud database service such as Amazon RDS, Rackspace Cloud DB, ClearDB etc
 * `mailcatcher` - An SMTP service such as Gmail, Amazon Simple Mail Service, Foo etc
 
 ### Using memcache

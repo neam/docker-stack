@@ -22,17 +22,21 @@ web:
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: tutum/haproxy
+  image: neam/tutum-haproxy-awaiting-prs
   links:
     - phpha
+  ports:
+    # Publish stats port
+    - "8088" # TODO: Switch to 1936 when using latest tutum master again
   environment:
     BACKEND_PORT: 9000
     FRONTEND_PORT: 9000
+    STATS_AUTH: stats:stats
     MODE: tcp
 
 # The highly available php service for interpreting php code without access to /files
 phpha:
-  image: neam/dna-project-base-debian-php:5.6.7-fpm-0.2.0
+  image: neam/dna-project-base-debian-php:5.6.9-fpm-0.3.0
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -40,12 +44,14 @@ phpha:
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
   ports:
-   - "9000"
+    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
+    EXCLUDE_PORTS: 22
   env_file:
-   - .env
+    - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
@@ -55,7 +61,7 @@ redisphpsessionhandler:
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
 phpfiles:
-  image: neam/dna-project-base-debian-php:5.6.7-fpm-0.2.0
+  image: neam/dna-project-base-debian-php:5.6.9-fpm-0.3.0
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -64,12 +70,14 @@ phpfiles:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
   ports:
-   - "9000"
+    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
+    EXCLUDE_PORTS: 22
   env_file:
-   - .env
+    - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
@@ -89,7 +97,7 @@ mailcatcher:
 # A container to run builder commands locally
 builder:
   #build: vendor/neam/docker-stack/base-images/php-app-builder/
-  image: neam/php-app-builder:0.2.0
+  image: neam/php-app-builder:0.3.0
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
@@ -103,7 +111,7 @@ builder:
 # A container to run tester commands locally - start a shell by running stack/tester-shell.sh
 tester:
   #build: vendor/neam/docker-stack/base-images/php-app-tester/
-  image: neam/php-app-tester:0.2.0
+  image: neam/php-app-tester:0.3.0
   links:
     - web
   volumes:
@@ -115,7 +123,7 @@ tester:
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
 worker:
   #build: vendor/neam/docker-stack/base-images/php-app-worker/
-  image: neam/php-app-worker:0.2.0
+  image: neam/php-app-worker:0.3.0
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw

@@ -2,7 +2,7 @@
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
 %VIRTUAL_HOST_BASED_WEB_SERVICE_NAME%: # A unique service name makes it easier to identify in tutum ui and api
-  image: tutum.co/adoveo/adoveo-web-src-nginx:git-commit-%COMMITSHA%
+  image: tutum.co/%TUTUM_USER%/%REPO%-nginx:git-commit-%COMMITSHA%
   links:
     - phphaproxy
     - phpfiles
@@ -30,7 +30,7 @@
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: tutum/haproxy
+  image: neam/tutum-haproxy-awaiting-prs
   links:
     - phpha
   environment:
@@ -41,7 +41,7 @@ phphaproxy:
     STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
   ports:
     - "9000"
-    - "1936"
+    - "8088" # TODO: Switch to 1936 when using latest tutum master again
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
@@ -58,7 +58,7 @@ phphaproxy:
 
 # The elastically scalable php service for interpreting php code without access to /files
 phpha:
-  image: tutum.co/adoveo/adoveo-web-src-php:git-commit-%COMMITSHA%
+  image: tutum.co/%TUTUM_USER%/%REPO%-php:git-commit-%COMMITSHA%
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -98,7 +98,7 @@ redisphpsessionhandler:
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
 phpfiles:
-  image: tutum.co/adoveo/adoveo-web-src-php:git-commit-%COMMITSHA%
+  image: tutum.co/%TUTUM_USER%/%REPO%-php:git-commit-%COMMITSHA%
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -145,38 +145,3 @@ mailcatcher:
   autoredeploy: false
 
 # Selenium...
-
-# Includes a cmd to run commands defined by env vars so that administration tasks can be run by redeploying the service
-#tutumworker:
-#  image: neam/php-app-worker:0.2.0
-#  environment:
-#    APP_DIR: /app
-#    WORKER_CMD: /bin/bash echo "Hello"
-#%EN VIRONMENT_YAML%
-#  command: "/run-worker-cmd.sh"
-#  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
-#  tags:
-#    - cluster
-
-# For SSH access to run worker tasks manually in the cluster
-worker:
-  image: neam/php-app-worker:0.2.0
-  links:
-    - phpfiles
-#    - memcached
-  ports:
-    - "22"
-  volumes_from:
-    - phpfiles
-  environment:
-    APP_DIR: /app
-    AUTHORIZED_KEYS: 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAzKWDevt+KE0pmpFmqBbInWHo8RSowTI2qddpjeEO0vylPVZ7BxE1qYSoA0yLN4R5LdJzE44A5DR5/Vb4ytnwbo1xewZzrdwZyC7oVnkJFYSoE9HKeZytyRoICPKcgSOzG90Db8s8RvP3pKlqavQW0nXUVeS3ydBaHtuWuUZjJsFDUwOtIK++eoMOES1phDIFqr1AGFXn2V8bhpAJHGGFbC7aCSSwZE5xo56dZJGSwDLJEn8M5zN9saktM1HIPsqw7HIN1fbqZLQGYP8cAmjIC7FOc6Xyj2rHyF7CpLW6VUxHr6Gg/mDgs1K8sVSe8gjwwogRIq7o+KK9xdW6LjvnNw== motin@Fredrik-Motins-Macbook-Pro-2014.local'
-%ENVIRONMENT_YAML%
-  # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
-  tags:
-    - ec-%DEPLOY_STABILITY_TAG%
-    - files-%DEPLOY_STABILITY_TAG%
-  # Auto-restart in case container dies unexpectedly
-  autorestart: always
-  # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
-  autoredeploy: false
