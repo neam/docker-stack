@@ -16,10 +16,10 @@ RUN apt-get update && \
         --no-install-recommends && \
     apt-get clean && \
     docker-php-ext-install ftp && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* # 14.09.2015
 
 # PHP configuration
-ADD conf.d-local/* /usr/local/etc/php/conf.d-local/
+ADD conf.d/* /usr/local/etc/php/conf.d/
 
 # Prepare folders for Yii 2.0 Framework (www-data)
 RUN mkdir -p /app/runtime /app/web/assets && \
