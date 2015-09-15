@@ -4,7 +4,7 @@ Docker images for PHP-FPM + nginx
 nginx
 -----
 
-TBD
+- 512M client body size
 
 php
 ---

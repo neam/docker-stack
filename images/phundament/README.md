@@ -9,6 +9,7 @@ php
  - installation of PHP-extensions for Phundament 4.0
    - ftp
    - ssl
+   - 512M max upload and max post size
 
 ### fpm-dev
 
