@@ -6,7 +6,7 @@
 set -o errexit
 
 # Setup config variables only available at runtime
-sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /usr/local/etc/php/conf.d-local/local.ini
+sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /usr/local/etc/php/conf.d/app.ini
 
 # Work around permission errors locally TODO only if local
 usermod -u 1000 www-data
