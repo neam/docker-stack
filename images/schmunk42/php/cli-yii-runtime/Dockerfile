@@ -31,8 +31,6 @@ RUN pecl install apcu-beta && echo extension=apcu.so > /usr/local/etc/php/conf.d
 
 # Include composer and application binaries in PATH
 ENV PATH /app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH
-# Persist composer caches
-VOLUME /root/.composer
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --version=1.0.0-alpha10 && \
     mv composer.phar /usr/local/bin/composer && \
