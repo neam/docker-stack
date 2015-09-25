@@ -48,6 +48,6 @@ WORKDIR /app
 RUN echo "Informational message" && \
     echo "---------------------" && \
     echo "Phundament CLI and app-source container" && \
-    echo "This container has a non-resources consuming run command (CMD) to improve stack stability with one-off commands."
-CMD ["tail", "-f", "/dev/null"]
+    echo "This container should exit with status 0 by default and can be used to run one-off commands."
+CMD ["/bin/bash"]
 
