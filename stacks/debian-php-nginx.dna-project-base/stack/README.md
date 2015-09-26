@@ -4,9 +4,11 @@ Stacks - PHP/Nginx/Memcache - DNA Project Base
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
-* Uses a Debian-derived PHP-FPM container and the official Nginx Docker containers
+* Uses a Debian-derived PHP image and the official Nginx Docker image
 * Includes boilerplate configuration with Docker-specific enhancements
-* Includes both a PHP "files" container which uses a /files volume for stored user-uploaded files, and a PHP "ha" container which is not supposed to use any data volumes and thus can be scaled elastically
+* Includes both a PHP "ha" service which is not supposed to use any data volumes and thus can be scaled elastically, as well as a PHP "files" container which uses a /files volume to stored user-uploaded files 
+* The PHP "ha" service is frontend by a HAProxy service that distributes the load to the PHP "ha" service containers
+* The PHP service can use either PHP-FPM with Opcache (default) or HHVM
 * Compatible with deployment routines explained in [https://github.com/neam/yii-dna-deployment](https://github.com/neam/yii-dna-deployment)
 
 ## Default configuration
@@ -84,4 +86,8 @@ The local stack include optional containers that emulate upstream services outsi
 ### Using memcache
 
 TODO: Add instructions
+
+## Customization
+
+To use HHVM instead of PHP-FPM, comment the "php-fpm" command almost at the bottom of your project's `stack/php/run.sh`, and uncomment the "hhvm" command. 
 
