@@ -11,6 +11,7 @@ set -x
 # Copy custom project config overrides
 
   # PHP-FPM
+  cp /app/stack/php/php.ini /etc/php5/fpm/php.ini
   for configfile in /app/stack/php/conf.d/*; do
       cp $configfile /etc/php5/fpm/conf.d/
   done
@@ -23,13 +24,22 @@ set -x
   sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/php5/fpm/conf.d/app.ini
   sed -i "s|\${XDEBUG_DEFAULT_ENABLE}|${XDEBUG_DEFAULT_ENABLE}|" /etc/php5/fpm/conf.d/app.ini
 
-  # HHVM
-  cp /app/stack/php/hhvm/php.ini /etc/hhvm/php.ini # Default hhvm-specific config used for HHVM cli
-  cp /app/stack/php/hhvm/server.ini /etc/hhvm/server.ini # Default hhvm-specific config used for HHVM fastcgi server
-  cat /etc/php5/fpm/php.ini >> /etc/hhvm/php.ini # Note: The HHVM cli is here configured to use default php.ini contents that came with php5-fpm
-  cat /etc/php5/fpm/php.ini >> /etc/hhvm/server.ini # Note: The HHVM fastcgi server is here configured to use default php.ini contents that came with php5-fpm
+  # HHVM cli
+  cp /app/stack/php/php.ini /etc/hhvm/php.ini # Note: The HHVM cli is here configured to use default php.ini contents that came with php5-fpm
+  cat /app/stack/php/hhvm/php.ini >> /etc/hhvm/php.ini # Default hhvm-specific config used for HHVM cli and HHVM fastcgi server
   for configfile in /app/stack/php/conf.d/*; do
       cat $configfile >> /etc/hhvm/php.ini
+  done
+
+  # Setup config variables only available at runtime
+  sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/hhvm/php.ini
+  sed -i "s|\${XDEBUG_DEFAULT_ENABLE}|${XDEBUG_DEFAULT_ENABLE}|" /etc/hhvm/php.ini
+
+  # HHVM fastcgi server
+  cp /app/stack/php/php.ini /etc/hhvm/server.ini # Note: The HHVM fastcgi server is here configured to use default php.ini contents that came with php5-fpm
+  cat /app/stack/php/hhvm/php.ini >> /etc/hhvm/server.ini # Default hhvm-specific config used for HHVM cli and HHVM fastcgi server
+  cat /app/stack/php/hhvm/server.ini >> /etc/hhvm/server.ini # Default hhvm-specific config used for HHVM fastcgi server
+  for configfile in /app/stack/php/conf.d/*; do
       cat $configfile >> /etc/hhvm/server.ini
   done
 
