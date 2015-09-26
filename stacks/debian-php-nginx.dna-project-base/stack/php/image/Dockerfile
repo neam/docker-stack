@@ -1,14 +1,14 @@
-# Dockerfile for PHP-FPM 5.6.9 built for PHP/Nginx DNA Project Base docker-stack
+# Dockerfile for PHP-FPM 5.6.13 built for PHP/Nginx DNA Project Base docker-stack
 # ===============================================================
-#   docker build -t neam/dna-project-base-debian-php:5.6.9-fpm-0.3.0 .
-#   docker push neam/dna-project-base-debian-php:5.6.9-fpm-0.3.0
+#   docker build -t neam/dna-project-base-debian-php:5.6.13-fpm-0.4.0 .
+#   docker push neam/dna-project-base-debian-php:5.6.13-fpm-0.4.0
 
-FROM neam/debian-php:5.6.9-fpm
+FROM neam/debian-php:5.6.13-fpm
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-08-13 10:53"
+ENV APT_DOCKER_CACHE_TRIGGER "2015-09-26 13:22"
 RUN apt-get update && \
     apt-get upgrade -y -q
 
