@@ -15,6 +15,8 @@ php
 
  - installation of PHP-extensions for development
    - xdebug
+   - bcmath
+   - soap
  - yui-compressor
  - closure-compiler
   
@@ -25,6 +27,9 @@ php
  
 ### cli-dev
 
+ - installation of PHP-extensions for development
+   - bcmath
+   - soap
  - yui-compressor
  - closure-compiler
  - linkchecker
