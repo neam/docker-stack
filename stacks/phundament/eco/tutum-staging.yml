@@ -3,22 +3,15 @@
 #
 reverseproxy:
     command: "sh -c 'echo \"server_tokens off;\nclient_max_body_size 512m;\" > /etc/nginx/conf.d/my_proxy.conf; forego start -r'"
-    image: schmunk42/nginx-proxy
+    image: jwilder/nginx-proxy
     tags:
         - proxy
         - staging
     ports:
         - 80:80
+        - '443:443'
     volumes:
         - /var/run/docker.sock:/tmp/docker.sock
-
-mariadb:
-    tags:
-        - data
-        - staging
-    image: tutum/mariadb:10.1
-    environment:
-        MARIADB_PASS: ___THIS_PASSWORD_CAN_BE_USED_WITH_THE_ADMIN_USER_TO_CREATE_A_DB___
 
 redis:
     tags:
