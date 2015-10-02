@@ -42,7 +42,7 @@ RUN composer global require  --prefer-dist \
 ADD config.json /root/.composer/config.json
 RUN rm -rf /phundament-src && \
     composer create-project --prefer-dist \
-        phundament/app:4.0.0-rc1 \
+        phundament/app:4.0.0-rc7 \
         /phundament-src && \
     composer dumpautoload -d /phundament-src --optimize
 
