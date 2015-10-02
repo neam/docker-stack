@@ -20,6 +20,7 @@ WORKDIR /root
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \
     apt-get update && \
     apt-get install --no-install-recommends -y \
+        libxml2-dev \
         nano \
         yui-compressor \
         linkchecker \
