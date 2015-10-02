@@ -24,7 +24,7 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
 
-# Install additional development extensions
+# Install additional PHP-extensions
 RUN docker-php-ext-configure \
         bcmath && \
     docker-php-ext-install \

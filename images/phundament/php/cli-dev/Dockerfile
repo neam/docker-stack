@@ -11,10 +11,6 @@ ENV IMAGE PHUNDAMENT_PHP_CLI_DEV
 # Install system development packages
 ENV TERM linux
 
-# Install additional development extensions
-RUN docker-php-ext-configure bcmath && \
-    docker-php-ext-install bcmath soap
-
 # Install extra development packages
 WORKDIR /root
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \
@@ -28,6 +24,10 @@ RUN curl -sL https://deb.nodesource.com/setup | bash - && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     npm install -g less docco
+
+# Install additional PHP-extensions
+RUN docker-php-ext-configure bcmath && \
+    docker-php-ext-install bcmath soap
 
 RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler-20150126.tar.gz && \
     tar -xzf /root/compiler.tar.gz && \
