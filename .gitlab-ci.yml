@@ -1,7 +1,7 @@
 rspec:
     script:
        - sed -i "s|0000000000000000000000000000000000000000|${GITHUB_TOKEN}|" images/phundament/php/cli-dev/config.json
-       - touch -acmt 1010101010 images/phundament/php/cli-dev/config.json
+       - touch -acmt 1010101011 images/phundament/php/cli-dev/config.json
        - sh tests/run.sh
     only:
        - develop
