@@ -44,7 +44,7 @@ RUN rm -rf /phundament-src && \
     composer create-project --prefer-dist \
         phundament/app:4.0.0-rc7 \
         /phundament-src && \
-    composer dumpautoload -d /phundament-src --optimize
+    composer dumpautoload -d /phundament-src --optimize # 02.10.2015
 
 # Setup application environment
 WORKDIR /app
