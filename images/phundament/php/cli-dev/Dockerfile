@@ -11,6 +11,10 @@ ENV IMAGE PHUNDAMENT_PHP_CLI_DEV
 # Install system development packages
 ENV TERM linux
 
+# Install additional development extensions
+RUN docker-php-ext-configure bcmath && \
+    docker-php-ext-install bcmath soap
+
 # Install extra development packages
 WORKDIR /root
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \

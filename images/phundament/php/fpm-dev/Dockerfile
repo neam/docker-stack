@@ -23,7 +23,14 @@ RUN curl -o /root/compiler.tar.gz http://dl.google.com/closure-compiler/compiler
     tar -xzf /root/compiler.tar.gz && \
     rm /root/compiler.tar.gz
 
-# install xdebug
+# Install additional development extensions
+RUN docker-php-ext-configure \
+        bcmath && \
+    docker-php-ext-install \
+        bcmath \
+        soap
+
+# Install xdebug
 RUN pecl install xdebug && \
     echo "zend_extension=xdebug.so" >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo "xdebug.remote_enable=0" >> /usr/local/etc/php/conf.d/xdebug.ini && \
@@ -32,3 +39,4 @@ RUN pecl install xdebug && \
     echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo "xdebug.idekey=PHPStorm" >> /usr/local/etc/php/conf.d/xdebug.ini && \
     echo "xdebug.extended_info=1" >> /usr/local/etc/php/conf.d/xdebug.ini
+
