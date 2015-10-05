@@ -40,6 +40,7 @@ phpha:
   links:
     - mailcatcher
     - redisphpsessionhandler
+    - localdb
   #  - memcached
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
@@ -65,6 +66,7 @@ phpfiles:
   links:
     - mailcatcher
     - redisphpsessionhandler
+    - localdb
   #  - memcached
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
@@ -80,6 +82,18 @@ phpfiles:
     - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
+
+# Local database server to mimic a cloud database
+localdb:
+  image: mysql:5.6.27
+  volumes:
+    - .db/mysql:/var/lib/mysql:rw
+    - ./stack/localdb/:/stack/localdb:rw
+  ports:
+   - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: "local-mysql-pass"
+  command: "/stack/localdb/run.sh"
 
 # Memcached server for serving cached contents via the nginx-memcache plugin
 #memcached:
@@ -114,6 +128,7 @@ tester:
   image: neam/php-app-tester:0.4.0
   links:
     - web
+    - localdb
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
@@ -124,6 +139,8 @@ tester:
 worker:
   #build: vendor/neam/docker-stack/base-images/php-app-worker/
   image: neam/php-app-worker:0.4.0
+  links:
+    - localdb
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
@@ -144,6 +161,7 @@ info:
     - builder
     - tester
     - worker
+    - localdb
   #  - memcached
   working_dir: '/app'
   command: "true"

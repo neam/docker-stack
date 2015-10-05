@@ -71,17 +71,30 @@ Then, follow instructions under `vendor/neam/yii-dna-deployment/README.md`
 
 The local stack include optional containers that emulate upstream services outside of your control. Simply comment them out if you do not need them.
 
-### Explanation of the extra local container
+### Explanation of the extra local containers
 
 * `mailcatcher` - Runs a mailcatcher SMTP server
+* `localdb` - Runs a local MySQL server
 
 ### Corresponding service in production
 
 * `mailcatcher` - An SMTP service such as Gmail, Amazon Simple Mail Service, Foo etc
+* `localdb` - A cloud database service such as Amazon RDS, Rackspace CloudDB etc
 
 ### Using memcache
 
 TODO: Add instructions
+
+### Using localdb
+
+In order to connect to your local database from your work station, use the following credentials:
+
+    User: admin
+    Password: local-mysql-pass
+
+Connect to the host and port given by:
+
+    docker-stack local db
 
 ## Customization
 
