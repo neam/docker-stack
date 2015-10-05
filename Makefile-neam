@@ -1,6 +1,6 @@
 
 # workaround for default action
-neam: build-neam
+neam: tag-neam
 
 build-neam: debian-php-nginx neam.php-app-images neam.dna-project-base
 
@@ -18,8 +18,17 @@ neam.dna-project-base: debian-php-nginx
 	echo "Building neam.dna-project-base images"
 	docker build -t neam/dna-project-base-debian-php:5.6.13-fpm  stacks/debian-php-nginx.dna-project-base/stack/php/image
 
+tag-neam: export version=0.4.0
+tag-neam: build-neam
+	echo "Tagging neam images as version $(version)"
+	docker tag -f neam/debian-php:5.6.13-fpm neam/debian-php:5.6.13-fpm-$(version)
+	docker tag -f neam/php-app-builder neam/php-app-builder:$(version)
+	docker tag -f neam/php-app-tester neam/php-app-tester:$(version)
+	docker tag -f neam/php-app-worker neam/php-app-worker:$(version)
+	docker tag -f neam/dna-project-base-debian-php:5.6.13-fpm neam/dna-project-base-debian-php:5.6.13-fpm-$(version)
+
 release-neam: export version=0.4.0
-release-neam: build-neam
+release-neam: tag-neam
 	echo "Tagging neam images as version $(version)"
 	docker tag -f neam/debian-php:5.6.13-fpm neam/debian-php:5.6.13-fpm-$(version)
 	docker tag -f neam/php-app-builder neam/php-app-builder:$(version)
