@@ -104,5 +104,20 @@ Optionally, generate your project php/nginx base configuration based on composer
 
 Customize your php/nginx configuration by changing the files in your project's `stack/nginx/` and `stack/php/` directories.
 
-To use HHVM instead of PHP-FPM, comment the "php-fpm" command almost at the bottom of your project's `stack/php/run.sh`, and uncomment the "hhvm" command. 
+To use HHVM instead of PHP-FPM, comment the "php-fpm" command almost at the bottom of your project's `stack/php/run.sh`, and uncomment the "hhvm" commands. 
 
+Also, because HHVM seems to alter the SCRIPT_NAME and DOCUMENT_ROOT params from nginx, add the following to your index.php file:
+
+    // HHVM SCRIPT_NAME difference vs php-fpm workaround
+    if (defined('HHVM_VERSION')) {
+        $_SERVER['DOCUMENT_ROOT'] = $_SERVER['NGINX_DOCUMENT_ROOT'];
+        $_SERVER['SCRIPT_NAME'] = $_SERVER['NGINX_SCRIPT_NAME'];
+        $_SERVER['PHP_SELF'] = $_SERVER['NGINX_SCRIPT_NAME'];
+    }
+
+And the following to your location block config in nginx:
+
+    # for hhvm
+    fastcgi_keep_conn on;
+    fastcgi_param NGINX_SCRIPT_NAME $fastcgi_script_name;
+    fastcgi_param NGINX_DOCUMENT_ROOT $document_root;
