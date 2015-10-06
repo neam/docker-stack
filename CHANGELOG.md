@@ -4,6 +4,16 @@ CHANGELOG
 
 # Neam stacks and supporting images
 
+## 0.4.0 (Released 2015-10-06)
+
+- Enh: Enabled use of HHVM as an alternative to PHP-FPM
+- Chg: Using HHVM instead of PHP-FPM by default (PHP-FPM can still be re-enabled on a per-project bases in case issues with HHVM are encountered)
+- Upg: PHP 5.6.9 upgraded to 5.6.13
+- Enh: DNA Project Base stack includes a local database container with persistent local data enabled by default
+- Enh: Sane default Xdebug configuration provided. Xdebug verified to work with current stack.
+- Upg: All debian packages updated as per 2015-10-06 16:16
+- Min: Tweaks to stack documentation
+
 ## 0.3.0 (Released 2015-08-13)
 
 - Chg: A revert to official debian base image (instead of tutum's debian image as in 0.2.0)
