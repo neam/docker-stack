@@ -85,5 +85,5 @@ ls -l /app/
 ls -l /files/$DATA/media
 
 # Run the desired php cgi process manager (use either php-fpm or hhvm)
-php5-fpm
-#hhvm -m server -c /etc/hhvm/server.ini -u www-data
+#php5-fpm
+hhvm -m server -c /etc/hhvm/server.ini -u www-data
