@@ -1,6 +1,15 @@
 Installation
 ------------
 
+## Via composer
+
+Install and symlink to /usr/local/bin/:
+
+    composer require "neam/docker-stack:*@dev" --prefer-source
+    ln -s $(pwd)/vendor/bin/docker-stack /usr/local/bin/docker-stack
+
+## Via git
+
 Clone and symlink to /usr/local/bin/:
 
     git clone https://github.com/neam/docker-stack
@@ -10,6 +19,8 @@ Clone and symlink to /usr/local/bin/:
 
 Quick start - Example Yii 2
 ---------------------------
+
+To try out running Yii 2 locally using Docker:
 
     composer create-project --prefer-dist yiisoft/yii2-app-basic:2.0.3 myapp
     cd myapp
@@ -48,17 +59,3 @@ Visit the below returned url in your browser:
 > Hint: On OSX, you can open the url directly from a terminal session:
 >
 >    open $(docker-stack local url)
-
-Build images for production deployment:
-
-    docker-stack production build
-
-Push built images:
-
-    docker-stack production build
-
-On a production docker host:
-
-    git clone myapp.git
-    cd myapp
-    docker-stack production start
