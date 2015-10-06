@@ -34,10 +34,9 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 # we don't need and apt cache in a container
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
-# Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-09-26 13:22"
+# Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q
+    apt-get upgrade -y -q # 2015-10-06 16:16
 
 # Enable editors and general tools for administration processes
 ENV TERM xterm
@@ -49,6 +48,8 @@ RUN apt-get install -y -q \
         jq \
         nano \
         sed \
+        telnet \
+        net-tools \
         vim
 
 # Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)

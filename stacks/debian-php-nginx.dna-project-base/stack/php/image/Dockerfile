@@ -7,12 +7,11 @@ FROM neam/debian-php:5.6.13-fpm
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
-# Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-09-26 13:22"
+# Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q
+    apt-get upgrade -y -q # 2015-10-06 16:16
 
-# Install PHP extensions available via apt-get
+# Install PHP extensions available via apt-get (required for PHP-FPM, but can also be useful to HHVM since default configurations for the extensions are incorporated in the docker image)
 RUN apt-get install -y -q \
         php5-intl \
         php5-gd \
@@ -40,6 +39,8 @@ RUN apt-get install -y -q \
         jq \
         nano \
         sed \
+        telnet \
+        net-tools \
         vim
 
 # Version control systems
