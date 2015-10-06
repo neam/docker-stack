@@ -88,7 +88,7 @@ phpfiles:
 localdb:
   image: mysql:5.6.27
   volumes:
-    - .db/mysql:/var/lib/mysql:rw
+    - ./stack/localdb/.db/mysql:/var/lib/mysql:rw
     - ./stack/localdb/:/stack/localdb:rw
   ports:
    - "3306"
