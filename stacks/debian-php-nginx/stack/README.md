@@ -4,9 +4,11 @@ Stacks - Debian PHP/Nginx
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
-* Uses a Debian-derived PHP-FPM container and the official Nginx Docker containers
+* Uses a Debian-derived PHP image and the official Nginx Docker image
 * Includes boilerplate configuration with Docker-specific enhancements
-* Includes both a PHP "files" container which uses a /files volume for stored user-uploaded files, and a PHP "ha" container which is not supposed to use any data volumes and thus can be scaled elastically
+* Includes both a PHP "ha" service which is not supposed to use any data volumes and thus can be scaled elastically, as well as a PHP "files" container which uses a /files volume to stored user-uploaded files 
+* The PHP "ha" service is frontend by a HAProxy service that distributes the load to the PHP "ha" service containers
+* The PHP service can use either PHP-FPM with Opcache (default) or HHVM
 
 ## Default configuration
 
@@ -14,7 +16,7 @@ A frontend nginx location on / is configured to use the "ha" PHP service. A back
 
 The frontend can be scaled horizontally and is thus served by different containers on each request, while the backend is always served by the same container. 
 
-A Redis service is included in the docker stack and configured as the PHP session handler for all containers. 
+A Redis service is included in the docker stack and configured as the PHP session handler for all containers.
 
 ## Installation
 
@@ -22,10 +24,6 @@ Clone/download a copy of this repository and copy the boilerplate files to your 
 
     cd my-app
     docker-stack install debian-php-nginx
-
-Optionally, generation your project php/nginx base configuration: [Follow these instructions](../../generators/server-config-generator/README.md)
-
-Add your project php/nginx configuration includes to the `stack/nginx/` and `stack/php/` directories.
 
 ## Usage
 
@@ -59,5 +57,15 @@ To scale the PHP "ha" service:
     docker-compose scale phpha=3
 
 ## Customization
+
+### Configuration
+
+Optionally, generate your project php/nginx base configuration based on composer.json metadata: [Follow these instructions](../../generators/server-config-generator/README.md)
+
+Customize your php/nginx configuration by changing the files in your project's `stack/nginx/` and `stack/php/` directories.
+
+To use HHVM instead of PHP-FPM, comment the "php-fpm" command almost at the bottom of your project's `stack/php/run.sh`, and uncomment the "hhvm" command. 
+
+### Advanced
 
 Compare this stack to the stack found at `../debian-php-nginx.dna-project-base` for an example of how to customize this stack for a specific project set-up

@@ -33,13 +33,15 @@ phphaproxy:
     FRONTEND_PORT: 9000
     STATS_AUTH: stats:stats
     MODE: tcp
+    TIMEOUT: connect 5000, client 400000, server 400000
 
 # The highly available php service for interpreting php code without access to /files
 phpha:
-  image: neam/dna-project-base-debian-php:5.6.9-fpm-0.3.0
+  image: neam/dna-project-base-debian-php:5.6.13-fpm-0.4.0
   links:
     - mailcatcher
     - redisphpsessionhandler
+    - localdb
   #  - memcached
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
@@ -61,10 +63,11 @@ redisphpsessionhandler:
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
 phpfiles:
-  image: neam/dna-project-base-debian-php:5.6.9-fpm-0.3.0
+  image: neam/dna-project-base-debian-php:5.6.13-fpm-0.4.0
   links:
     - mailcatcher
     - redisphpsessionhandler
+    - localdb
   #  - memcached
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
@@ -80,6 +83,18 @@ phpfiles:
     - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
+
+# Local database server to mimic a cloud database
+localdb:
+  image: mysql:5.6.27
+  volumes:
+    - ./stack/localdb/.db/mysql:/var/lib/mysql:rw
+    - ./stack/localdb/:/stack/localdb:rw
+  ports:
+   - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: "local-mysql-pass"
+  command: "/stack/localdb/run.sh"
 
 # Memcached server for serving cached contents via the nginx-memcache plugin
 #memcached:
@@ -97,7 +112,7 @@ mailcatcher:
 # A container to run builder commands locally
 builder:
   #build: vendor/neam/docker-stack/base-images/php-app-builder/
-  image: neam/php-app-builder:0.3.0
+  image: neam/php-app-builder:0.4.0
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
@@ -111,9 +126,10 @@ builder:
 # A container to run tester commands locally - start a shell by running stack/tester-shell.sh
 tester:
   #build: vendor/neam/docker-stack/base-images/php-app-tester/
-  image: neam/php-app-tester:0.3.0
+  image: neam/php-app-tester:0.4.0
   links:
     - web
+    - localdb
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
@@ -123,7 +139,9 @@ tester:
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
 worker:
   #build: vendor/neam/docker-stack/base-images/php-app-worker/
-  image: neam/php-app-worker:0.3.0
+  image: neam/php-app-worker:0.4.0
+  links:
+    - localdb
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
@@ -144,6 +162,7 @@ info:
     - builder
     - tester
     - worker
+    - localdb
   #  - memcached
   working_dir: '/app'
   command: "true"
