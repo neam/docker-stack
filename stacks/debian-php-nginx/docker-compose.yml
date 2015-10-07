@@ -29,6 +29,7 @@ phphaproxy:
     FRONTEND_PORT: 9000
     STATS_AUTH: stats:stats
     MODE: tcp
+    TIMEOUT: connect 5000, client 50000, server 50000
 
 # The highly available php service for interpreting php code without access to /files
 phpha:
