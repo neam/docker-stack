@@ -20,6 +20,13 @@ set -x
   done
   cp /app/stack/php/php-fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf
 
+  # Add local-only config
+  if [ "$RUNNING_LOCALLY" == "1" ]; then
+    for configfile in /app/stack/php/conf.d-local/*; do
+      cp $configfile /etc/php5/fpm/conf.d/
+    done
+  fi
+
   # Setup config variables only available at runtime
   sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/php5/fpm/conf.d/app.ini
   sed -i "s|\${XDEBUG_DEFAULT_ENABLE}|${XDEBUG_DEFAULT_ENABLE}|" /etc/php5/fpm/conf.d/app.ini
@@ -30,6 +37,13 @@ set -x
   for configfile in /app/stack/php/conf.d/*; do
       cat $configfile >> /etc/hhvm/php.ini
   done
+
+  # Add local-only config
+  if [ "$RUNNING_LOCALLY" == "1" ]; then
+    for configfile in /app/stack/php/conf.d-local/*; do
+      cat $configfile >> /etc/hhvm/php.ini
+    done
+  fi
 
   # Setup config variables only available at runtime
   sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/hhvm/php.ini
@@ -42,6 +56,13 @@ set -x
   for configfile in /app/stack/php/conf.d/*; do
       cat $configfile >> /etc/hhvm/server.ini
   done
+
+  # Add local-only config
+  if [ "$RUNNING_LOCALLY" == "1" ]; then
+    for configfile in /app/stack/php/conf.d-local/*; do
+      cat $configfile >> /etc/hhvm/server.ini
+    done
+  fi
 
   # Setup config variables only available at runtime
   sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/hhvm/server.ini
@@ -56,10 +77,6 @@ umask 002
 mkdir -p /files/$DATA/media
 
 if [ "$RUNNING_LOCALLY" == "1" ]; then
-
-for configfile in /app/stack/php/conf.d-local/*; do
-    cp $configfile /etc/php5/fpm/conf.d/
-done
 
   # Work around permission errors locally by making sure that "www-data" uses the same uid and gid as the host volume
   TARGET_UID=$(stat -c "%u" /app)
@@ -83,6 +100,9 @@ fi
 # Echo some directory listings so that we can verify that things are set up properly
 ls -l /app/
 ls -l /files/$DATA/media
+
+# Uncomment in order to use hhvm for cli
+/usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/hhvm 60
 
 # Run the desired php cgi process manager (use either php-fpm or hhvm)
 #php5-fpm
