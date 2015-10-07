@@ -1,4 +1,4 @@
-Stacks - PHP/Nginx/Memcache - DNA Project Base
+Docker-based Stack - DNA Project Base (Based on Debian PHP/Nginx)
 ===================================
 
 ## Features

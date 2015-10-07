@@ -1,4 +1,4 @@
-Stacks - Debian PHP/Nginx
+Docker-based Stack - Debian PHP/Nginx
 ===================================
 
 ## Features
