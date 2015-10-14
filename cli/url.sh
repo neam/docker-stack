@@ -1,7 +1,23 @@
 #!/bin/sh
 
-export DOCKER_HOST_IP=$(echo $DOCKER_HOST | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//');
-export WEB_PORT_80=$(docker-compose -f $STACK_YML port web 80 | sed 's/[0-9.]*://');
-export URL="http://$DOCKER_HOST_IP:$WEB_PORT_80";
-URL=$URL"$@";
+SERVICE_NAME=$1
+PORT=$2
+VIRTUAL_HOST=$3
+URL_PATH="${@:4}"
+
+if [ "$SERVICE_NAME" == "" ]; then
+  SERVICE_NAME=router
+fi
+
+if [ "$PORT" == "" ]; then
+  PORT=80
+fi
+
+if [ "$VIRTUAL_HOST" == "" ]; then
+  VIRTUAL_HOST=$(echo $DOCKER_HOST | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//');
+fi
+
+HTTP_PORT=$(docker-compose -f $STACK_YML port $SERVICE_NAME $PORT | sed 's/[0-9.]*://');
+URL="http://$VIRTUAL_HOST:$HTTP_PORT";
+URL=$URL"$URL_PATH";
 echo $URL;
