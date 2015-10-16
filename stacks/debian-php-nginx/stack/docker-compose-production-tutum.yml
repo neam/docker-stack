@@ -11,7 +11,7 @@
     - "80"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
-    VIRTUAL_HOST: %VIRTUAL_HOST%
+    VIRTUAL_HOST: '%VIRTUAL_HOST%'
     # The haproxy router is configured to respond to port 80 without ssl, thus we need to make sure that proxying to the web service's port 443 is not attempted
     # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
     EXCLUDE_PORTS: 443

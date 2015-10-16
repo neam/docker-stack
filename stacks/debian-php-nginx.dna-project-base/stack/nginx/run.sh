@@ -25,8 +25,5 @@ if [ ! -n "$NGINX_ERROR_LOG_LEVEL" ] ; then
 fi
 sed -i "s|\${NGINX_ERROR_LOG_LEVEL}|${NGINX_ERROR_LOG_LEVEL}|" /etc/nginx/nginx.conf
 
-# Setup config variables only available at runtime
-sed -i "s|\${DATA}|${DATA}|" /etc/nginx/conf.d/app.conf
-
 # Run nginx
 nginx -g 'daemon off;'

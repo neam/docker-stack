@@ -11,7 +11,7 @@ router%DEPLOY_STABILITY_TAG%:
   ports:
     - "80:80"
     - "443:443"
-    - "1936"
+    - "1936:1936"
   environment:
     # Clarify the timeout setting, making it easy to adjust
     TIMEOUT: connect 5000, client 50000, server 50000
@@ -24,8 +24,8 @@ router%DEPLOY_STABILITY_TAG%:
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node
   tags:
     - public-%DEPLOY_STABILITY_TAG%
-  # Auto-restart in case container dies unexpectedly
-  autorestart: on_failure
+  # Auto-restart in case container is stopped unexpectedly
+  autorestart: always
   # Do not update the service when a new version is pushed to the registry (since we want finer control of when new configuration is applied)
   autoredeploy: false
   # Container distribution among nodes (so that we easily can add more public nodes elastically)

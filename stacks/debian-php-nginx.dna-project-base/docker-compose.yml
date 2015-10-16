@@ -12,7 +12,7 @@ router:
     # Publish stats port
     - "1936"
   environment:
-    TIMEOUT: connect 500, client 1000, server 1000
+    TIMEOUT: connect 5000, client 50000, server 50000
     # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
     STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
 
@@ -29,7 +29,7 @@ web:
     - "80"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
-    VIRTUAL_HOST: '*.adoveo.local, *.ratataa.local'
+    VIRTUAL_HOST: '*._PROJECT_.local, *._PROJECT_.build.neamlabs.com'
     # The haproxy router is configured to respond to port 80 without ssl, thus we need to make sure that proxying to the web service's port 443 is not attempted
     # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
     EXCLUDE_PORTS: 443
