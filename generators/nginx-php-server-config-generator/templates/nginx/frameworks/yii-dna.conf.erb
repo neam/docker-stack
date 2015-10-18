@@ -19,6 +19,12 @@ location ~ \.php {
     fastcgi_buffers 256 4k;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     fastcgi_param HTTPS $proxied_https;
+    <% if ENV.has_key? "PHP_RUNTIME" and ENV["PHP_RUNTIME-root"].to_s == "hhvm" %>
+    # for hhvm
+    fastcgi_keep_conn on;
+    fastcgi_param NGINX_SCRIPT_NAME $fastcgi_script_name;
+    fastcgi_param NGINX_DOCUMENT_ROOT $document_root;
+    <% end %>
     fastcgi_pass <%= ENV['PHP_SERVICE'] %>;
 }
 
@@ -46,6 +52,12 @@ location ~ \.php {
             fastcgi_buffers 256 4k;
             fastcgi_param SCRIPT_FILENAME $request_filename;
             fastcgi_param HTTPS $proxied_https;
+            <% if location.has_key? "php-runtime" and location["php-runtime"].to_s == "hhvm" %>
+            # for hhvm
+            fastcgi_keep_conn on;
+            fastcgi_param NGINX_SCRIPT_NAME $fastcgi_script_name;
+            fastcgi_param NGINX_DOCUMENT_ROOT $document_root;
+            <% end %>
             fastcgi_pass <%= location["php-service"] %>;
         }
 
