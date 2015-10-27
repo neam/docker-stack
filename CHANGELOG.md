@@ -6,9 +6,9 @@ CHANGELOG
 
 ## 0.5.0 (Not yet released)
 
-- Enh: Using current version of haproxy image supporting Blue/Green zero-downtime deployments
+- Enh: Using up-to-date version of haproxy image supporting Blue/Green zero-downtime deployments
 - Chg: Orientation towards for multi-tenancy deployments, where each tenant has a separate database connection
-- Enh: Performance tweaks
+- Enh: Performance and stability tweaks
 
 ## 0.4.0 (Released 2015-10-06)
 
