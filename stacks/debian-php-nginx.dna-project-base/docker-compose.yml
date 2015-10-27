@@ -131,7 +131,6 @@ builder:
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
-    - ../set-deployment-target.inc.sh:/set-deployment-target.inc.sh
     - ../.git:/.git
     - ~/.composer:/root/.composer
     - ~/.ssh:/root/.ssh:ro

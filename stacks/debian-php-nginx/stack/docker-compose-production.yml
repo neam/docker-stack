@@ -15,8 +15,6 @@ web:
     # The haproxy router is configured to respond to port 80 without ssl, thus we need to make sure that proxying to the web service's port 443 is not attempted
     # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
     EXCLUDE_PORTS: 443
-  env_file:
-    - %ENV_FILE_DIR%/.env
   working_dir: '/app'
   command: "/app/stack/nginx/run.sh"
 
