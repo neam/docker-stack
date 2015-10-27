@@ -1,8 +1,14 @@
 # Docker compose configuration for tutum deployment router (to run on publicly facing instances on port 80/443 where DNS records are pointed at)
 # This service has a single purpose: Mapping a virtual host request to corresponding services deployed in an elastic instance cluster.
+# Getting started:
+#  1. Launch two separate instances and make sure they have stable IP addresses (in AWS, use elastic ips)
+#  2. Add the instances as tutum using the Bring-Your-Own-Node method (https://support.tutum.co/support/solutions/articles/5000513678-bring-your-own-node)
+#  3. Tag one of them "public-dev" and the other "public-prod"
+#  4. Launch one router-stack/service on each, resulting in the stacks/services routerprod and routerdev.
+# Production DNS entries are then mapped to the instance where routerprod is running, and development entries to the other one.
 
 router%DEPLOY_STABILITY_TAG%:
-  image: neam/tutum-haproxy:91ab49
+  image: neam/tutum-haproxy:a1e506f
   links:
     - %STACK_WEB_SERVICE_NAME_1%
     - %STACK_WEB_SERVICE_NAME_2%
@@ -25,9 +31,9 @@ router%DEPLOY_STABILITY_TAG%:
   tags:
     - public-%DEPLOY_STABILITY_TAG%
   # Auto-restart in case container is stopped unexpectedly
-  autorestart: always
+  restart: always
   # Do not update the service when a new version is pushed to the registry (since we want finer control of when new configuration is applied)
-  autoredeploy: false
+  redeploy: false
   # Container distribution among nodes (so that we easily can add more public nodes elastically)
   deployment_strategy: every_node
   # Enable full Tutum API access so that the container can reconfigure itself
