@@ -20,7 +20,7 @@ web:
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: neam/tutum-haproxy:91ab49
+  image: neam/tutum-haproxy:a1e506f
   links:
     - phpha
   ports:

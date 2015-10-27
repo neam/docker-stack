@@ -3,8 +3,8 @@
 # The local mock version of the public haproxy router, responsible for serving the correct "web" service based on the VIRTUAL_HOST
 # locally we only have a single "web" service, nonetheless it is important to locally mimic the complete request chain
 router:
-  # version-locked via docker tag tutum/haproxy neam/tutum-haproxy:91ab49 && docker push neam/tutum-haproxy:91ab49
-  image: neam/tutum-haproxy:91ab49
+  # version-locked via: docker pull tutum/haproxy && docker tag tutum/haproxy neam/tutum-haproxy:a1e506f && docker push neam/tutum-haproxy:a1e506f
+  image: neam/tutum-haproxy:a1e506f
   links:
     - web
   ports:
@@ -38,7 +38,7 @@ web:
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: neam/tutum-haproxy:91ab49
+  image: neam/tutum-haproxy:a1e506f
   links:
     - phpha
   ports:
