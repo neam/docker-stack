@@ -27,7 +27,7 @@ RUN docker-php-ext-install intl \
                            mbstring \
                            mcrypt \
                            zip
-RUN pecl install apcu-beta && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
+RUN pecl install apcu-stable && echo extension=apcu.so > /usr/local/etc/php/conf.d/apcu.ini
 
 # Include composer and application binaries in PATH
 ENV PATH /app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH
