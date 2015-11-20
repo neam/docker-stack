@@ -32,7 +32,7 @@ RUN pecl install apcu-stable && echo extension=apcu.so > /usr/local/etc/php/conf
 # Include composer and application binaries in PATH
 ENV PATH /app:/app/vendor/bin:/root/.composer/vendor/bin:$PATH
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --version=1.0.0-alpha10 && \
+RUN curl -sS https://getcomposer.org/installer | php -- --version=1.0.0-alpha11 && \
     mv composer.phar /usr/local/bin/composer && \
     composer global require "fxp/composer-asset-plugin:1.*" && \
     composer global dumpautoload --optimize # 2015.11.20 19:40
