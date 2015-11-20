@@ -1,12 +1,14 @@
-Stacks - PHP/Nginx/Memcache - DNA Project Base
+Docker-based Stack - DNA Project Base (Based on Debian PHP/Nginx)
 ===================================
 
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
-* Uses a Debian-derived PHP-FPM container and the official Nginx Docker containers
+* Uses a Debian-derived PHP image and the official Nginx Docker image
 * Includes boilerplate configuration with Docker-specific enhancements
-* Includes both a PHP "files" container which uses a /files volume for stored user-uploaded files, and a PHP "ha" container which is not supposed to use any data volumes and thus can be scaled elastically
+* Includes both a PHP "ha" service which is not supposed to use any data volumes and thus can be scaled elastically, as well as a PHP "files" container which uses a /files volume to stored user-uploaded files 
+* The PHP "ha" service is frontend by a HAProxy service that distributes the load to the PHP "ha" service containers
+* The PHP service can use either PHP-FPM with Opcache (default) or HHVM
 * Compatible with deployment routines explained in [https://github.com/neam/yii-dna-deployment](https://github.com/neam/yii-dna-deployment)
 
 ## Default configuration
@@ -15,7 +17,7 @@ A frontend nginx location on / is configured to use the "ha" PHP service. A back
 
 The frontend can be scaled horizontally and is thus served by different containers on each request, while the backend is always served by the same container. 
 
-A Redis service is included in the docker stack and configured as the PHP session handler for all containers. 
+A Redis service is included in the docker stack and configured as the PHP session handler for all containers.
 
 ## Installation
 
@@ -24,10 +26,6 @@ Clone/download a copy of this repository and copy the boilerplate files to your 
     cd my-app
     docker-stack install debian-php-nginx
     docker-stack install debian-php-nginx.dna-project-base
-
-Optionally, generation your project php/nginx base configuration: [Follow these instructions](../../generators/server-config-generator/README.md)
-
-Add your project php/nginx configuration includes to the `stack/nginx/` and `stack/php/` directories.
 
 ## Usage
 
@@ -73,15 +71,53 @@ Then, follow instructions under `vendor/neam/yii-dna-deployment/README.md`
 
 The local stack include optional containers that emulate upstream services outside of your control. Simply comment them out if you do not need them.
 
-### Explanation of the extra local container
+### Explanation of the extra local containers
 
 * `mailcatcher` - Runs a mailcatcher SMTP server
+* `localdb` - Runs a local MySQL server
 
 ### Corresponding service in production
 
 * `mailcatcher` - An SMTP service such as Gmail, Amazon Simple Mail Service, Foo etc
+* `localdb` - A cloud database service such as Amazon RDS, Rackspace CloudDB etc
 
 ### Using memcache
 
 TODO: Add instructions
 
+### Using localdb
+
+In order to connect to your local database from your work station, use the following credentials:
+
+    User: admin
+    Password: local-mysql-pass
+
+Connect to the host and port given by:
+
+    docker-stack local db
+
+## Customization
+
+### Configuration
+
+Optionally, generate your project php/nginx base configuration based on composer.json metadata: [Follow these instructions](../../generators/server-config-generator/README.md)
+
+Customize your php/nginx configuration by changing the files in your project's `stack/nginx/` and `stack/php/` directories.
+
+To use HHVM instead of PHP-FPM, comment the "php-fpm" command almost at the bottom of your project's `stack/php/run.sh`, and uncomment the "hhvm" commands. 
+
+Also, because HHVM seems to alter the SCRIPT_NAME and DOCUMENT_ROOT params from nginx, add the following to your index.php file:
+
+    // HHVM SCRIPT_NAME difference vs php-fpm workaround
+    if (defined('HHVM_VERSION')) {
+        $_SERVER['DOCUMENT_ROOT'] = $_SERVER['NGINX_DOCUMENT_ROOT'];
+        $_SERVER['SCRIPT_NAME'] = $_SERVER['NGINX_SCRIPT_NAME'];
+        $_SERVER['PHP_SELF'] = $_SERVER['NGINX_SCRIPT_NAME'];
+    }
+
+And the following to your location block config in nginx:
+
+    # for hhvm
+    fastcgi_keep_conn on;
+    fastcgi_param NGINX_SCRIPT_NAME $fastcgi_script_name;
+    fastcgi_param NGINX_DOCUMENT_ROOT $document_root;

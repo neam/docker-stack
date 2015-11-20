@@ -16,10 +16,9 @@
 
 FROM neam/php-app-worker
 
-# Update the below ENV date time to trigger docker to not used the cached apt system packages - general system packages will be based on apt state of this datetime
-ENV APT_DOCKER_CACHE_TRIGGER "2015-08-13 10:53"
+# Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q
+    apt-get upgrade -y -q # 2015-09-26 13:22
 
 # To be able to start a mock server based on an API blueprint
 RUN apt-get install -y -q \
