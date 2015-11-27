@@ -1,5 +1,7 @@
 # PHP + nginx Docker images
 
+**/!\ Note: Images moved to [phundament/docker-images](https://github.com/phundament/docker-images).
+
 This document contains a description of the available Docker images from this repository.
 
 > Note: `cli` containers also contain the application data, which is shared via `volumes_from`.

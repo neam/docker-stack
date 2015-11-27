@@ -2,10 +2,7 @@
 
 default: build
 
-all: neam schmunk42
+all: neam
 
 neam:
 	$(MAKE) -f Makefile-neam $@ ; \
-
-schmunk42:
-	$(MAKE) -f Makefile-schmunk42 $@ ; \
