@@ -4,6 +4,13 @@ CHANGELOG
 
 # Neam stacks and supporting images
 
+## 0.6.0 (Not yet released)
+
+- Enh: Retagged base neam docker images to clarify that the php images includes both php fpm and hhvm (together with their respective versions)
+- Upg: PHP-FPM 5.6.13 upgraded to 5.6.14
+- Upg: PHP-HHVM 3.9.1 upgraded to 3.10.1
+- Upg: All debian packages updated as per 2015-12-03 12:38
+
 ## 0.5.0 (Released 2015-10-27)
 
 - Enh: Using up-to-date version of haproxy image supporting Blue/Green zero-downtime deployments

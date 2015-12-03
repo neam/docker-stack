@@ -52,7 +52,7 @@ phphaproxy:
 
 # The elastically scalable php service for interpreting php code without access to /files
 phpha:
-  image: neam/dna-project-base-debian-php:5.6.13-fpm-0.4.0
+  image: neam/dna-project-base-debian-php:0.6.0
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -78,7 +78,7 @@ redisphpsessionhandler:
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
 phpfiles:
-  image: neam/dna-project-base-debian-php:5.6.13-fpm-0.4.0
+  image: neam/dna-project-base-debian-php:0.6.0
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -127,7 +127,7 @@ mailcatcher:
 # A container to run builder commands locally
 builder:
   #build: vendor/neam/docker-stack/base-images/php-app-builder/
-  image: neam/php-app-builder:0.4.0
+  image: neam/php-app-builder:0.6.0
   volumes:
     - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
     - .files:/files:rw
@@ -140,7 +140,7 @@ builder:
 # A container to run tester commands locally - start a shell by running stack/tester-shell.sh
 tester:
   #build: vendor/neam/docker-stack/base-images/php-app-tester/
-  image: neam/php-app-tester:0.4.0
+  image: neam/php-app-tester:0.6.0
   links:
     - web
     - localdb
@@ -153,7 +153,7 @@ tester:
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
 worker:
   #build: vendor/neam/docker-stack/base-images/php-app-worker/
-  image: neam/php-app-worker:0.4.0
+  image: neam/php-app-worker:0.6.0
   links:
     - localdb
   volumes:
