@@ -1,21 +1,11 @@
 Installation
 ------------
 
-## Via composer
+To install docker-stack in your home directory and make it available in PATH when using bash: 
 
-Install and symlink to /usr/local/bin/:
-
-    composer require "neam/docker-stack:*@dev" --prefer-source
-    ln -s $(pwd)/vendor/bin/docker-stack /usr/local/bin/docker-stack
-
-## Via git
-
-Clone and symlink to /usr/local/bin/:
-
-    git clone https://github.com/neam/docker-stack
-    cd docker-stack
-    ln -s $(pwd)/cli/docker-stack /usr/local/bin/docker-stack
-
+    git clone https://github.com/neam/docker-stack ~/.docker-stack
+    echo 'export PATH=$PATH:~/.docker-stack/cli' >> ~/.bash_profile
+    source ~/.bash_profile
 
 Quick start - Example Yii 2
 ---------------------------

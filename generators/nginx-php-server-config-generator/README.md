@@ -18,7 +18,6 @@ Example:
                 "memory_limit=128M",
                 "max_execution_time=60",
                 "xdebug.default_enable=off",
-                "newrelic.logfile=/var/log/newrelic.log",
                 "error_reporting=E_ALL",
                 "html_errors=on",
                 "display_errors=${DISPLAY_PHP_ERRORS}",
@@ -26,8 +25,8 @@ Example:
             ],
             "document-root": "frontend/www",
             "index-document": "index.php",
-            "memcached-key-prefix": "frontend",
             "php-service": "phpha",
+            "memcached-key-prefix": "frontend",
             "nginx-includes": [
                 "stack/nginx/include/location-defaults.conf"
             ],
