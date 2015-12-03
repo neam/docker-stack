@@ -4,7 +4,7 @@ CHANGELOG
 
 # Neam stacks and supporting images
 
-## 0.5.0 (Not yet released)
+## 0.5.0 (Released 2015-10-27)
 
 - Enh: Using up-to-date version of haproxy image supporting Blue/Green zero-downtime deployments
 - Chg: Orientation towards for multi-tenancy deployments, where each tenant has a separate database connection
