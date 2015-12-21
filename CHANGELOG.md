@@ -4,6 +4,13 @@ CHANGELOG
 
 # Neam stacks and supporting images
 
+## 0.5.0 (Released 2015-10-27)
+
+- Enh: Using up-to-date version of haproxy image supporting Blue/Green zero-downtime deployments
+- Chg: Orientation towards for multi-tenancy deployments, where each tenant has a separate database connection
+- Enh: Added sample tutum maintenance stack configurations (for newrelic, distributed logging and enabling node ssh access)
+- Enh: Performance and stability tweaks
+
 ## 0.4.0 (Released 2015-10-06)
 
 - Enh: Enabled use of HHVM as an alternative to PHP-FPM

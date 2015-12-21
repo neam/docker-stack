@@ -1,0 +1,26 @@
+# Docker compose configuration for tutum node ssh access (https://tutum.freshdesk.com/support/solutions/articles/5000553071-sshing-into-a-tutum-node)
+# First time deployment:
+#  mkdir -p deployments/teamnodesshaccess/
+#  tutum stack create --name=teamnodesshaccess -f stack/docker-compose-production-tutum-ssh-node-access.yml | tee deployments/teamnodesshaccess/.tutum-stack-id
+#  tutum stack start $(cat deployments/teamnodesshaccess/.tutum-stack-id)
+# To update the stack, after a new key has been added or changed:
+#  tutum stack update -f stack/docker-compose-production-tutum-ssh-node-access.yml $(cat deployments/teamnodesshaccess/.tutum-stack-id)
+#  tutum stack redeploy $(cat deployments/teamnodesshaccess/.tutum-stack-id)
+
+nodesshaccessjohndoe:
+  image: borja/authkey
+  environment:
+    PUB_KEY: ssh-rsa 1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef
+  volumes:
+    - /root/.ssh:/.ssh
+  deployment_strategy: every_node
+  autodestroy: always
+
+nodesshaccessbuild_PROJECT_com:
+  image: borja/authkey
+  environment:
+    PUB_KEY: ssh-rsa faefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefae
+  volumes:
+    - /root/.ssh:/.ssh
+  deployment_strategy: every_node
+  autodestroy: always
