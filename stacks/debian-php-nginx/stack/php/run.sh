@@ -15,5 +15,9 @@ set -x
 /app/stack/php/manage-permissions.sh
 
 # Run the desired php cgi process manager (use either php-fpm or hhvm)
-#php5-fpm
-hhvm -m server -c /etc/hhvm/server.ini -u www-data
+if [ "$HHVM" == "1" ]; then
+  /usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/hhvm 60 # Use hhvm for cli
+  hhvm -m server -c /etc/hhvm/server.ini -u www-data
+else
+  php5-fpm
+fi

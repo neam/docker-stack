@@ -7,8 +7,8 @@ Docker-based Stack - Debian PHP/Nginx
 * Uses a Debian-derived PHP image and the official Nginx Docker image
 * Includes boilerplate configuration with Docker-specific enhancements
 * Includes both a PHP "ha" service which is not supposed to use any data volumes and thus can be scaled elastically, as well as a PHP "files" container which uses a /files volume to stored user-uploaded files 
-* The PHP "ha" service is frontend by a HAProxy service that distributes the load to the PHP "ha" service containers
-* The PHP service can use either PHP-FPM with Opcache (default) or HHVM
+* The PHP "ha" service is fronted by a HAProxy service that distributes the load to the PHP "ha" service containers
+* The PHP services can use either PHP-FPM with Opcache (default) or HHVM
 
 ## Default configuration
 
@@ -20,37 +20,52 @@ A Redis service is included in the docker stack and configured as the PHP sessio
 
 ## Installation
 
-Clone/download a copy of this repository and copy the boilerplate files to your 12-factor app base dir.
+Install docker-stack cli in your home directory and make it available in PATH when using bash: 
 
-    cd my-app
+    git clone https://github.com/neam/docker-stack ~/.docker-stack
+    git clone file:///Users/motin/Dev/Projects/neam/dna-project-base/components/composer-packages/docker-stack ~/.docker-stack
+    echo 'export PATH=$PATH:~/.docker-stack/cli' >> ~/.bash_profile
+    source ~/.bash_profile
+
+Enter your project directory (can be an empty directory in case you simply want to try out the stack):
+
+    mkdir myapp
+    cd myapp
+
+Then run the following commands to copy the boilerplate stack files to your 12-factor app base dir.
+
     docker-stack install debian-php-nginx
 
 ## Usage
 
-To try this stack out-of-the-box after installing it, create the index php files expected by the default configuration:
+To try this stack out-of-the-box after installing it, you need a local `.env` where environment variables are specified which will be available to the PHP containers:
+
+    echo 'FOO=bar' >> .env
+
+Then, fire up the stack locally:
+
+    docker-compose up -d
+
+Visit the stack-hello pages by visiting the URL returned by:
+
+    docker-stack local url web 80 - /stack-hello/
+
+Or, create the index php files expected by the default configuration:
 
     mkdir -p frontend/www
     mkdir -p backend/www
     echo '<?php phpinfo();' > frontend/www/index.php
     echo '<?php phpinfo();' > backend/www/index.php
 
-Also, you need a local `.env` where environment variables are specified which will be available to the PHP containers:
-
-    echo 'FOO=bar' >> .env
-
-Fire up the stack locally:
-
-    docker-compose up -d
-
 Visit the below returned urls in your browser:
 
     docker-stack local url
-    docker-stack local url /backend/
+    docker-stack local url web 80 - /backend/
 
 > Hint: On OSX, you can open the url directly from a terminal session:
 >
 >    open $(docker-stack local url)
->    open $(docker-stack local url /backend/)
+>    open $(docker-stack local url web 80 - /backend/)
 
 To scale the PHP "ha" service:
 
@@ -75,7 +90,7 @@ Also, because HHVM seems to alter the SCRIPT_NAME and DOCUMENT_ROOT params from 
         $_SERVER['PHP_SELF'] = $_SERVER['NGINX_SCRIPT_NAME'];
     }
 
-And the following to your location block config in nginx:
+And make sure to keep the following in your nginx location blocks (see docker-stack/stacks/debian-php-nginx/stack/nginx/conf.d/app.conf):
 
     # for hhvm
     fastcgi_keep_conn on;

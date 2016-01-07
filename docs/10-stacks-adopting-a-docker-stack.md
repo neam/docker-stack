@@ -36,9 +36,9 @@ The .docker-stack file is found in every stack and contains paths to the differe
 
 ## The general structure of existing stacks found in this repo
 
+ * `stack/README.md` - The stack's README
  * `stack/{container-type}/*` - Configuration files used by your stack's containers
- * `stack/src/install-deps.sh` - Project-specific script for installation of dependencies
-
+ 
 The container that exposes port 80 to the end-user should be called `web`.
 
 Sample stack boilerplate files are found in this repository under `../stacks/`, documented in [the main README.md](../README.md#stacks).

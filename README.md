@@ -20,7 +20,6 @@ Requirements
  * docker 1.8.3+
  * docker-compose 1.4.2+
  * git
- * a *nix shell (Windows users: Try Cygwin or Git bash)
 
 
 Why use a Docker-based stack in the first place?
@@ -35,6 +34,7 @@ Thus, in any team or project where multiple developers are involved, less time a
 
 The stack can then be deployed to any docker host/swarm or orchestrated via [the container platform service Tutum](https://tutum.com), providing a high degree of dev/prod parity.
 
+
 Why `docker-stack`?
 -------------------
 
@@ -43,6 +43,7 @@ Setting up, configuring and maintaining a Docker-based stack takes time, and doc
 Care has been taken to make all vital configuration files visible and easy customizable, so that it is straightforward to tweak, adjust and debug configuration issues.
 
 The stacks are used by the maintainers in production and [constantly tweaked to be faster and more reliable](./CHANGELOG.md).
+
 
 Available Stacks
 ----------------

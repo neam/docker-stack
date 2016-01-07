@@ -10,7 +10,6 @@ web:
     - .:/app:rw
   ports:
     - "80"
-    - "443"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
   working_dir: '/app'
@@ -18,10 +17,11 @@ web:
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: neam/tutum-haproxy:91ab49
+  image: neam/tutum-haproxy:a1e506f
   links:
     - phpha
   ports:
+    - "9000"
     # Publish stats port
     - "1936"
   environment:
@@ -45,13 +45,18 @@ phpha:
     DISPLAY_PHP_ERRORS: 'on'
     XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    #HHVM: '1'
   env_file:
     - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
+# The redis service used as the PHP session handler for all containers
 redisphpsessionhandler:
   image: redis
+  ports:
+   - "6379"
 
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
@@ -69,7 +74,8 @@ phpfiles:
     DISPLAY_PHP_ERRORS: 'on'
     XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
-    EXCLUDE_PORTS: 22
+    # Uncomment to use HHVM
+    #HHVM: '1'
   env_file:
     - .env
   working_dir: '/app'
@@ -78,8 +84,9 @@ phpfiles:
 # Mailcatcher server for catching outgoing email when not in production
 mailcatcher:
   image: nisenabe/mailcatcher
-  ports:
+  expose:
     - "25"
+  ports:
     - "1080"
 
 # A container that is linked to and thus can output linked information about running containers locally
@@ -92,6 +99,9 @@ info:
     - web
     - phphaproxy
     - phpha
+    - redisphpsessionhandler
     - phpfiles
+    - mailcatcher
+    - worker
   working_dir: '/app'
   command: "true"

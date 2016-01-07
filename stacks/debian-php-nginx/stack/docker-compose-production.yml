@@ -6,15 +6,10 @@ web:
   links:
     - phphaproxy
     - phpfiles
-#    - memcached
   ports:
     - "80"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
-    VIRTUAL_HOST: '%VIRTUAL_HOST%'
-    # The haproxy router is configured to respond to port 80 without ssl, thus we need to make sure that proxying to the web service's port 443 is not attempted
-    # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
-    EXCLUDE_PORTS: 443
   working_dir: '/app'
   command: "/app/stack/nginx/run.sh"
 
@@ -39,18 +34,21 @@ phpha:
   links:
     - mailcatcher
     - redisphpsessionhandler
-#    - memcached
   ports:
     - "9000"
   environment:
     TCP_PORTS: '9000'
     DISPLAY_PHP_ERRORS: 'off'
     XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '0'
+    # Uncomment to use HHVM
+    #HHVM: '1'
   env_file:
     - %ENV_FILE_DIR%/.env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
+# The redis service used as the PHP session handler for all containers
 redisphpsessionhandler:
   image: redis
   ports:
@@ -63,7 +61,6 @@ phpfiles:
   links:
     - mailcatcher
     - redisphpsessionhandler
-#    - memcached
   volumes:
     - /files
   ports:
@@ -71,16 +68,13 @@ phpfiles:
   environment:
     DISPLAY_PHP_ERRORS: 'off'
     XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '0'
+    # Uncomment to use HHVM
+    #HHVM: '1'
   env_file:
     - %ENV_FILE_DIR%/.env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
-
-# Memcached server for serving cached contents via the nginx-memcache plugin
-#memcached:
-#  image: memcached:1.4.22
-#  ports:
-#    - "11211"
 
 # Mailcatcher server for catching outgoing email when not in production
 mailcatcher:
@@ -90,4 +84,3 @@ mailcatcher:
   ports:
     - "1080"
 
-# Selenium...
