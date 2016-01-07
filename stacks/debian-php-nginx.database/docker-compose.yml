@@ -37,7 +37,7 @@ phpha:
     - mailcatcher
     - redisphpsessionhandler
     - mysql
-    - mariadb
+    #- mariadb # Commented due to https://github.com/docker-library/mariadb/issues/30
     - percona
     - mongodb
   volumes:
@@ -70,7 +70,7 @@ phpfiles:
     - mailcatcher
     - redisphpsessionhandler
     - mysql
-    - mariadb
+    #- mariadb # Commented due to https://github.com/docker-library/mariadb/issues/30
     - percona
     - mongodb
   volumes:
@@ -172,7 +172,7 @@ info:
     - redisphpsessionhandler
     - phpfiles
     - mysql
-    - mariadb
+    #- mariadb # Commented due to https://github.com/docker-library/mariadb/issues/30
     - percona
     - mongodb
     - mailcatcher
