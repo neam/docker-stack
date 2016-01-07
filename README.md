@@ -58,6 +58,8 @@ These stacks and underlying concepts are used in production by [Neam Labs](http:
 
 ### Publisher: schmunk42
 
+These stacks and underlying concepts are used in production by [Herzog Kommunikation - The Application Factory](http://herzogkommunikation.de/)
+
 - [PHP/Nginx](stacks/schmunk42/php-nginx/README.md)
 - [PHP/Nginx Vanilla](stacks/schmunk42/php-nginx-vanilla/README.md)
 - [ELK](stacks/schmunk42/elk/README.md)
