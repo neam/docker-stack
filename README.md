@@ -17,10 +17,9 @@ Enables easy app-specific orchestration of dockerized services (databases, mail 
 Requirements
 ------------
 
- * docker 1.5.0+ (1.8.2 recommended)
- * docker-compose 1.2.0+ (1.4.2 recommended)
+ * docker 1.8.3+
+ * docker-compose 1.4.2+
  * git
- * a *nix shell (Windows users: Try Cygwin or Git bash)
 
 
 Why use a Docker-based stack in the first place?
@@ -28,12 +27,13 @@ Why use a Docker-based stack in the first place?
 
 As a member of a developer team, the Docker-based stack enables you to ditch Vagrant/Puppet/Chef while still maintaining a cross-platform local development workflow similar to the powerful `npm install` + `grunt serve` combo for javascript-based apps:
 
-    docker-compose run shell composer install
+    docker-compose run worker composer install
     docker-compose up
 
 Thus, in any team or project where multiple developers are involved, less time and hassle is necessary to get the project software running locally.
 
 The stack can then be deployed to any docker host/swarm or orchestrated via [the container platform service Tutum](https://tutum.com), providing a high degree of dev/prod parity.
+
 
 Why `docker-stack`?
 -------------------
@@ -42,25 +42,30 @@ Setting up, configuring and maintaining a Docker-based stack takes time, and doc
 
 Care has been taken to make all vital configuration files visible and easy customizable, so that it is straightforward to tweak, adjust and debug configuration issues.
 
-The stacks are used by the maintainers in production and [constantly tweaked to be faster and more reliable](./CHANGELOG.md).
 
 Available Stacks
 ----------------
 
-### Base stacks
+### Publisher: neam
 
-- [PHP/Nginx](stacks/php-nginx/README.md)
-- [Vanilla PHP/Nginx](stacks/php-nginx-vanilla/README.md)
-- [Debian PHP/Nginx](stacks/debian-php-nginx/stack/README.md)
+These stacks and underlying concepts are used in production by [Neam Labs](http://neamlabs.com) and are [constantly tweaked to be faster and more reliable](./CHANGELOG.md).
 
-### Stacks used in production by us
+- [Hello World](stacks/neam/hello-world/README.md)
+- [Debian PHP/Nginx](stacks/neam/debian-php-nginx/stack/README.md)
+- [Debian PHP/Nginx + Database](stacks/neam/debian-php-nginx/stack/README.md)
+- [DNA Project Base Stack (Based on Debian PHP/Nginx)](stacks/neam/debian-php-nginx.dna-project-base/stack/README.md)
+- [Tutum HAProxy Virtual Host Proof-of-concept](stacks/neam/text-to-flowchart-generators-haproxy-vhost-example/README.md)
 
-- [DNA Project Base Stack (Based on Debian PHP/Nginx)](stacks/debian-php-nginx.dna-project-base/stack/README.md)
+### Publisher: schmunk42
 
-### Other stacks
+These stacks and underlying concepts are used in production by [Herzog Kommunikation - The Application Factory](http://herzogkommunikation.de/)
 
-- [Hello World](stacks/hello-world/README.md)
-- [Yii 2.0 Framework](stacks/yii2/README.md)
+- [PHP/Nginx](stacks/schmunk42/php-nginx/README.md)
+- [PHP/Nginx Vanilla](stacks/schmunk42/php-nginx-vanilla/README.md)
+- [ELK](stacks/schmunk42/elk/README.md)
+- [Phundament](stacks/schmunk42/phundament/)
+- [Docker Registry Mirror](stacks/schmunk42/registry-mirror/)
+- [Yii 2.0 Framework](stacks/schmunk42/yii2/README.md)
 
 
 Command-line tools

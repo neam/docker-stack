@@ -13,7 +13,7 @@ if [ "$PORT" == "" ]; then
   PORT=80
 fi
 
-if [ "$VIRTUAL_HOST" == "" ]; then
+if [ "$VIRTUAL_HOST" == "" ] || [ "$VIRTUAL_HOST" == "-" ]; then
   VIRTUAL_HOST=$(echo $DOCKER_HOST | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//');
 fi
 

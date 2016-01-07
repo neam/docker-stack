@@ -1,0 +1,189 @@
+# Docker compose configuration for local development
+
+# The local mock version of the public haproxy router, responsible for serving the correct "web" service based on the VIRTUAL_HOST
+# locally we only have a single "web" service, nonetheless it is important to locally mimic the complete request chain
+router:
+  # version-locked via: docker pull tutum/haproxy && docker tag tutum/haproxy neam/tutum-haproxy:a1e506f && docker push neam/tutum-haproxy:a1e506f
+  image: neam/tutum-haproxy:a1e506f
+  links:
+    - web
+  ports:
+    - "80:80"
+    # Publish stats port
+    - "1936"
+  environment:
+    TIMEOUT: connect 5000, client 50000, server 50000
+    # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
+    STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
+
+# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
+web:
+  image: nginx:1.7
+  links:
+    - phphaproxy
+    - phpfiles
+  volumes:
+    - .:/app:rw
+  ports:
+    - "80"
+  environment:
+    NGINX_ERROR_LOG_LEVEL: 'notice'
+    VIRTUAL_HOST: '*.192.168.99.100.xip.io, 192.168.99.100, *._PROJECT_.build.neamlabs.com, *.ngrok.io'
+    # The haproxy router is configured to respond to port 80 without ssl, thus we need to make sure that proxying to the web service's port 443 is not attempted
+    # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
+    EXCLUDE_PORTS: 443
+  working_dir: '/app'
+  command: "/app/stack/nginx/run.sh"
+
+# HA Proxy for php service scaling
+phphaproxy:
+  image: neam/tutum-haproxy:a1e506f
+  links:
+    - phpha
+  ports:
+    - "9000"
+    # Publish stats port
+    - "1936"
+  environment:
+    MODE: tcp
+    TIMEOUT: connect 5000, client 50000, server 50000
+    # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
+    STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
+
+# The elastically scalable php service for interpreting php code without access to /files
+phpha:
+  image: neam/dna-project-base-debian-php:0.6.0
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+    - localdb
+  volumes:
+    - .:/app:rw
+  ports:
+    - "9000"
+  environment:
+    TCP_PORTS: '9000'
+    DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    HHVM: '1'
+  env_file:
+    - .env
+  working_dir: '/app'
+  command: "/app/stack/php/run.sh"
+
+# The redis service used as the PHP session handler for all containers
+redisphpsessionhandler:
+  image: redis
+  ports:
+   - "6379"
+
+# The single-node php service for interpreting php code with read-write access to user-generated files
+# (to support file uploads and other local file manipulations)
+phpfiles:
+  image: neam/dna-project-base-debian-php:0.6.0
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+    - localdb
+  volumes:
+    - .:/app:rw
+    - .files:/files:rw
+  ports:
+    - "9000"
+  environment:
+    DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    HHVM: '1'
+  env_file:
+    - .env
+  working_dir: '/app'
+  command: "/app/stack/php/run.sh"
+
+# Local MySQL database server to mimic a cloud database
+localdb:
+  image: mysql:5.6.27
+  volumes:
+    - ./stack/localdb/.db/mysql:/var/lib/mysql:rw
+    - ./stack/localdb/:/stack/localdb:rw
+  ports:
+    - "3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: "local-mysql-pass"
+  command: "/stack/localdb/run.sh"
+
+# Memcached server for serving cached contents via the nginx-memcache plugin
+#memcached:
+#  image: memcached:1.4.22
+#  ports:
+#    - "11211"
+
+# Mailcatcher server for catching outgoing email when not in production
+mailcatcher:
+  image: nisenabe/mailcatcher
+  expose:
+    - "25"
+  ports:
+    - "1080"
+
+# A container to run builder commands locally
+builder:
+  #build: vendor/neam/docker-stack/base-images/php-app-builder/
+  image: neam/php-app-builder:0.6.0
+  volumes:
+    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .files:/files:rw
+    - ../.git:/.git
+    - ~/.composer:/root/.composer
+    - ~/.ssh:/root/.ssh:ro
+  working_dir: '/app'
+  command: "true"
+
+# A container to run tester commands locally - start a shell by running stack/tester-shell.sh
+tester:
+  #build: vendor/neam/docker-stack/base-images/php-app-tester/
+  image: neam/php-app-tester:0.6.0
+  links:
+    - web
+    - localdb
+  volumes:
+    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .files:/files:rw
+  working_dir: '/app'
+  command: "true"
+
+# A container to run worker/administration commands locally - start a shell by running stack/shell.sh
+worker:
+  image: neam/php-app-worker:0.6.0
+  links:
+    - localdb
+  volumes:
+    - .:/app:rw
+    - .files:/files:rw
+  working_dir: '/app'
+  env_file:
+   - .current-local-cli-data-profile
+  command: "/bin/bash"
+
+# A container that is linked to and thus can output linked information about running containers locally
+info:
+  image: debian:jessie
+  volumes:
+    - .:/app:rw
+    - .files:/files:rw
+  links:
+    - web
+    - phphaproxy
+    - phpha
+    - redisphpsessionhandler
+    - phpfiles
+    - mailcatcher
+    - builder
+    - tester
+    - worker
+    - localdb
+  working_dir: '/app'
+  command: "true"
