@@ -38,8 +38,8 @@ Enter your project directory (can be an empty directory in case you simply want 
 
 Then run the following commands to copy the boilerplate stack files to your 12-factor app base dir.
 
-    docker-stack install debian-php-nginx
-    docker-stack install debian-php-nginx.dna-project-base
+    docker-stack install neam/debian-php-nginx
+    docker-stack install neam/debian-php-nginx.dna-project-base
 
 ## Usage
 
