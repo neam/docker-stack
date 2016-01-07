@@ -8,8 +8,8 @@ CHANGELOG
 
 - Enh: Retagged base neam docker images to clarify that the php images includes both php fpm and hhvm (together with their respective versions)
 - Upg: PHP-FPM 5.6.13 upgraded to 5.6.14
-- Upg: PHP-HHVM 3.9.1 upgraded to 3.10.1
-- Upg: All debian packages updated as per 2015-12-03 12:38
+- Upg: HHVM 3.9.1 upgraded to 3.11.0 (Includes PHP 7 language support)
+- Upg: All debian packages updated as per 2016-01-07 13:16
 
 ## 0.5.0 (Released 2015-10-27)
 

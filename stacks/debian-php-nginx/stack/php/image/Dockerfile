@@ -1,15 +1,15 @@
-# Dockerfile for PHP (FPM 5.6.14, HHVM 3.10.1) built for Debian PHP/Nginx base docker-stack
+# Dockerfile for PHP (FPM 5.6.14, HHVM 3.11.0) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
-#   docker build -t neam/debian-php:fpm-5.6.14-hhvm-3.10.1-for-debian-php-nginx-stack .
-#   docker push neam/debian-php:fpm-5.6.14-hhvm-3.10.1-for-debian-php-nginx-stack
+#   docker build -t neam/debian-php:fpm-5.6.14-hhvm-3.11.0-for-debian-php-nginx-stack .
+#   docker push neam/debian-php:fpm-5.6.14-hhvm-3.11.0-for-debian-php-nginx-stack
 
-FROM neam/debian-php:fpm-5.6.14-hhvm-3.10.1
+FROM neam/debian-php:fpm-5.6.14-hhvm-3.11.0
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2016-01-03 17:59
+    apt-get upgrade -y -q # 2016-01-07 13:16
 
 # Install PHP extensions available via apt-get (required for PHP-FPM, but can also be useful to HHVM since default configurations for the extensions are incorporated in the docker image)
 RUN apt-get install -y -q \

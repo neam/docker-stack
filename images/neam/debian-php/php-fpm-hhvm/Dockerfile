@@ -1,7 +1,7 @@
-# Dockerfile for PHP (FPM 5.6.14, HHVM 3.10.1) built for PHP/Nginx-based docker-stacks
+# Dockerfile for PHP (FPM 5.6.14, HHVM 3.11.0) built for PHP/Nginx-based docker-stacks
 # ===============================================================
-#   docker build -f Dockerfile -t neam/debian-php:fpm-5.6.14-hhvm-3.10.1 .
-#   docker push neam/debian-php:fpm-5.6.14-hhvm-3.10.1
+#   docker build -f Dockerfile -t neam/debian-php:fpm-5.6.14-hhvm-3.11.0 .
+#   docker push neam/debian-php:fpm-5.6.14-hhvm-3.11.0
 
 FROM debian:jessie
 
@@ -22,7 +22,7 @@ RUN echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2015-10-06 16:16
+    apt-get upgrade -y -q # 2016-01-07 13:16
 
 # Install specific version of PHP-FPM (if not available - show what versions were available in debian jessie at the moment of APT_DOCKER_CACHE_TRIGGER above)
 RUN apt-get install -y -q \
@@ -33,7 +33,7 @@ RUN apt-get install -y -q \
 
 # HHVM binaries
 RUN apt-get install -y -q \
-        hhvm=3.10.1* \
+        hhvm=3.11.0* \
   || (echo "hhvm \n $(apt-cache show hhvm | grep -i version)" && \
       exit 1)
 

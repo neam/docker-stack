@@ -1,15 +1,15 @@
-# Dockerfile for PHP (FPM 5.6.14, HHVM 3.10.1) built for PHP/Nginx DNA Project Base docker-stack
+# Dockerfile for PHP (FPM 5.6.14, HHVM 3.11.0) built for PHP/Nginx DNA Project Base docker-stack
 # ===============================================================
 #   docker build -t neam/dna-project-base-debian-php:0.6.0 .
 #   docker push neam/dna-project-base-debian-php:0.6.0
 
-FROM neam/debian-php:fpm-5.6.14-hhvm-3.10.1-for-debian-php-nginx-stack
+FROM neam/debian-php:fpm-5.6.14-hhvm-3.11.0-for-debian-php-nginx-stack
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2016-01-03 17:59
+    apt-get upgrade -y -q # 2016-01-07 13:16
 
 # For erb templates
 RUN apt-get install -y -q \
