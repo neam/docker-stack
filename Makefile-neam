@@ -10,7 +10,7 @@ debian-php:
 
 stack-images:
 	echo "Building debian-php-nginx stack base php image"
-	docker build -t neam/debian-php:fpm-5.6.14-hhvm-3.11.0-for-debian-php-nginx-stack  stacks/debian-php-nginx/stack/php/image
+	docker build -t neam/debian-php:fpm-5.6.14-hhvm-3.11.0-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/image
 
 neam.php-app-images: export version=0.6.0
 neam.php-app-images: debian-php
@@ -22,7 +22,7 @@ neam.php-app-images: debian-php
 neam.dna-project-base: export version=0.6.0
 neam.dna-project-base: neam.php-app-images stack-images
 	echo "Building neam.dna-project-base stack base php image"
-	docker build -t neam/dna-project-base-debian-php:$(version)  stacks/debian-php-nginx.dna-project-base/stack/php/image
+	docker build -t neam/dna-project-base-debian-php:$(version)  stacks/neam/debian-php-nginx.dna-project-base/stack/php/image
 
 release-neam: export version=0.6.0
 release-neam: neam.dna-project-base
