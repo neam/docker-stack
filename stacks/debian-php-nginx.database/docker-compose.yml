@@ -129,13 +129,11 @@ percona:
 mongodb:
   image: mongo:3.2.0
   volumes:
-    #- ./stack/mongodb/.db/mysql:/var/lib/mysql:rw
+    # WARNING: because MongoDB uses memory mapped files it is not possible to use it through vboxsf to your host (vbox bug). // https://hub.docker.com/_/mongo/
+    #- ./stack/mongodb/.db:/data/db:rw
     - ./stack/mongodb/:/stack/mongodb:rw
   ports:
     - "27017"
-  environment:
-    MYSQL_ROOT_PASSWORD: "local-mongodb-pass"
-  command: "/stack/mongodb/run.sh"
 
 # Mailcatcher server for catching outgoing email when not in production
 mailcatcher:
