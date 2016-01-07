@@ -28,7 +28,7 @@ web:
     - "80"
   environment:
     NGINX_ERROR_LOG_LEVEL: 'notice'
-    VIRTUAL_HOST: '*.192.168.99.100.xip.io, 192.168.99.100, *._PROJECT_.build.neamlabs.com'
+    VIRTUAL_HOST: '*.192.168.99.100.xip.io, 192.168.99.100, *._PROJECT_.build.neamlabs.com, *.ngrok.io'
     # The haproxy router is configured to respond to port 80 without ssl, thus we need to make sure that proxying to the web service's port 443 is not attempted
     # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
     EXCLUDE_PORTS: 443
