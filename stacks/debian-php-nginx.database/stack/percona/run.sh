@@ -11,7 +11,6 @@ TARGET_GID=$(stat -c "%g" /var/lib/mysql)
 echo '-- Setting mysql group to use gid '$TARGET_GID
 groupmod -o -g $TARGET_GID mysql || true
 echo
-echo '* Starting MySQL'
+echo '* Starting Percona'
 chown -R mysql:root /var/run/mysqld/
-/entrypoint.sh mysqld --user=mysql --console
-/docker-entrypoint.sh
+/docker-entrypoint.sh mysqld --user=mysql --console
