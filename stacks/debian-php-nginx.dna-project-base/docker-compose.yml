@@ -22,9 +22,8 @@ web:
   links:
     - phphaproxy
     - phpfiles
-  #  - memcached
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
   ports:
     - "80"
   environment:
@@ -42,6 +41,7 @@ phphaproxy:
   links:
     - phpha
   ports:
+    - "9000"
     # Publish stats port
     - "1936"
   environment:
@@ -57,9 +57,8 @@ phpha:
     - mailcatcher
     - redisphpsessionhandler
     - localdb
-  #  - memcached
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
   ports:
     - "9000"
   environment:
@@ -67,13 +66,18 @@ phpha:
     DISPLAY_PHP_ERRORS: 'on'
     XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    HHVM: '1'
   env_file:
     - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
+# The redis service used as the PHP session handler for all containers
 redisphpsessionhandler:
   image: redis
+  ports:
+   - "6379"
 
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
@@ -83,9 +87,8 @@ phpfiles:
     - mailcatcher
     - redisphpsessionhandler
     - localdb
-  #  - memcached
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   ports:
     - "9000"
@@ -93,13 +96,14 @@ phpfiles:
     DISPLAY_PHP_ERRORS: 'on'
     XDEBUG_DEFAULT_ENABLE: 'off'
     RUNNING_LOCALLY: '1'
-    EXCLUDE_PORTS: 22
+    # Uncomment to use HHVM
+    HHVM: '1'
   env_file:
     - .env
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
 
-# Local database server to mimic a cloud database
+# Local MySQL database server to mimic a cloud database
 localdb:
   image: mysql:5.6.27
   volumes:
@@ -120,8 +124,9 @@ localdb:
 # Mailcatcher server for catching outgoing email when not in production
 mailcatcher:
   image: nisenabe/mailcatcher
-  ports:
+  expose:
     - "25"
+  ports:
     - "1080"
 
 # A container to run builder commands locally
@@ -152,35 +157,33 @@ tester:
 
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
 worker:
-  #build: vendor/neam/docker-stack/base-images/php-app-worker/
   image: neam/php-app-worker:0.6.0
   links:
     - localdb
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   working_dir: '/app'
   env_file:
    - .current-local-cli-data-profile
-  command: "true"
+  command: "/bin/bash"
 
 # A container that is linked to and thus can output linked information about running containers locally
 info:
   image: debian:jessie
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   links:
     - web
     - phphaproxy
     - phpha
+    - redisphpsessionhandler
     - phpfiles
+    - mailcatcher
     - builder
     - tester
     - worker
     - localdb
-  #  - memcached
   working_dir: '/app'
   command: "true"
-
-# Selenium...
