@@ -10,6 +10,7 @@ Docker-based Stack - Debian PHP/Nginx
 * The PHP "ha" service is fronted by a HAProxy service that distributes the load to the PHP "ha" service containers
 * The PHP services can use either PHP-FPM with Opcache (default) or HHVM
 * Includes a PHP cli / shell container to run worker/administration commands locally - start a shell by running stack/shell.sh
+* Includes the mailcatcher SMTP server for local development of mailing logic
 
 ## Default configuration
 
@@ -71,6 +72,26 @@ Visit the below returned urls in your browser:
 To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
+
+## Local Extras
+
+The local stack include optional containers that emulate upstream services outside of your control. Simply comment them out if you do not need them.
+
+### Explanation of the extra local containers
+
+* `mailcatcher` - Runs a mailcatcher SMTP server
+
+### Corresponding service in production
+
+* `mailcatcher` - An SMTP service such as Gmail, Amazon Simple Mail Service, Foo etc
+
+## Using mailcatcher
+
+Configure your app to send emails using `mailcatcher` as the SMTP server against port 25.
+
+The emails will show up in the web frontend accessible on the url given by the following command:
+
+    docker-stack local url mailcatcher 1080
 
 ## Customization
 
