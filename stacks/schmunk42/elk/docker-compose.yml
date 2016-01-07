@@ -1,39 +1,38 @@
-elasticsearchdata:
-  image: 'alpine'
-  command: '/bin/true'
-  volumes:
-  - '/data/elasticsearch:/usr/share/elasticsearch/data'
+kibana:
+  image: kibana:4.3
+  links:
+    - elasticsearch
+  ports:
+    - "5601:5601"
+  restart: always
 
 elasticsearch:
-  image: 'elasticsearch:1.5'
-  ports:
-  - '9200:9200'
-  volumes_from:
-  - 'elasticsearchdata'
- 
+  image: elasticsearch:2
+
 logstash:
-  image: 'logstash'
-  command: 'logstash -e ''input { syslog { port => 12345 type => "docker" } } output { elasticsearch_http { host => "elasticsearch" } }'''
+  build: logstash
+  command: 'logstash -f /logstash.conf -v'
+  links:
+    - elasticsearch
+    - redis
+
+redis:
+  image: tutum/redis
   expose:
-  - '12345/tcp'
-  - '12345/udp'
-  links:
-  - elasticsearch
- 
-logspout:
-  image: 'gliderlabs/logspout'
-  entrypoint: '/bin/sh'
-  command: '-c ''/bin/logspout syslog://$LOGSTASH_PORT_12345_UDP_ADDR:12345'''
-  volumes:
-  - '/var/run/docker.sock:/tmp/docker.sock'
-  links:
-  - logstash
- 
-kibana:
-  image: marcbachmann/kibana4
+    - 6379
   environment:
-  - ELASTICSEARCH=http://elasticsearch:9200
-  ports:
-  - '5601:5601'
+    - REDIS_PASS=secretredis
+
+logspout:
+  image: rtoma/logspout-redis-logstash
   links:
-  - elasticsearch
+    - redis
+  command: 'redis://redis'
+  environment:
+    - DEBUG=0
+    - REDIS_PASSWORD=secretredis
+    - REDIS_KEY=logstash
+    - REDIS_DOCKER_HOST=local
+    - affinity:container!=/elklogspoutmonitor/
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
