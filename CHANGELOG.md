@@ -1,11 +1,17 @@
 CHANGELOG
 =========
 
-## Neam Labs - Stacks and supporting images
+## Project/Repository
 
-### 0.6.0 (Not yet released)
+### 0.1.0 (Released 2016-01-07)
 
-- Enh: Made debian-php-nginx include more components out-of-the-box
+- Init: Initial project/repository structure (motin, schmunk42)
+
+## Neam - Stacks and supporting images
+
+### 0.6.0 (Released 2016-01-07)
+
+- Enh: Made the debian-php-nginx stack include more components out-of-the-box
 - Enh: Added the debian-php-nginx.database stack that showcases how database engines are added to a stack
 - Enh: Retagged base neam docker images to clarify that the php images includes both php fpm and hhvm (together with their respective versions)
 - Upg: PHP-FPM 5.6.13 upgraded to 5.6.14
