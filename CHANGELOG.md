@@ -6,10 +6,13 @@ CHANGELOG
 
 ## 0.6.0 (Not yet released)
 
+- Enh: Made debian-php-nginx include more components out-of-the-box
+- Enh: Added the debian-php-nginx.database stack that showcases how database engines are added to a stack
 - Enh: Retagged base neam docker images to clarify that the php images includes both php fpm and hhvm (together with their respective versions)
 - Upg: PHP-FPM 5.6.13 upgraded to 5.6.14
 - Upg: HHVM 3.9.1 upgraded to 3.11.0 (Includes PHP 7 language support)
 - Upg: All debian packages updated as per 2016-01-07 13:16
+- Enh: Documentation improvements and clean-up
 
 ## 0.5.0 (Released 2015-10-27)
 
