@@ -130,7 +130,7 @@ mongodb:
   image: mongo:3.2.0
   volumes:
     # WARNING: because MongoDB uses memory mapped files it is not possible to use it through vboxsf to your host (vbox bug). // https://hub.docker.com/_/mongo/
-    #- ./stack/mongodb/.db:/data/db:rw
+    #- ./stack/mongodb/.db:/data/db/mongodb:rw
     - ./stack/mongodb/:/stack/mongodb:rw
   ports:
     - "27017"
