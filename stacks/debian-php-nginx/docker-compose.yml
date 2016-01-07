@@ -89,6 +89,15 @@ mailcatcher:
   ports:
     - "1080"
 
+# A container to run worker/administration commands locally - start a shell by running stack/shell.sh
+worker:
+  image: neam/php-app-worker:0.6.0
+  volumes:
+    - .:/app:rw
+    - .files:/files:rw
+  working_dir: '/app'
+  command: "/bin/bash"
+
 # A container that is linked to and thus can output linked information about running containers locally
 info:
   image: debian:jessie

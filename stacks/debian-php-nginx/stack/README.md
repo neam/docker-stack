@@ -9,6 +9,7 @@ Docker-based Stack - Debian PHP/Nginx
 * Includes both a PHP "ha" service which is not supposed to use any data volumes and thus can be scaled elastically, as well as a PHP "files" container which uses a /files volume to stored user-uploaded files 
 * The PHP "ha" service is fronted by a HAProxy service that distributes the load to the PHP "ha" service containers
 * The PHP services can use either PHP-FPM with Opcache (default) or HHVM
+* Includes a PHP cli / shell container to run worker/administration commands locally - start a shell by running stack/shell.sh
 
 ## Default configuration
 
