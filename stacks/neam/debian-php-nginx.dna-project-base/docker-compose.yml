@@ -166,7 +166,7 @@ worker:
   working_dir: '/app'
   env_file:
    - .current-local-cli-data-profile
-  command: "/bin/bash"
+  command: "true"
 
 # A container that is linked to and thus can output linked information about running containers locally
 info:
