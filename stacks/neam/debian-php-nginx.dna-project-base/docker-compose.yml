@@ -144,15 +144,16 @@ builder:
 
 # A container to run tester commands locally - start a shell by running stack/tester-shell.sh
 tester:
-  #build: vendor/neam/docker-stack/base-images/php-app-tester/
   image: neam/php-app-tester:0.6.0
   links:
     - web
     - localdb
   volumes:
-    - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
+    - .:/app:rw
     - .files:/files:rw
   working_dir: '/app'
+  env_file:
+   - .current-local-cli-data-profile
   command: "true"
 
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
