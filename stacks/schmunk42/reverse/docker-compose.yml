@@ -1,0 +1,8 @@
+proxy:
+  image: jwilder/nginx-proxy
+  volumes:
+    - ~/.docker/machine/machines/dev5:/tmp/docker-certs
+  ports:
+    - 80:80
+  env_file:
+    - docker.env

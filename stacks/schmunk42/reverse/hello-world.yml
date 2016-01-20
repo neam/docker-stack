@@ -1,0 +1,4 @@
+hello:
+  image: tutum/hello-world
+  environment:
+    VIRTUAL_HOST: '~hello.example.com'

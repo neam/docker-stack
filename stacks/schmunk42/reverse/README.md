@@ -1,0 +1,29 @@
+Reverse Proxy
+=============
+
+Ajdust `docker.env` settings, required for TLS communication.
+And mount (rebuild) with corresponding certs.
+
+Start reverse proxy
+
+    docker-compose up -d
+    
+Start test container with `VIRTUAL_HOST` setting    
+    
+    docker-compose -f hello.yml up -d
+
+Open in browser
+
+    http://hello.example.com.192.168.99.100.xip.io
+
+
+### Debugging
+
+Show logs    
+
+    docker-compose logs
+
+Show nginx config
+
+    docker exec reverse_proxy_1 cat /etc/nginx/conf.d/default.conf
+    
