@@ -2,3 +2,13 @@ hello:
   image: tutum/hello-world
   environment:
     VIRTUAL_HOST: '~hello.example.com'
+
+hello-ssl:
+  image: tutum/hello-world
+  environment:
+    VIRTUAL_HOST: 'ssl.example.com.192.168.99.100.xip.io'
+
+hello-ssl-de:
+  image: tutum/hello-world
+  environment:
+    VIRTUAL_HOST: '~www.example.de'
