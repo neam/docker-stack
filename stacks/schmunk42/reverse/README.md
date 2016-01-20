@@ -10,7 +10,7 @@ Start reverse proxy
     
 Start test container with `VIRTUAL_HOST` setting    
     
-    docker-compose -f hello.yml up -d
+    docker-compose -f hello-world.yml up -d
 
 Open in browser
 
