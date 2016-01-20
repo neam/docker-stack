@@ -1,5 +1,5 @@
 proxy:
-  image: jwilder/nginx-proxy:0.2.0
+  image: schmunk42/nginx-proxy:0.2.0-1
   volumes:
     - ~/.docker/machine/machines/dev5:/tmp/docker-certs
     - ./certs:/etc/nginx/certs

@@ -12,16 +12,46 @@ Start test container with `VIRTUAL_HOST` setting
     
     docker-compose -f hello-world.yml up -d
 
-Open in browser
 
-    http://hello.example.com.192.168.99.100.xip.io
+### SSL setup
 
-
-### SSL
-
-Generate a self-signed certificate, replace `default` with your actual domain-name.
+Generate a self-signed certificate
 
     openssl req -new -x509 -sha256 -days 365 -nodes -out certs/default.crt -keyout certs/default.key
+        
+Replace `default` with your actual domain-name, like `hello.example.com` or `www.example.de.192.168.99.100.xip.io`
+when creating a self-signed cert for a domain.
+
+
+### Testing
+
+Open in browser
+
+Wildcard
+
+    http://hello.example.com.192.168.99.100.xip.io
+    ->
+    http://hello.example.com.192.168.99.100.xip.io
+
+Full domain
+
+    http://www.example.de.192.168.99.100.xip.io
+    ->
+    https://www.example.de.192.168.99.100.xip.io
+
+HTTP only
+
+    http://nossl.192.168.99.100.xip.io
+    
+Initial connection shows certificate, then error 501 (503)
+    
+    https://nossl.192.168.99.100.xip.io
+
+Error 503
+
+    http://192.168.99.100
+    https://192.168.99.100
+
 
 
 ### Debugging
