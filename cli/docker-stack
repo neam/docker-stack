@@ -49,7 +49,7 @@ if [ "$LOCAL_STACK_YML" == "" ]; then
         fi
     }
 
-    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk vendor/neam/docker-stack/neam/stacks/hello-world/docker-compose.yml
     chk ./stack/local.yml
     chk ./docker-compose.yml
 
@@ -64,7 +64,7 @@ if [ "$PRODUCTION_STACK_YML" == "" ]; then
         fi
     }
 
-    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk vendor/neam/docker-stack/neam/stacks/hello-world/docker-compose.yml
     chk ./stack/deploy.yml
     chk ./docker-compose-production.yml
 
@@ -79,7 +79,7 @@ if [ "$TUTUM_STACK_YML" == "" ]; then
         fi
     }
 
-    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk vendor/neam/docker-stack/neam/stacks/hello-world/docker-compose.yml
     chk ./stack/deploy-tutum.yml
     chk ./docker-compose-tutum.yml
 
