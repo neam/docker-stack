@@ -62,7 +62,7 @@ To try this stack out-of-the-box after installing it, create the index php files
     echo '<?php phpinfo();' > frontend/www/index.php
     echo '<?php phpinfo();' > backend/www/index.php
 
-Visit the below returned urls in your browser:
+Visit the below returned urls in your browser (frontend and backend respectively):
 
     docker-stack local url
     docker-stack local url web 80 - /backend/

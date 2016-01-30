@@ -63,15 +63,15 @@ Or, create the index php files expected by the default configuration:
     echo '<?php phpinfo();' > frontend/www/index.php
     echo '<?php phpinfo();' > backend/www/index.php
 
-Visit the below returned urls in your browser:
+Visit the below returned urls in your browser (frontend and backend respectively):
 
-    docker-stack local url
+    docker-stack local url web
     docker-stack local url web 80 - /backend/
 
 > Hint: On OSX, you can open the url directly from a terminal session:
->
->    open $(docker-stack local url)
->    open $(docker-stack local url web 80 - /backend/)
+
+    open $(docker-stack local url web)
+    open $(docker-stack local url web 80 - /backend/)
 
 To scale the PHP "ha" service:
 
