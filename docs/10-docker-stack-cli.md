@@ -1,11 +1,16 @@
 Installation
 ------------
 
-To install docker-stack cli in your home directory and make it available in PATH when using bash: 
+Install docker-stack cli in your home directory and make it available in PATH when using bash: 
 
     git clone https://github.com/neam/docker-stack ~/.docker-stack
     echo 'export PATH=$PATH:~/.docker-stack/cli' >> ~/.bash_profile
     source ~/.bash_profile
+
+If you already have docker-stack installed, you can update it by running:
+
+    cd ~/.docker-stack
+    git pull
 
 
 Requirements

@@ -29,6 +29,11 @@ Install docker-stack cli in your home directory and make it available in PATH wh
     echo 'export PATH=$PATH:~/.docker-stack/cli' >> ~/.bash_profile
     source ~/.bash_profile
 
+If you already have docker-stack installed, you can update it by running:
+
+    cd ~/.docker-stack
+    git pull
+
 Enter your project directory (can be an empty directory in case you simply want to try out the stack):
 
     mkdir myapp
