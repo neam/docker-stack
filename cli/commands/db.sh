@@ -7,6 +7,7 @@ fi
 DRIVER=$1
 SERVICE_NAME=$2
 PORT=$3
+URL_PATH="${@:4}"
 
 if [ "$DRIVER" == "" ]; then
   DRIVER=mysql
@@ -21,7 +22,7 @@ if [ "$PORT" == "" ]; then
 fi
 
 export DOCKER_HOST_IP=$(echo $DOCKER_HOST | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//');
-export WEB_PORT_80=$(docker-compose -f $STACK_YML port $SERVICE_NAME $PORT | sed 's/[0-9.]*://');
-export URL="$DRIVER://$DOCKER_HOST_IP:$WEB_PORT_80";
-URL=$URL"$@";
+export DB_PORT=$(docker-compose -f $STACK_YML port $SERVICE_NAME $PORT | sed 's/[0-9.]*://');
+export URL="$DRIVER://$DOCKER_HOST_IP:$DB_PORT";
+URL=$URL"$URL_PATH";
 echo $URL;

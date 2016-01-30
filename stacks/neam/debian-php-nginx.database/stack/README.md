@@ -147,7 +147,7 @@ In order to connect to your local database from your work station, use the follo
 
 Connect to the host and port given by:
 
-    docker-stack local db mongodb mongodb
+    docker-stack local db mongodb mongodb 27017
 
 ## Using mailcatcher
 
