@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$DOCKERSTACK_DEBUG" == "1" ]; then
+    set -x;
+fi
+
 # Creates a clean cloned copy of the project repo in a build directory.
 #
 # By building the project docker image(s) in the clean cloned copy, the build

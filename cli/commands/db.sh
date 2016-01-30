@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "$DOCKERSTACK_DEBUG" == "1" ]; then
+    set -x;
+fi
+
 DRIVER=$1
 SERVICE_NAME=$2
 PORT=$3

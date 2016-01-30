@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$DOCKERSTACK_DEBUG" == "1" ]; then
+    set -x;
+fi
+
 # Updates the clean cloned copy of the project repo in a build directory.
 
 BRANCH=$(git symbolic-ref --short -q HEAD)

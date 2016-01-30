@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "$DOCKERSTACK_DEBUG" == "1" ]; then
+    set -x;
+fi
+
 SERVICE_NAME=$1
 PORT=$2
 VIRTUAL_HOST=$3
