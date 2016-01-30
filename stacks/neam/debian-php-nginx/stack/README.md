@@ -56,7 +56,17 @@ Visit the stack-hello pages by visiting the URL returned by:
 
     docker-stack local url web 80 - /stack-hello/
 
-Or, create the index php files expected by the default configuration:
+> Hint: On OSX, you can open the url directly from a terminal session:
+
+    open $(docker-stack local url web 80 - /stack-hello/)
+
+To scale the PHP "ha" service:
+
+    docker-compose scale phpha=3
+
+## Frontend and backend example
+
+Create the index php files expected by the default configuration:
 
     mkdir -p frontend/www
     mkdir -p backend/www
@@ -72,10 +82,6 @@ Visit the below returned urls in your browser (frontend and backend respectively
 
     open $(docker-stack local url web)
     open $(docker-stack local url web 80 - /backend/)
-
-To scale the PHP "ha" service:
-
-    docker-compose scale phpha=3
 
 ## Local Extras
 
