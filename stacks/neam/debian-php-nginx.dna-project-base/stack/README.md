@@ -88,9 +88,9 @@ Visit the below returned urls in your browser (frontend and backend respectively
 
 ## Deployment
 
-For thorough instructions and helpers scripts:
+For thorough instructions and helpers scripts (needs "minimum-stability": "dev" in your composer.json):
  
-    composer install neam/yii-dna-deployment
+    composer require neam/yii-dna-deployment
 
 Then, follow instructions under `vendor/neam/yii-dna-deployment/README.md`
 
