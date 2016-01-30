@@ -126,14 +126,22 @@ percona:
   command: "/stack/percona/run.sh"
 
 # Local Mongo database server to mimic a cloud database
-mongodb:
+# NOTICE: because MongoDB uses memory mapped files it is not possible to use it through vboxsf to your host (vbox bug). // https://hub.docker.com/_/mongo/
+# Instead, the solution described on http://www.diogogmt.com/running-mongodb-with-docker-and-compose/ is used below
+mongodbdata:
   image: mongo:3.2.0
   volumes:
-    # WARNING: because MongoDB uses memory mapped files it is not possible to use it through vboxsf to your host (vbox bug). // https://hub.docker.com/_/mongo/
-    #- ./stack/mongodb/.db:/data/db/mongodb:rw
+    - /data/db
+  command: --break-mongo
+mongodb:
+  image: mongo:3.2.0
+  volumes_from:
+    - mongodbdata
+  volumes:
     - ./stack/mongodb/:/stack/mongodb:rw
   ports:
     - "27017"
+  command: --smallfiles --rest --auth
 
 # Mailcatcher server for catching outgoing email when not in production
 mailcatcher:
