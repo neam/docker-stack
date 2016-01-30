@@ -38,6 +38,7 @@ JSON.parse(ENV['NGINX_LOCATIONS']).each do |location| %>
             alias /app/<%= location["document-root"] %>/;
 
             # serve static files direct + allow friendly urls
+            # Note: The seemingly weird syntax is due to a long-standing bug in nginx: http://stackoverflow.com/questions/20426812/nginx-try-files-alias-directives
             try_files $uri $uri/ <%= location["location"] %><%= location["location"] %><%= ENV['INDEX_DOCUMENT'] %>?$args;
 
             # Prevent access to yii protected directories
