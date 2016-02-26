@@ -13,6 +13,7 @@ RUN apt-get update && \
 
 # Install PHP extensions available via apt-get (required for PHP-FPM, but can also be useful to HHVM since default configurations for the extensions are incorporated in the docker image)
 RUN apt-get install -y -q \
+        php5-xdebug \
         php5-intl \
         php5-gd \
         php5-mysqlnd \

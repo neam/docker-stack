@@ -19,6 +19,7 @@ CHANGELOG
 - Upg: HHVM 3.11.0 upgraded to 3.12.0
 - Upg: All debian packages updated as per 2016-02-26 10:52
 - Enh: PHP-FPM uses the native MySQL driver (mysqlnd) by default
+- Enh: PHP-FPM xdebug extension included in image (disabled by default)
 
 ### 0.6.0 (Released 2016-01-07)
 
