@@ -3,6 +3,10 @@ CHANGELOG
 
 ## Project/Repository
 
+### 0.1.1 (Not yet released)
+
+- Min: Added --rm flag on docker-compose run commands in docs
+
 ### 0.1.0 (Released 2016-01-07)
 
 - Init: Initial project/repository structure (motin, schmunk42)

@@ -27,7 +27,7 @@ Why use a Docker-based stack in the first place?
 
 As a member of a developer team, the Docker-based stack enables you to ditch Vagrant/Puppet/Chef while still maintaining a cross-platform local development workflow similar to the powerful `npm install` + `grunt serve` combo for javascript-based apps:
 
-    docker-compose run worker composer install
+    docker-compose run --rm worker composer install
     docker-compose up
 
 Thus, in any team or project where multiple developers are involved, less time and hassle is necessary to get the project software running locally.

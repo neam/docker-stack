@@ -1,6 +1,6 @@
 # docker-compose configuration for local development
 #
-# docker-compose run cli composer install --prefer-dist
+# docker-compose run --rm cli composer install --prefer-dist
 
 # API STACK
 # =========

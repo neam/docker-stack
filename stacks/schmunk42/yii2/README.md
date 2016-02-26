@@ -29,7 +29,7 @@ Get Dockerization files
 
 Install application packages (required only for Option B)
 
-    docker-compose run cli composer install --prefer-dist
+    docker-compose run --rm cli composer install --prefer-dist
    
 Bring up the services
    
@@ -69,7 +69,7 @@ open up http://DOCKER_HOST_IP:PORT in your browser, or by running:
 
 To edit Nginx configuration, first copy the existing nginx.conf to your local directory:
 
-    docker-compose run web cat /etc/nginx/nginx.conf > nginx.conf
+    docker-compose run --rm web cat /etc/nginx/nginx.conf > nginx.conf
 
 Edit it and add the following volume to your docker-compose.yml:
 
