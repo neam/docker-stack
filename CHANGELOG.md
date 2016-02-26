@@ -13,7 +13,7 @@ CHANGELOG
 
 ## Neam - Stacks and supporting images
 
-### 0.6.1 (Yet to be released)
+### 0.6.1 (Released 2016-02-26)
 
 - Upg: PHP-FPM 5.6.14 upgraded to 5.6.17
 - Upg: HHVM 3.11.0 upgraded to 3.12.0

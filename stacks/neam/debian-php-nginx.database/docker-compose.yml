@@ -155,7 +155,7 @@ mailcatcher:
 
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
 worker:
-  image: neam/php-app-worker:0.6.0
+  image: neam/php-app-worker:0.6.1
   links:
     - mysql
     - mariadb

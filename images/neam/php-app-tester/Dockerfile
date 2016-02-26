@@ -14,7 +14,7 @@
 #
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
-FROM neam/php-app-worker:0.6.0
+FROM neam/php-app-worker:0.6.1
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
