@@ -40,6 +40,7 @@ phpha:
     - .:/app:rw
   ports:
     - "9000"
+    - "9089" # Xdebug
   environment:
     TCP_PORTS: '9000'
     DISPLAY_PHP_ERRORS: 'on'
@@ -70,6 +71,7 @@ phpfiles:
     - .files:/files:rw
   ports:
     - "9000"
+    - "9089" # Xdebug
   environment:
     DISPLAY_PHP_ERRORS: 'on'
     XDEBUG_DEFAULT_ENABLE: 'off'

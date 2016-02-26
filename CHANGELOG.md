@@ -20,6 +20,7 @@ CHANGELOG
 - Upg: All debian packages updated as per 2016-02-26 10:52
 - Enh: PHP-FPM uses the native MySQL driver (mysqlnd) by default
 - Enh: PHP-FPM xdebug extension included in image (disabled by default)
+- Enh: Publishing default xdebug ports locally by default
 
 ### 0.6.0 (Released 2016-01-07)
 
