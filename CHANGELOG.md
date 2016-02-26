@@ -14,6 +14,7 @@ CHANGELOG
 - Upg: PHP-FPM 5.6.14 upgraded to 5.6.17
 - Upg: HHVM 3.11.0 upgraded to 3.12.0
 - Upg: All debian packages updated as per 2016-02-26 10:52
+- Enh: PHP-FPM uses the native MySQL driver (mysqlnd) by default
 
 ### 0.6.0 (Released 2016-01-07)
 
