@@ -9,6 +9,12 @@ CHANGELOG
 
 ## Neam - Stacks and supporting images
 
+### 0.6.1 (Yet to be released)
+
+- Upg: PHP-FPM 5.6.14 upgraded to 5.6.17
+- Upg: HHVM 3.11.0 upgraded to 3.12.0
+- Upg: All debian packages updated as per 2016-02-26 10:52
+
 ### 0.6.0 (Released 2016-01-07)
 
 - Enh: Made the debian-php-nginx stack include more components out-of-the-box
@@ -16,7 +22,7 @@ CHANGELOG
 - Enh: Retagged base neam docker images to clarify that the php images includes both php fpm and hhvm (together with their respective versions)
 - Upg: PHP-FPM 5.6.13 upgraded to 5.6.14
 - Upg: HHVM 3.9.1 upgraded to 3.11.0 (Includes PHP 7 language support)
-- Upg: All debian packages updated as per 2016-01-07 13:16
+- Upg: All debian packages updated as per 2016-02-26 10:52
 - Enh: Documentation improvements and clean-up
 
 ### 0.5.0 (Released 2015-10-27)

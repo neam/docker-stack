@@ -18,7 +18,7 @@ FROM neam/php-app-worker:0.6.0
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2016-01-07 13:16
+    apt-get upgrade -y -q # 2016-02-26 10:52
 
 # To be able to start a mock server based on an API blueprint
 RUN apt-get install -y -q \
