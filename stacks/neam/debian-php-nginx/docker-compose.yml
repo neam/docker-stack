@@ -26,7 +26,7 @@ phphaproxy:
     - "1936"
   environment:
     MODE: tcp
-    TIMEOUT: connect 5000, client 50000, server 50000
+    TIMEOUT: connect 5000, client 120000, server 120000
     # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
     STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
 

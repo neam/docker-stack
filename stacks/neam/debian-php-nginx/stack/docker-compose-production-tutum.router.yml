@@ -20,7 +20,7 @@ router%DEPLOY_STABILITY_TAG%:
     - "1936:1936"
   environment:
     # Clarify the timeout setting, making it easy to adjust
-    TIMEOUT: connect 5000, client 50000, server 50000
+    TIMEOUT: connect 5000, client 120000, server 120000
     # Set 100k instead of default 4096 since we have experienced 7-20k simultaneous connections during high load (and even a t2.small instance handles way more than 4096 simultaneous connections)
     MAXCONN: 100000
     # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
