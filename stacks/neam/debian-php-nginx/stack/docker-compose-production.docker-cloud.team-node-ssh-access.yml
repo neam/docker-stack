@@ -1,11 +1,11 @@
-# Docker compose configuration for tutum node ssh access (https://tutum.freshdesk.com/support/solutions/articles/5000553071-sshing-into-a-tutum-node)
+# Docker compose configuration for docker-cloud node ssh access (https://tutum.freshdesk.com/support/solutions/articles/5000553071-sshing-into-a-tutum-node)
 # First time deployment:
 #  mkdir -p deployments/teamnodesshaccess/
-#  tutum stack create --name=teamnodesshaccess -f stack/docker-compose-production-tutum-ssh-node-access.yml | tee deployments/teamnodesshaccess/.tutum-stack-id
-#  tutum stack start $(cat deployments/teamnodesshaccess/.tutum-stack-id)
+#  docker-cloud stack create --name=teamnodesshaccess -f stack/docker-compose-production.docker-cloud-ssh-node-access.yml | tee deployments/teamnodesshaccess/.docker-cloud-stack-id
+#  docker-cloud stack start $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
 # To update the stack, after a new key has been added or changed:
-#  tutum stack update -f stack/docker-compose-production-tutum-ssh-node-access.yml $(cat deployments/teamnodesshaccess/.tutum-stack-id)
-#  tutum stack redeploy $(cat deployments/teamnodesshaccess/.tutum-stack-id)
+#  docker-cloud stack update -f stack/docker-compose-production.docker-cloud-ssh-node-access.yml $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
+#  docker-cloud stack redeploy $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
 
 nodesshaccessjohndoe:
   image: borja/authkey

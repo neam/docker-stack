@@ -1,8 +1,8 @@
-# Docker compose configuration for tutum deployment router (to run on publicly facing instances on port 80/443 where DNS records are pointed at)
+# Docker compose configuration for docker-cloud deployment router (to run on publicly facing instances on port 80/443 where DNS records are pointed at)
 # This service has a single purpose: Mapping a virtual host request to corresponding services deployed in an elastic instance cluster.
 # Getting started:
 #  1. Launch two separate instances and make sure they have stable IP addresses (in AWS, use elastic ips)
-#  2. Add the instances as tutum using the Bring-Your-Own-Node method (https://support.tutum.co/support/solutions/articles/5000513678-bring-your-own-node)
+#  2. Add the instances as docker-cloud using the Bring-Your-Own-Node method (https://support.tutum.co/support/solutions/articles/5000513678-bring-your-own-node)
 #  3. Tag one of them "public-dev" and the other "public-prod"
 #  4. Launch one router-stack/service on each, resulting in the stacks/services routerprod and routerdev.
 # Production DNS entries are then mapped to the instance where routerprod is running, and development entries to the other one.

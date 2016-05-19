@@ -1,8 +1,8 @@
-# Docker compose configuration for tutum deployment
+# Docker compose configuration for docker-cloud deployment
 
 # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
-%VIRTUAL_HOST_BASED_WEB_SERVICE_NAME%: # A unique service name makes it easier to identify in tutum ui and api
-  image: tutum.co/%TUTUM_USER%/%REPO%-nginx:git-commit-%COMMITSHA%
+%VIRTUAL_HOST_BASED_WEB_SERVICE_NAME%: # A unique service name makes it easier to identify in docker-cloud ui and api
+  image: %DOCKERCLOUD_USER%/%REPO%-nginx:git-commit-%COMMITSHA%
   links:
     - phphaproxy
     - phpfiles
@@ -60,7 +60,7 @@ phphaproxy:
 
 # The elastically scalable php service for interpreting php code without access to /files
 phpha:
-  image: tutum.co/%TUTUM_USER%/%REPO%-php:git-commit-%COMMITSHA%
+  image: %DOCKERCLOUD_USER%/%REPO%-php:git-commit-%COMMITSHA%
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -103,7 +103,7 @@ redisphpsessionhandler:
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
 phpfiles:
-  image: tutum.co/%TUTUM_USER%/%REPO%-php:git-commit-%COMMITSHA%
+  image: %DOCKERCLOUD_USER%/%REPO%-php:git-commit-%COMMITSHA%
   links:
     - mailcatcher
     - redisphpsessionhandler

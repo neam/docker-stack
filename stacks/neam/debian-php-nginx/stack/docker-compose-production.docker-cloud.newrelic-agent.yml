@@ -1,10 +1,10 @@
-# Docker compose configuration for tutum node newrelic agent
+# Docker compose configuration for docker-cloud node newrelic agent
 
 newrelic:
   image: 'tutum/newrelic-agent:latest'
   deployment_strategy: every_node
   environment:
-    - HOSTNAME=$TUTUM_NODE_HOSTNAME
+    - HOSTNAME=$DOCKERCLOUD_NODE_HOSTNAME
     - 'NEW_RELIC_LICENSE_KEY=1234567890afaefaefaefaef1234567890afaefaefaefaef'
   net: host
   pid: host

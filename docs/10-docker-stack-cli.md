@@ -121,7 +121,7 @@ The .docker-stack file is found in every stack and contains paths to the differe
  
  * `LOCAL_STACK_YML` - Docker compose configuration file for local development
  * `PRODUCTION_STACK_YML` - Docker compose configuration file for portable deployment of the app on any docker host
- * `TUTUM_STACK_YML` - Tutum stack yaml configuration file for portable deployment of the app using Tutum
+ * `DOCKERCLOUD_STACK_YML` - Tutum stack yaml configuration file for portable deployment of the app using Tutum
 
 ## The general structure of existing stacks found in this repo
 

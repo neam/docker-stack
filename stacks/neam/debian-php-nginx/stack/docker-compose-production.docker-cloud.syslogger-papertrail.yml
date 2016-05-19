@@ -1,11 +1,11 @@
-# Docker compose configuration for tutum node syslogger
+# Docker compose configuration for docker-cloud node syslogger
 
 syslogger:
   image: 'tutum/syslogger:latest'
   command: 'syslog://logs2.papertrailapp.com:55555'
   deployment_strategy: every_node
   environment:
-    - HOSTNAME=$TUTUM_NODE_HOSTNAME
+    - HOSTNAME=$DOCKERCLOUD_NODE_HOSTNAME
   restart: always
   volumes:
     - '/var/run/docker.sock:/tmp/docker.sock'
