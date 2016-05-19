@@ -1,7 +1,7 @@
-# Dockerfile for PHP (FPM 5.6.20, HHVM 3.12.0) built for PHP/Nginx-based docker-stacks
+# Dockerfile for PHP (FPM 5.6.20, HHVM 3.13.1) built for PHP/Nginx-based docker-stacks
 # ===============================================================
-#   docker build -f Dockerfile -t neam/debian-php:fpm-5.6.20-hhvm-3.12.0 .
-#   docker push neam/debian-php:fpm-5.6.20-hhvm-3.12.0
+#   docker build -f Dockerfile -t neam/debian-php:fpm-5.6.20-hhvm-3.13.1 .
+#   docker push neam/debian-php:fpm-5.6.20-hhvm-3.13.1
 
 FROM debian:jessie
 
@@ -33,7 +33,7 @@ RUN apt-get install -y -q \
 
 # HHVM binaries
 RUN apt-get install -y -q \
-        hhvm=3.12.0* \
+        hhvm=3.13.1* \
   || (echo "hhvm \n $(apt-cache show hhvm | grep -i version)" && \
       exit 1)
 

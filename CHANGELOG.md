@@ -19,6 +19,7 @@ CHANGELOG
 ### 0.6.2 (Not yet released)
 
 - Upg: PHP-FPM 5.6.17 upgraded to 5.6.20
+- Upg: HHVM 3.12.0 upgraded to 3.13.1
 - Upg: Composer updated to latest development version (includes important autoloader optimizations for PHP5.6 and 7)
 - Upg: All debian packages updated as per 2016-05-19 13:02 (UTC)
 
