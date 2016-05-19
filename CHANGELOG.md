@@ -13,6 +13,9 @@ CHANGELOG
 
 ## Neam - Stacks and supporting images
 
+### 0.6.2 (Not yet released)
+
+- Upg: Composer updated to latest development version (includes important autoloader optimizations for PHP5.6 and 7)
 ### 0.6.1 (Released 2016-02-26)
 
 - Upg: PHP-FPM 5.6.14 upgraded to 5.6.17
