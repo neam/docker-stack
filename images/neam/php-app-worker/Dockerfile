@@ -3,7 +3,7 @@
 # Example/base "catch-all" php app worker image to use to run administration processes in production deployments
 #
 # Includes:
-#  - Node.js 0.10
+#  - Node.js 4.4
 #  - Git (incl Git Flow and Git Svn)
 #  - Mercurial
 #  - Subversion
@@ -53,9 +53,9 @@ RUN apt-get install -y -q \
         vim
 
 # Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
-RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
   echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
-  apt-get install -y nodejs=0.10.*
+  apt-get install -y nodejs=4.4.*
 
 # Version control systems
 RUN apt-get install -y -q \
