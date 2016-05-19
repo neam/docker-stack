@@ -32,7 +32,7 @@ As a member of a developer team, the Docker-based stack enables you to ditch Vag
 
 Thus, in any team or project where multiple developers are involved, less time and hassle is necessary to get the project software running locally.
 
-The stack can then be deployed to any docker host/swarm or orchestrated via [the container platform service Tutum](https://tutum.com), providing a high degree of dev/prod parity.
+The stack can then be deployed to any docker host/swarm or orchestrated via [Docker Cloud](https://cloud.docker.com), providing a high degree of dev/prod parity.
 
 
 Why `docker-stack`?
@@ -54,7 +54,7 @@ These stacks and underlying concepts are used in production by [Neam Labs](http:
 - [Debian PHP/Nginx](stacks/neam/debian-php-nginx/stack/README.md)
 - [Debian PHP/Nginx + Database](stacks/neam/debian-php-nginx/stack/README.md)
 - [DNA Project Base Stack (Based on Debian PHP/Nginx)](stacks/neam/debian-php-nginx.dna-project-base/stack/README.md)
-- [Tutum HAProxy Virtual Host Proof-of-concept](stacks/neam/text-to-flowchart-generators-haproxy-vhost-example/README.md)
+- [Docker Cloud / Tutum HAProxy Virtual Host Proof-of-concept](stacks/neam/text-to-flowchart-generators-haproxy-vhost-example/README.md)
 
 ### Publisher: schmunk42
 
@@ -133,7 +133,7 @@ FAQ
 
 > As stack files also define environment variables and related environment-specific configuration, it is recommended to use one stack file per environment (dev, test, prod...).
 
-See [tutum documentation](https://support.tutum.co/support/solutions/articles/5000569899-stacks)
+See [Docker Cloud documentation](https://support.tutum.co/support/solutions/articles/5000569899-stacks)
 
 
 License
