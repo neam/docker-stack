@@ -3,19 +3,23 @@ CHANGELOG
 
 ## Project/Repository
 
-### 0.1.1 (Not yet released)
+### 0.2.0 (Not yet released)
 
+- Init: Including Neam Stacks and supporting images 0.6.2 (see detailed changelog below)
 - Min: Added --rm flag on docker-compose run commands in docs
 
 ### 0.1.0 (Released 2016-01-07)
 
-- Init: Initial project/repository structure (motin, schmunk42)
+- Init: First official alpha release, as battle-tested in production by the Neam Labs in several projects during more than 6 months (motin, schmunk42)
+- Init: Decided on a project/repository structure (motin, schmunk42)
+- Init: Including Neam Stacks and supporting images 0.6.1 (see detailed changelog below)
 
 ## Neam - Stacks and supporting images
 
 ### 0.6.2 (Not yet released)
 
 - Upg: Composer updated to latest development version (includes important autoloader optimizations for PHP5.6 and 7)
+
 ### 0.6.1 (Released 2016-02-26)
 
 - Upg: PHP-FPM 5.6.14 upgraded to 5.6.17
