@@ -5,7 +5,8 @@ CHANGELOG
 
 ### 0.2.0 (Not yet released)
 
-- Init: Including Neam Stacks and supporting images 0.6.2 (see detailed changelog below)
+- Upg: Support for Docker Cloud (Previously called Tutum)
+- Upg: Including Neam Stacks and supporting images 0.6.2 (see detailed changelog below)
 - Min: Added --rm flag on docker-compose run commands in docs
 
 ### 0.1.0 (Released 2016-01-07)
@@ -20,7 +21,7 @@ CHANGELOG
 
 - Upg: PHP-FPM 5.6.17 upgraded to 5.6.20
 - Upg: HHVM 3.12.0 upgraded to 3.13.1
-- Upg: Composer updated to latest development version (includes important autoloader optimizations for PHP5.6 and 7)
+- Upg: Composer updated to latest development version (includes important autoloader performance optimizations for PHP5.6 and 7)
 - Upg: All debian packages updated as per 2016-05-19 13:02 (UTC)
 
 ### 0.6.1 (Released 2016-02-26)
@@ -45,7 +46,7 @@ CHANGELOG
 ### 0.5.0 (Released 2015-10-27)
 
 - Enh: Using up-to-date version of haproxy image supporting Blue/Green zero-downtime deployments
-- Chg: Orientation towards for multi-tenancy deployments, where each tenant has a separate database connection
+- Chg: Orientation towards multi-tenancy deployments, where each tenant has access to their own database
 - Enh: Added sample tutum maintenance stack configurations (for newrelic, distributed logging and enabling node ssh access)
 - Enh: Performance and stability tweaks
 
