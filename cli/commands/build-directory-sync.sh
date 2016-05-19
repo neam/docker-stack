@@ -17,6 +17,11 @@ PROJECT_REPO_DIR=./
 BUILD_DIR=../$DIR-build/
 REV=$(git rev-parse --verify HEAD)
 
+if [ ! -d "$BUILD_DIR" ]; then
+  echo "No build dir \"$BUILD_DIR\" exists. Did you run docker-stack build-directory-init yet?"
+  exit 1
+fi
+
 set -x
 
 cd "$BUILD_DIR"
@@ -27,6 +32,8 @@ git submodule foreach --recursive git reset --hard
 git branch -f "$BRANCH"
 git checkout "$BRANCH"
 git submodule update --init --recursive
+
+set +x
 
 if [ ! -f .env ]; then
   cp .env.dist .env
