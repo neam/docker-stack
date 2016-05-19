@@ -19,6 +19,7 @@ CHANGELOG
 ### 0.6.2 (Not yet released)
 
 - Upg: Composer updated to latest development version (includes important autoloader optimizations for PHP5.6 and 7)
+- Upg: All debian packages updated as per 2016-05-19 13:02 (UTC)
 
 ### 0.6.1 (Released 2016-02-26)
 
