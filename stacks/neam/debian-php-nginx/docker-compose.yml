@@ -32,7 +32,7 @@ phphaproxy:
 
 # The elastically scalable php service for interpreting php code without access to /files
 phpha:
-  image: neam/debian-php:fpm-5.6.17-hhvm-3.12.0-for-debian-php-nginx-stack
+  image: neam/debian-php:fpm-5.6.20-hhvm-3.12.0-for-debian-php-nginx-stack
   links:
     - mailcatcher
     - redisphpsessionhandler
@@ -62,7 +62,7 @@ redisphpsessionhandler:
 # The single-node php service for interpreting php code with read-write access to user-generated files
 # (to support file uploads and other local file manipulations)
 phpfiles:
-  image: neam/debian-php:fpm-5.6.17-hhvm-3.12.0-for-debian-php-nginx-stack
+  image: neam/debian-php:fpm-5.6.20-hhvm-3.12.0-for-debian-php-nginx-stack
   links:
     - mailcatcher
     - redisphpsessionhandler
