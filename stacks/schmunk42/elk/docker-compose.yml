@@ -24,7 +24,7 @@ redis:
     - REDIS_PASS=secretredis
 
 logspout:
-  image: rtoma/logspout-redis-logstash
+  image: rtoma/logspout-redis-logstash:0.1.1
   links:
     - redis
   command: 'redis://redis'
