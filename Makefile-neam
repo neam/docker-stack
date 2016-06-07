@@ -1,6 +1,6 @@
 
 # workaround for default action
-neam: neam.dna-project-base
+neam: build-neam
 
 build-neam: debian-php neam.util neam.php-app-images neam.dna-project-base stack-images
 
