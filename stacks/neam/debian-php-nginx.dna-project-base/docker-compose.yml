@@ -146,16 +146,25 @@ builder:
 
 # A container to run tester commands locally - start a shell by running stack/tester-shell.sh
 tester:
-  image: neam/php-app-tester:0.6.1
+  build: stack/php/image/tester
   links:
     - web
     - localdb
+    - api-mock
   volumes:
     - .:/app:rw
     - .files:/files:rw
   working_dir: '/app'
   env_file:
    - .current-local-cli-data-profile
+  command: "true"
+
+# A container to serve a mock version of the api according to an api blueprint TODO
+api-mock:
+  image: neam/api-mock
+  volumes:
+    - .:/app:rw
+  working_dir: '/app'
   command: "true"
 
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh

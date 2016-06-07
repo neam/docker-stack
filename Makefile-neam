@@ -2,7 +2,7 @@
 # workaround for default action
 neam: neam.dna-project-base
 
-build-neam: debian-php neam.php-app-images neam.dna-project-base stack-images
+build-neam: debian-php neam.util neam.php-app-images neam.dna-project-base stack-images
 
 debian-php:
 	echo "Building debian-php images"
@@ -12,12 +12,15 @@ stack-images:
 	echo "Building debian-php-nginx stack base php image"
 	docker build -t neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/image
 
+neam.util:
+	echo "Building api-mock image"
+	docker build -t neam/api-mock   images/neam/api-mock
+
 neam.php-app-images: export version=0.6.2
 neam.php-app-images: debian-php
 	echo "Building neam.php-app-images images"
 	docker build -t neam/php-app-builder:$(version)  images/neam/php-app-builder
 	docker build -t neam/php-app-worker:$(version)   images/neam/php-app-worker
-	docker build -t neam/php-app-tester:$(version)   images/neam/php-app-tester
 
 neam.dna-project-base: export version=0.6.2
 neam.dna-project-base: neam.php-app-images stack-images
@@ -30,6 +33,6 @@ release-neam: neam.dna-project-base
 	docker push neam/debian-php:fpm-5.6.20-hhvm-3.13.1
 	docker push neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack
 	docker push neam/php-app-builder:$(version)
-	docker push neam/php-app-tester:$(version)
 	docker push neam/php-app-worker:$(version)
 	docker push neam/dna-project-base-debian-php:$(version)
+	docker push neam/api-mock

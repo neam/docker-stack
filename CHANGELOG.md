@@ -24,6 +24,8 @@ CHANGELOG
 - Upg: NodeJS upgraded from 0.10 to 4.4
 - Upg: Composer updated to latest development version (includes important autoloader performance optimizations for PHP5.6 and 7)
 - Upg: All debian packages updated as per 2016-06-07 07:33 (UTC)
+- Chg: DNA Project Base stack tester shell now based on the production image 
+- Chg: Removed php-app-tester, replaced by api-mock
 
 ### 0.6.1 (Released 2016-02-26)
 
