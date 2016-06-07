@@ -1,10 +1,10 @@
 # Dockerfile for PHP (FPM 5.6.20, HHVM 3.13.1) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
-#   docker build -t neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack .
-#   docker push neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack
+#   docker build -t neam/debian-php:fpm-7.0.7-hhvm-3.13.1-for-debian-php-nginx-stack .
+#   docker push neam/debian-php:fpm-7.0.7-hhvm-3.13.1-for-debian-php-nginx-stack
 
-FROM neam/debian-php:fpm-5.6.20-hhvm-3.13.1
-ARG PHP_PACKAGE_NAME_VERSION=5
+FROM neam/debian-php:fpm-7.0.7-hhvm-3.13.1
+ARG PHP_PACKAGE_NAME_VERSION=7.0
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
@@ -17,7 +17,7 @@ RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-xdebug \
         php${PHP_PACKAGE_NAME_VERSION}-intl \
         php${PHP_PACKAGE_NAME_VERSION}-gd \
-        php${PHP_PACKAGE_NAME_VERSION}-mysqlnd \
+        php${PHP_PACKAGE_NAME_VERSION}-mysql \
         php${PHP_PACKAGE_NAME_VERSION}-sqlite \
         php${PHP_PACKAGE_NAME_VERSION}-mcrypt \
         php${PHP_PACKAGE_NAME_VERSION}-curl \
@@ -25,26 +25,22 @@ RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-redis \
         php${PHP_PACKAGE_NAME_VERSION}-mongo \
         php${PHP_PACKAGE_NAME_VERSION}-xsl \
-        php${PHP_PACKAGE_NAME_VERSION}-apcu
+        php${PHP_PACKAGE_NAME_VERSION}-apcu && \
+        phpenmod mcrypt
 
-# Install PHP mongodb support - https://github.com/mongodb/mongo-php-driver
-#RUN pecl install mongodb
-#RUN echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-
-# Install HHVM mongodb support - https://github.com/mongodb/mongo-php-driver
-#hhvm-dev
-#mkdir hhvm-mongodb \
-#cd hhvm-mongodb \
-#wget ...
-#tar -xvzf ../hhvm-mongodb-1.0alpha1.tgz \
-#cd hhvm-mongodb-1.0alpha1 \
-#hphpize \
-#cmake . \
-#make configlib \
-#make -j 16 \
-#make install
-#/etc/hhvm/php.ini
-#hhvm.dynamic_extensions[mongodb]=mongodb.so
+# For compilation of php 7 extensions
+#RUN apt-get install -y -q \
+#        php7.0-dev
+#
+# Ice for PHP extension - does not work on PHP 7
+#RUN wget https://github.com/ice/framework/archive/1.0.36.zip && \
+#        unzip 1.0.36.zip && \
+#        cd framework-1.0.36 && \
+#        ./install && \
+#        cd .. && \
+#        rm -r framework-1.0.36#
+#
+#RUN echo "[ice]\nextension = ice.so" | tee /etc/php/7.0/mods-available/ice.ini && phpenmod ice
 
 # ====
 # Install enough to be able to run administrative commands directly from within the php containers

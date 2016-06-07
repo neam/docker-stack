@@ -19,6 +19,7 @@ CHANGELOG
 
 ### 0.6.2 (Not yet released)
 
+- Enh: PHP-FPM 7.0.7 images built alongside PHP 5.6 images
 - Upg: PHP-FPM 5.6.17 upgraded to 5.6.20
 - Upg: HHVM 3.12.0 upgraded to 3.13.1
 - Upg: NodeJS upgraded from 0.10 to 4.4
