@@ -32,8 +32,7 @@ As a member of a developer team, the Docker-based stack enables you to ditch Vag
 
 Thus, in any team or project where multiple developers are involved, less time and hassle is necessary to get the project software running locally.
 
-The stack can then be deployed to any docker host/swarm or orchestrated via [Docker Cloud](https://cloud.docker.com), providing a high degree of dev/prod parity.
-
+The stack can then be deployed to any docker host/swarm or orchestrated via [Docker Cloud](https://cloud.docker.com), providing a high degree of dev/prod parity:
 
 Why `docker-stack`?
 -------------------

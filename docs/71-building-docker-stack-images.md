@@ -6,7 +6,7 @@ To build the collections of images for the stacks, you can run `make` as follows
     
 or by specifying the `Makefile` directly
 
-    make -f Makefile-neam build
+    make -f Makefile-neam build-neam
 
 ## Release/distribute/push images
 
