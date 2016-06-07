@@ -23,7 +23,7 @@ CHANGELOG
 - Upg: HHVM 3.12.0 upgraded to 3.13.1
 - Upg: NodeJS upgraded from 0.10 to 4.4
 - Upg: Composer updated to latest development version (includes important autoloader performance optimizations for PHP5.6 and 7)
-- Upg: All debian packages updated as per 2016-05-19 13:02 (UTC)
+- Upg: All debian packages updated as per 2016-06-07 07:33 (UTC)
 
 ### 0.6.1 (Released 2016-02-26)
 

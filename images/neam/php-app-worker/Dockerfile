@@ -36,7 +36,7 @@ RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2016-05-19 13:02
+    apt-get upgrade -y -q # 2016-06-07 07:33
 
 # Enable editors and general tools for administration processes
 ENV TERM xterm
