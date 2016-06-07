@@ -29,3 +29,6 @@ sed -i "s|\${DISPLAY_PHP_ERRORS}|${DISPLAY_PHP_ERRORS}|" /etc/php5/fpm/conf.d/ap
 sed -i "s|\${XDEBUG_DEFAULT_ENABLE}|${XDEBUG_DEFAULT_ENABLE}|" /etc/php5/fpm/conf.d/app.ini
 PHP_CONF_DIR=/etc/php5
 sed -i "s|\${PHP_CONF_DIR}|${PHP_CONF_DIR}|" /etc/php5/fpm/php-fpm.conf
+
+# Use php5 for cli
+/usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/php5 60

@@ -18,8 +18,8 @@ neam.php-app-images: neam.debian-php
 	echo "Building neam.php-app-images images"
 	docker build -t neam/php-app-builder:$(version)  images/neam/php-app-builder
 	docker build -t neam/php-app-worker:$(version)   images/neam/php-app-worker
-	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.0 -t neam/php-app-builder:$(version)-php7  images/neam/php-app-builder
-	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.0 -t neam/php-app-worker:$(version)-php7   images/neam/php-app-worker
+	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.0 -t neam/php-app-builder:$(version)-php7.0  images/neam/php-app-builder
+	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.0 -t neam/php-app-worker:$(version)-php7.0   images/neam/php-app-worker
 
 neam.stack-images:
 	echo "Building debian-php-nginx stack base php image"
