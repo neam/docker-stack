@@ -9,7 +9,7 @@ The core stacks in this project have been verified to work well for both local d
 Develop, Build, Test, Deploy and Maintain your 12-factor web app using Docker
 -----------------------------------------------------------------------------
 
-Uses [Docker Compose, Docker Machine and Docker](http://blog.docker.com/2014/12/announcing-docker-machine-swarm-and-compose-for-orchestrating-distributed-apps/) to maintain a base-practice Docker-based "one-process-per-container" stack and development workflows for your [12-factor web apps](http://12factor.net/).
+Uses [Docker Toolbox](https://www.docker.com/products/docker-toolbox) to maintain a base-practice Docker-based "one-process-per-container" stack and development workflows for your [12-factor web apps](http://12factor.net/).
 
 Enables easy app-specific orchestration of dockerized services (databases, mail servers, task runners, message queues etc).
 
@@ -40,8 +40,6 @@ Why `docker-stack`?
 Setting up, configuring and maintaining a Docker-based stack takes time, and docker-stack makes it possible to re-use existing stack configurations which empowers [the 12-factor web app](http://12factor.net/). 
 
 Care has been taken to make all vital configuration files visible and easy customizable, so that it is straightforward to tweak, adjust and debug configuration issues.
-
-
 
 Core Stacks
 ----------------
