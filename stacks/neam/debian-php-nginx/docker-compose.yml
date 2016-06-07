@@ -93,7 +93,7 @@ mailcatcher:
 
 # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
 worker:
-  image: neam/php-app-worker:0.6.1
+  image: neam/php-app-worker:0.6.2
   volumes:
     - .:/app:rw
     - .files:/files:rw
