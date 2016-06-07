@@ -1,9 +1,9 @@
 Docker Stack
 ============
 
-> **Active development disclaimer**: Code is still being moved around and being updated while preparing for a stable release. That said, the stacks stemming from this project have been verified to work well for both local development and high performance multi-node setups deployed at AWS using [the container platform service Tutum](https://tutum.io)
-
 This project is dedicated to maintain a couple of best-practice Docker-based stacks and related images that can be used and adapted by your projects, or act as a reference point and inspiration when you set up your own Docker-based stack architecture.
+
+The core stacks in this project have been verified to work well for both local development and high performance multi-node setups deployed at AWS using [Docker Cloud](https://cloud.docker.com).
 
 
 Develop, Build, Test, Deploy and Maintain your 12-factor web app using Docker
@@ -42,18 +42,17 @@ Setting up, configuring and maintaining a Docker-based stack takes time, and doc
 Care has been taken to make all vital configuration files visible and easy customizable, so that it is straightforward to tweak, adjust and debug configuration issues.
 
 
-Available Stacks
+
+Core Stacks
 ----------------
 
 ### Publisher: neam
 
 These stacks and underlying concepts are used in production by [Neam Labs](http://neamlabs.com) and are [constantly tweaked to be faster and more reliable](./CHANGELOG.md).
 
-- [Hello World](stacks/neam/hello-world/README.md)
 - [Debian PHP/Nginx](stacks/neam/debian-php-nginx/stack/README.md)
-- [Debian PHP/Nginx + Database](stacks/neam/debian-php-nginx/stack/README.md)
-- [DNA Project Base Stack (Based on Debian PHP/Nginx)](stacks/neam/debian-php-nginx.dna-project-base/stack/README.md)
-- [Docker Cloud / Tutum HAProxy Virtual Host Proof-of-concept](stacks/neam/text-to-flowchart-generators-haproxy-vhost-example/README.md)
+- [Debian PHP/Nginx + Database (LEMP)](stacks/neam/debian-php-nginx/stack/README.md)
+- [DNA Project Base Stack (Based on Debian PHP/Nginx + Database)](stacks/neam/debian-php-nginx.dna-project-base/stack/README.md)
 
 ### Publisher: schmunk42
 
@@ -61,8 +60,20 @@ These stacks and underlying concepts are used in production by [Herzog Kommunika
 
 - [PHP/Nginx](stacks/schmunk42/php-nginx/README.md)
 - [PHP/Nginx Vanilla](stacks/schmunk42/php-nginx-vanilla/README.md)
-- [ELK](stacks/schmunk42/elk/README.md)
+- [ELK-V2](stacks/schmunk42/elk-v2/README.md)
 - [Phundament](stacks/schmunk42/phundament/)
+
+Miscellaneous Stacks
+----------------
+
+### Publisher: neam
+
+- [Hello World](stacks/neam/hello-world/README.md)
+- [Docker Cloud / Tutum HAProxy Virtual Host Proof-of-concept](stacks/neam/text-to-flowchart-generators-haproxy-vhost-example/README.md)
+
+### Publisher: schmunk42
+
+- [ELK-V1](stacks/schmunk42/elk/README.md)
 - [Docker Registry Mirror](stacks/schmunk42/registry-mirror/)
 - [Yii 2.0 Framework](stacks/schmunk42/yii2/README.md)
 
@@ -109,13 +120,13 @@ Configuration Generators included in Docker Stack
 - [Generating Nginx & PHP Configuration](generators/nginx-php-server-config-generator/README.md)
 
 
-Misc
-----
+Usage
+-----
 
 - [Installing Docker Stack in your project](docs/80-misc-installing-docker-stack-in-your-project.md)
 
 
-Development of Docker Stack
+Building/forking Docker Stack
 ---------------------------
 
 - [Building Docker Stack Images](docs/71-building-docker-stack-images.md)
