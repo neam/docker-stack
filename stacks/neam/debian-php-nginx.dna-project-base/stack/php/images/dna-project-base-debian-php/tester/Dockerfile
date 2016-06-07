@@ -1,9 +1,8 @@
 # Dockerfile for PHP (FPM 5.6.14, HHVM 3.11.0) built for PHP/Nginx DNA Project Base docker-stack
 # ===============================================================
-#   docker build -t neam/dna-project-base-debian-php-tester:0.6.2 .
-#   docker push neam/dna-project-base-debian-php-tester:0.6.2
+#   project-specific Dockerfile
 
-FROM neam/dna-project-base-debian-php:0.6.2-php7.0
+FROM neam/dna-project-base-debian-php:0.6.2
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
@@ -26,7 +25,7 @@ RUN apt-get install -y -q \
         vim
 
 # Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
-RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
   echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
   apt-get install -y nodejs=4.4.*
 

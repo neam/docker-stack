@@ -8,6 +8,6 @@ script_path=`dirname $0`
 cd $script_path/..
 
 # run actual command
-docker-stack local logs $@
+docker-stack local logs -f $@
 
 exit 0

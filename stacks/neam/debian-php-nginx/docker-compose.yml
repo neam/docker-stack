@@ -97,22 +97,12 @@ worker:
   volumes:
     - .:/app:rw
     - .files:/files:rw
+    - ../.git:/.git
+    - ~/.composer:/root/.composer
+    - ~/.ssh:/root/.ssh:ro
+  environment:
+    RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    #HHVM: '1'
   working_dir: '/app'
-  command: "/bin/bash"
-
-# A container that is linked to and thus can output linked information about running containers locally
-info:
-  image: debian:jessie
-  volumes:
-    - .:/app:rw
-    - .files:/files:rw
-  links:
-    - web
-    - phphaproxy
-    - phpha
-    - redisphpsessionhandler
-    - phpfiles
-    - mailcatcher
-    - worker
-  working_dir: '/app'
-  command: "true"
+  command: "/app/stack/php/shell.sh"

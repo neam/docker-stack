@@ -17,8 +17,8 @@ Enables easy app-specific orchestration of dockerized services (databases, mail 
 Requirements
 ------------
 
- * docker 1.8.3+
- * docker-compose 1.4.2+
+ * docker 1.8.3 (1.11.1+ recommended)
+ * docker-compose 1.4.2 (1.7.1+ recommended)
  * git
 
 

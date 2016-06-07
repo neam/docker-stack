@@ -25,8 +25,15 @@ CHANGELOG
 - Upg: NodeJS upgraded from 0.10 to 4.4
 - Upg: Composer updated to latest development version (includes important autoloader performance optimizations for PHP5.6 and 7)
 - Upg: All debian packages updated as per 2016-06-07 07:33 (UTC)
-- Chg: DNA Project Base stack tester shell now based on the production image 
-- Chg: Removed php-app-tester, replaced by api-mock
+- Chg: Removed php-app-tester, replaced by api-mock utility image
+- Chg: Enabling xdebug profiler requires local override in Neam Debian PHP/Nginx stack
+- Upg: Tested against Docker 1.11.1 and Docker Compose 1.7.1
+- Chg: [DNA Project Base] Stack tester shell now based on the production image 
+- Enh: [DNA Project Base] Tester shells for HHVM, PHP5 and PHP7.0 can be run in parallel
+- Enh: [DNA Project Base] Stack commands for restart and recreate
+- Enh: [DNA Project Base] Stack start command ensures that the publicly exposed ports are not in use already
+- Enh: [DNA Project Base] Stack router stats commands (stack/router-stats.sh and stack/phphaproxy-stats.sh)
+- Enh: [DNA Project Base] Clean-ups and smaller tweaks
 
 ### 0.6.1 (Released 2016-02-26)
 

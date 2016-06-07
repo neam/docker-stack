@@ -23,14 +23,17 @@ neam.php-app-images: neam.debian-php
 
 neam.stack-images:
 	echo "Building debian-php-nginx stack base php image"
-	docker build -t neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/image
-	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.0 -t neam/debian-php:fpm-7.0.7-hhvm-3.13.1-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/image/php7.0
+	docker build -t neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images
+	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.0 -t neam/debian-php:fpm-7.0.7-hhvm-3.13.1-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images/php7.0
 
 neam.dna-project-base: export version=0.6.2
 neam.dna-project-base: neam.php-app-images neam.stack-images
 	echo "Building neam.dna-project-base stack base php image"
-	docker build -t neam/dna-project-base-debian-php:$(version)  stacks/neam/debian-php-nginx.dna-project-base/stack/php/image
-	docker build -t neam/dna-project-base-debian-php:$(version)-php7.0  stacks/neam/debian-php-nginx.dna-project-base/stack/php/image/php7.0
+	docker build -t neam/dna-project-base-debian-php:$(version)  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images/dna-project-base-debian-php
+	docker build -t neam/dna-project-base-debian-php:$(version)-php7.0  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images//dna-project-base-debian-php/php7.0
+	echo "Building neam.dna-project-base stack base php tester image"
+	docker build -t neam/dna-project-base-debian-php-tester:$(version)  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images/dna-project-base-debian-php/tester
+	docker build -t neam/dna-project-base-debian-php-tester:$(version)-php7.0  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images/dna-project-base-debian-php/tester/php7.0
 
 release-neam: export version=0.6.2
 release-neam: neam.dna-project-base
@@ -40,9 +43,11 @@ release-neam: neam.dna-project-base
 	docker push neam/php-app-builder:$(version)
 	docker push neam/php-app-worker:$(version)
 	docker push neam/dna-project-base-debian-php:$(version)
+	docker push neam/dna-project-base-debian-php-tester:$(version)
 	docker push neam/debian-php:fpm-7.0.7-hhvm-3.13.1
 	docker push neam/debian-php:fpm-7.0.7-hhvm-3.13.1-for-debian-php-nginx-stack
 	docker push neam/php-app-builder:$(version)-php7.0
 	docker push neam/php-app-worker:$(version)-php7.0
 	docker push neam/dna-project-base-debian-php:$(version)-php7.0
+	docker push neam/dna-project-base-debian-php-tester:$(version)-php7.0
 	docker push neam/api-mock

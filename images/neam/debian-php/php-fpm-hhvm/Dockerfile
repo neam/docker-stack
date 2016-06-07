@@ -52,5 +52,5 @@ RUN apt-get install -y -q \
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Set environment var for where php configuration is stored
-ENV PHP_CONF_DIR /etc/php/${PHP_PACKAGE_NAME_VERSION}
+# Set environment var PHP_PACKAGE_NAME_VERSION
+ENV PHP_PACKAGE_NAME_VERSION ${PHP_PACKAGE_NAME_VERSION}

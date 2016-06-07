@@ -79,7 +79,7 @@ Create the index php files expected by the default configuration:
 
 Visit the below returned urls in your browser (frontend and backend respectively):
 
-    docker-stack local url web
+    docker-stack local url
     docker-stack local url web 80 - /backend/
 
 > Hint: On OSX, you can open the url directly from a terminal session:
