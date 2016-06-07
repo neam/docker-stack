@@ -7,7 +7,7 @@
 #  docker-cloud stack update -f stack/docker-compose-production.docker-cloud-ssh-node-access.yml $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
 #  docker-cloud stack redeploy $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
 
-nodesshaccessjohndoe:
+team-node-ssh-access-johndoe:
   image: borja/authkey
   environment:
     PUB_KEY: ssh-rsa 1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef
@@ -16,7 +16,7 @@ nodesshaccessjohndoe:
   deployment_strategy: every_node
   autodestroy: always
 
-nodesshaccessbuild_PROJECT_com:
+team-node-ssh-access-build_PROJECT_com:
   image: borja/authkey
   environment:
     PUB_KEY: ssh-rsa faefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefae

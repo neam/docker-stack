@@ -1,6 +1,6 @@
 # Docker compose configuration for docker-cloud node newrelic agent
 
-newrelic:
+newrelic-agent:
   image: 'tutum/newrelic-agent:latest'
   deployment_strategy: every_node
   environment:

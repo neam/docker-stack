@@ -28,6 +28,7 @@ CHANGELOG
 - Chg: Removed php-app-tester, replaced by api-mock utility image
 - Chg: Enabling xdebug profiler requires local override in Neam Debian PHP/Nginx stack
 - Upg: Tested against Docker 1.11.1 and Docker Compose 1.7.1
+- Upg: [Debian PHP/Nginx] Updated supporting deployment stacks to correspond to latest Docker Cloud best practices
 - Chg: [DNA Project Base] Stack tester shell now based on the production image 
 - Enh: [DNA Project Base] Tester shells for HHVM, PHP5 and PHP7.0 can be run in parallel
 - Enh: [DNA Project Base] Stack commands for restart and recreate
