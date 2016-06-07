@@ -17,7 +17,7 @@ CHANGELOG
 
 ## Neam - Stacks and supporting images
 
-### 0.6.2 (Not yet released)
+### 0.6.2 (Released 2016-06-07)
 
 - Enh: PHP-FPM 7.0.7 images built alongside PHP 5.6 images
 - Upg: PHP-FPM 5.6.17 upgraded to 5.6.20
