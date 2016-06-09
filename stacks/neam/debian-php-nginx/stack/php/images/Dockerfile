@@ -4,27 +4,28 @@
 #   docker push neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack
 
 FROM neam/debian-php:fpm-5.6.20-hhvm-3.13.1
+ARG PHP_PACKAGE_NAME_VERSION=5
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2016-05-19 13:02
+    apt-get upgrade -y -q # 2016-06-07 07:33
 
 # Install PHP extensions available via apt-get (required for PHP-FPM, but can also be useful to HHVM since default configurations for the extensions are incorporated in the docker image)
 RUN apt-get install -y -q \
-        php5-xdebug \
-        php5-intl \
-        php5-gd \
-        php5-mysqlnd \
-        php5-sqlite \
-        php5-mcrypt \
-        php5-curl \
-        php5-memcached \
-        php5-redis \
-        php5-mongo \
-        php5-xsl \
-        php5-apcu
+        php${PHP_PACKAGE_NAME_VERSION}-xdebug \
+        php${PHP_PACKAGE_NAME_VERSION}-intl \
+        php${PHP_PACKAGE_NAME_VERSION}-gd \
+        php${PHP_PACKAGE_NAME_VERSION}-mysqlnd \
+        php${PHP_PACKAGE_NAME_VERSION}-sqlite \
+        php${PHP_PACKAGE_NAME_VERSION}-mcrypt \
+        php${PHP_PACKAGE_NAME_VERSION}-curl \
+        php${PHP_PACKAGE_NAME_VERSION}-memcached \
+        php${PHP_PACKAGE_NAME_VERSION}-redis \
+        php${PHP_PACKAGE_NAME_VERSION}-mongo \
+        php${PHP_PACKAGE_NAME_VERSION}-xsl \
+        php${PHP_PACKAGE_NAME_VERSION}-apcu
 
 # Install PHP mongodb support - https://github.com/mongodb/mongo-php-driver
 #RUN pecl install mongodb

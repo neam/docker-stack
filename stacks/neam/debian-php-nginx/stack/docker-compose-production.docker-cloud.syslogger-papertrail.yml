@@ -1,7 +1,7 @@
 # Docker compose configuration for docker-cloud node syslogger
 
 syslogger:
-  image: 'tutum/syslogger:latest'
+  image: 'gliderlabs/logspout:v3'
   command: 'syslog://logs2.papertrailapp.com:55555'
   deployment_strategy: every_node
   environment:

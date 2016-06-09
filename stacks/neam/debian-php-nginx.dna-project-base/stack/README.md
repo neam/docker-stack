@@ -1,6 +1,19 @@
 Docker-based Stack - DNA Project Base (Based on Debian PHP/Nginx)
 ===================================
 
+## Stack overview
+
+Type: LEMP
+
+* Linux (Debian 8.0 Jessie)
+* Nginx 1.7
+* MySQL 5.6.27 locally (to mimic the Amazon RDS instance in production)
+* PHP 5.6.20 or HHVM 3.13.1 (PHP 7.0.7 available for cli)
+
+## Changelog
+
+This stack and/or underlying concepts are used in production by [Neam Labs](http://neamlabs.com) and are [constantly tweaked to be faster and more reliable](https://github.com/neam/docker-stack/blob/develop/CHANGELOG.md).
+
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM

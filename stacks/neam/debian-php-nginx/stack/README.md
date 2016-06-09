@@ -1,6 +1,19 @@
 Docker-based Stack - Debian PHP/Nginx
 ===================================
 
+## Stack overview
+
+Type: LE_P
+
+* Linux (Debian 8.0 Jessie)
+* Nginx 1.7
+* (add your own database container, see debian-php-nginx.database)
+* PHP 5.6.20 or HHVM 3.13.1 (PHP 7.0.7 available for cli)
+
+## Changelog
+
+This stack and/or underlying concepts are used in production by [Neam Labs](http://neamlabs.com) and are [constantly tweaked to be faster and more reliable](https://github.com/neam/docker-stack/blob/develop/CHANGELOG.md).
+
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
@@ -79,7 +92,7 @@ Create the index php files expected by the default configuration:
 
 Visit the below returned urls in your browser (frontend and backend respectively):
 
-    docker-stack local url web
+    docker-stack local url
     docker-stack local url web 80 - /backend/
 
 > Hint: On OSX, you can open the url directly from a terminal session:

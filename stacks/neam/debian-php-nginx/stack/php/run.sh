@@ -16,8 +16,12 @@ set -x
 
 # Run the desired php cgi process manager (use either php-fpm or hhvm)
 if [ "$HHVM" == "1" ]; then
-  /usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/hhvm 60 # Use hhvm for cli
   hhvm -m server -c /etc/hhvm/server.ini -u www-data
 else
-  php5-fpm
+  if [ "$PHP_PACKAGE_NAME_VERSION" == "5" ]; then
+    php5-fpm
+  fi
+  if [ "$PHP_PACKAGE_NAME_VERSION" == "7.0" ]; then
+    php-fpm7.0
+  fi
 fi

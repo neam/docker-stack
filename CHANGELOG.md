@@ -3,11 +3,11 @@ CHANGELOG
 
 ## Project/Repository
 
-### 0.2.0 (Not yet released)
+### 0.2.0 (Released 2016-06-09)
 
-- Upg: Support for Docker Cloud (Previously called Tutum)
+- Upg: Updated docs to reflect Docker Cloud name change (Previously called Tutum)
 - Upg: Including Neam Stacks and supporting images 0.6.2 (see detailed changelog below)
-- Min: Added --rm flag on docker-compose run commands in docs
+- Upg: Including updated stacks from Herzog Kommunikation - The Application Factory
 
 ### 0.1.0 (Released 2016-01-07)
 
@@ -17,13 +17,24 @@ CHANGELOG
 
 ## Neam - Stacks and supporting images
 
-### 0.6.2 (Not yet released)
+### 0.6.2 (Released 2016-06-07)
 
+- Enh: PHP-FPM 7.0.7 images built alongside PHP 5.6 images
 - Upg: PHP-FPM 5.6.17 upgraded to 5.6.20
 - Upg: HHVM 3.12.0 upgraded to 3.13.1
 - Upg: NodeJS upgraded from 0.10 to 4.4
 - Upg: Composer updated to latest development version (includes important autoloader performance optimizations for PHP5.6 and 7)
-- Upg: All debian packages updated as per 2016-05-19 13:02 (UTC)
+- Upg: All debian packages updated as per 2016-06-07 07:33 (UTC)
+- Chg: Removed php-app-tester, replaced by api-mock utility image
+- Upg: Tested against Docker 1.11.1 and Docker Compose 1.7.1
+- Upg: [Debian PHP/Nginx] Updated supporting deployment stacks to correspond to latest Docker Cloud best practices
+- Min: [Debian PHP/Nginx] Enabling xdebug profiler requires local override in Neam Debian PHP/Nginx stack
+- Chg: [DNA Project Base] Stack tester shell now based on the production image 
+- Enh: [DNA Project Base] Tester shells for HHVM, PHP5 and PHP7.0 can be run in parallel
+- Enh: [DNA Project Base] Stack commands for restart and recreate
+- Enh: [DNA Project Base] Stack start command ensures that the publicly exposed ports are not in use already
+- Enh: [DNA Project Base] Stack router stats commands (stack/router-stats.sh and stack/phphaproxy-stats.sh)
+- Enh: [DNA Project Base] Clean-ups and smaller tweaks
 
 ### 0.6.1 (Released 2016-02-26)
 
