@@ -3,11 +3,11 @@ CHANGELOG
 
 ## Project/Repository
 
-### 0.2.0 (Not yet released)
+### 0.2.0 (Released 2016-06-09)
 
 - Upg: Updated docs to reflect Docker Cloud name change (Previously called Tutum)
 - Upg: Including Neam Stacks and supporting images 0.6.2 (see detailed changelog below)
-- Min: Added --rm flag on docker-compose run commands in docs
+- Upg: Including updated stacks from Herzog Kommunikation - The Application Factory
 
 ### 0.1.0 (Released 2016-01-07)
 
