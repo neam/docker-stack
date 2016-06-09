@@ -1,6 +1,15 @@
 Docker-based Stack - Debian PHP/Nginx + Database
 ===================================
 
+## Stack overview
+
+Type: LEMP
+
+* Linux (Debian 8.0 Jessie)
+* Nginx 1.7
+* MariaDB 10.1.10, MongoDB 3.2.0, MySQL 5.6.27 and/or Percona 5.6.27
+* PHP 5.6.20 or HHVM 3.13.1 (PHP 7.0.7 available for cli)
+
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
