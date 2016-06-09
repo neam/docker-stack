@@ -1,0 +1,108 @@
+# Docker compose configuration for local development
+
+# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
+web:
+  image: nginx:1.7
+  links:
+    - phphaproxy
+    - phpfiles
+  volumes:
+    - .:/app:rw
+  ports:
+    - "80"
+  environment:
+    NGINX_ERROR_LOG_LEVEL: 'notice'
+  working_dir: '/app'
+  command: "/app/stack/nginx/run.sh"
+
+# HA Proxy for php service scaling
+phphaproxy:
+  image: neam/tutum-haproxy:a1e506f
+  links:
+    - phpha
+  ports:
+    - "9000"
+    # Publish stats port
+    - "1936"
+  environment:
+    MODE: tcp
+    TIMEOUT: connect 5000, client 120000, server 120000
+    # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
+    STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
+
+# The elastically scalable php service for interpreting php code without access to /files
+phpha:
+  image: neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+  volumes:
+    - .:/app:rw
+  ports:
+    - "9000"
+    - "9089" # Xdebug
+  environment:
+    TCP_PORTS: '9000'
+    DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    #HHVM: '1'
+  env_file:
+    - .env
+  working_dir: '/app'
+  command: "/app/stack/php/run.sh"
+
+# The redis service used as the PHP session handler for all containers
+redisphpsessionhandler:
+  image: redis
+  ports:
+   - "6379"
+
+# The single-node php service for interpreting php code with read-write access to user-generated files
+# (to support file uploads and other local file manipulations)
+phpfiles:
+  image: neam/debian-php:fpm-5.6.20-hhvm-3.13.1-for-debian-php-nginx-stack
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+  volumes:
+    - .:/app:rw
+    - .files:/files:rw
+  ports:
+    - "9000"
+    - "9089" # Xdebug
+  environment:
+    DISPLAY_PHP_ERRORS: 'on'
+    XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    #HHVM: '1'
+  env_file:
+    - .env
+  working_dir: '/app'
+  command: "/app/stack/php/run.sh"
+
+# Mailcatcher server for catching outgoing email when not in production
+mailcatcher:
+  image: nisenabe/mailcatcher
+  expose:
+    - "25"
+  ports:
+    - "1080"
+
+# A container to run worker/administration commands locally - start a shell by running stack/shell.sh
+worker:
+  image: neam/php-app-worker:0.6.2
+  volumes:
+    - .:/app:rw
+    - .files:/files:rw
+    - ../.git:/.git
+    - ~/.composer:/root/.composer
+    - ~/.ssh:/root/.ssh:ro
+  environment:
+    RUNNING_LOCALLY: '1'
+    # Uncomment to use HHVM
+    #HHVM: '1'
+  working_dir: '/app'
+  command: "/app/stack/php/shell.sh"

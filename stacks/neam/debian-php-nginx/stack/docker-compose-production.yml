@@ -1,0 +1,86 @@
+# Docker compose configuration for production docker-host deployment
+
+# The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
+web:
+  image: %DOCKERCLOUD_USER%/%REPO%-nginx:git-commit-%COMMITSHA%
+  links:
+    - phphaproxy
+    - phpfiles
+  ports:
+    - "80"
+  environment:
+    NGINX_ERROR_LOG_LEVEL: 'notice'
+  working_dir: '/app'
+  command: "/app/stack/nginx/run.sh"
+
+# HA Proxy for php service scaling
+phphaproxy:
+  image: neam/tutum-haproxy:a1e506f
+  links:
+    - phpha
+  ports:
+    - "9000"
+    # Publish stats port
+    - "1936"
+  environment:
+    MODE: tcp
+    TIMEOUT: connect 5000, client 120000, server 120000
+    # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
+    STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
+
+# The elastically scalable php service for interpreting php code without access to /files
+phpha:
+  image: %DOCKERCLOUD_USER%/%REPO%-php:git-commit-%COMMITSHA%
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+  ports:
+    - "9000"
+  environment:
+    TCP_PORTS: '9000'
+    DISPLAY_PHP_ERRORS: 'off'
+    XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '0'
+    # Uncomment to use HHVM
+    #HHVM: '1'
+  env_file:
+    - %ENV_FILE_DIR%/.env
+  working_dir: '/app'
+  command: "/app/stack/php/run.sh"
+
+# The redis service used as the PHP session handler for all containers
+redisphpsessionhandler:
+  image: redis
+  ports:
+   - "6379"
+
+# The single-node php service for interpreting php code with read-write access to user-generated files
+# (to support file uploads and other local file manipulations)
+phpfiles:
+  image: %DOCKERCLOUD_USER%/%REPO%-php:git-commit-%COMMITSHA%
+  links:
+    - mailcatcher
+    - redisphpsessionhandler
+  volumes:
+    - /files
+  ports:
+   - "9000"
+  environment:
+    DISPLAY_PHP_ERRORS: 'off'
+    XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '0'
+    # Uncomment to use HHVM
+    #HHVM: '1'
+  env_file:
+    - %ENV_FILE_DIR%/.env
+  working_dir: '/app'
+  command: "/app/stack/php/run.sh"
+
+# Mailcatcher server for catching outgoing email when not in production
+mailcatcher:
+  image: nisenabe/mailcatcher
+  expose:
+    - "25"
+  ports:
+    - "1080"
+

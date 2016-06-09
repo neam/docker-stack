@@ -1,0 +1,26 @@
+# Docker compose configuration for docker-cloud node ssh access (https://tutum.freshdesk.com/support/solutions/articles/5000553071-sshing-into-a-tutum-node)
+# First time deployment:
+#  mkdir -p deployments/teamnodesshaccess/
+#  docker-cloud stack create --name=teamnodesshaccess -f stack/docker-compose-production.docker-cloud-ssh-node-access.yml | tee deployments/teamnodesshaccess/.docker-cloud-stack-id
+#  docker-cloud stack start $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
+# To update the stack, after a new key has been added or changed:
+#  docker-cloud stack update -f stack/docker-compose-production.docker-cloud-ssh-node-access.yml $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
+#  docker-cloud stack redeploy $(cat deployments/teamnodesshaccess/.docker-cloud-stack-id)
+
+team-node-ssh-access-johndoe:
+  image: borja/authkey
+  environment:
+    PUB_KEY: ssh-rsa 1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef
+  volumes:
+    - /root/.ssh:/.ssh
+  deployment_strategy: every_node
+  autodestroy: always
+
+team-node-ssh-access-build_PROJECT_com:
+  image: borja/authkey
+  environment:
+    PUB_KEY: ssh-rsa faefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefaefaefaefaefaefaef1234567890aefaefaefaefae
+  volumes:
+    - /root/.ssh:/.ssh
+  deployment_strategy: every_node
+  autodestroy: always

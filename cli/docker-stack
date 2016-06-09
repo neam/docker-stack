@@ -49,7 +49,7 @@ if [ "$LOCAL_STACK_YML" == "" ]; then
         fi
     }
 
-    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk vendor/neam/docker-stack/neam/stacks/hello-world/docker-compose.yml
     chk ./stack/local.yml
     chk ./docker-compose.yml
 
@@ -64,22 +64,22 @@ if [ "$PRODUCTION_STACK_YML" == "" ]; then
         fi
     }
 
-    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk vendor/neam/docker-stack/neam/stacks/hello-world/docker-compose.yml
     chk ./stack/deploy.yml
     chk ./docker-compose-production.yml
 
 fi
 
 # Auto-detect tutum stack yml
-if [ "$TUTUM_STACK_YML" == "" ]; then
+if [ "$DOCKERCLOUD_STACK_YML" == "" ]; then
 
     function chk {
         if [ -f "$1" ]; then
-            export TUTUM_STACK_YML=$1
+            export DOCKERCLOUD_STACK_YML=$1
         fi
     }
 
-    chk vendor/neam/docker-stack/stacks/hello-world/docker-compose.yml
+    chk vendor/neam/docker-stack/neam/stacks/hello-world/docker-compose.yml
     chk ./stack/deploy-tutum.yml
     chk ./docker-compose-tutum.yml
 
@@ -89,7 +89,7 @@ fi
 
 case $1 in
 "select" | "list" | "install" | "build-directory-init" | "build-directory-sync")
-    bash $DOCKER_STACK_SRC/cli/$1.sh ${*:2}
+    bash $DOCKER_STACK_SRC/cli/commands/$1.sh ${*:2}
     exit 0
     ;;
 "info")
@@ -97,7 +97,7 @@ case $1 in
     echo DOCKER_STACK_SRC=$DOCKER_STACK_SRC;
     echo LOCAL_STACK_YML=$LOCAL_STACK_YML;
     echo PRODUCTION_STACK_YML=$PRODUCTION_STACK_YML;
-    echo TUTUM_STACK_YML=$TUTUM_STACK_YML;
+    echo DOCKERCLOUD_STACK_YML=$DOCKERCLOUD_STACK_YML;
     exit 0;
     ;;
 "local")
@@ -115,11 +115,11 @@ case $1 in
     export STACK_YML=$PRODUCTION_STACK_YML;
     ;;
 "tutum")
-    if [ "$TUTUM_STACK_YML" == "" ]; then
+    if [ "$DOCKERCLOUD_STACK_YML" == "" ]; then
         >&2 echo "Could not find the tutum stack yml"
         exit 1
     fi
-    export STACK_YML=$TUTUM_STACK_YML;
+    export STACK_YML=$DOCKERCLOUD_STACK_YML;
     ;;
 *)
     >&2 echo "Unknown command: $1"
@@ -129,10 +129,10 @@ esac
 
 case $2 in
 "url")
-    bash $DOCKER_STACK_SRC/cli/$2.sh ${*:3}
+    bash $DOCKER_STACK_SRC/cli/commands/$2.sh ${*:3}
     ;;
 "db")
-    bash $DOCKER_STACK_SRC/cli/$2.sh ${*:3}
+    bash $DOCKER_STACK_SRC/cli/commands/$2.sh ${*:3}
     ;;
 *)
     docker-compose -f $STACK_YML ${*:2}

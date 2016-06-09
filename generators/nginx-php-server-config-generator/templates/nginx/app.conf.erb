@@ -1,18 +1,14 @@
-<% require "shellwords" %>
-<%
+<% require "shellwords"
   def render path
     content = File.read(File.expand_path(path))
     t = ERB.new(content)
     t.result(binding)
   end
-%>
-
-    <% if ENV.has_key? "INDEX_DOCUMENT" and ENV['INDEX_DOCUMENT'].to_s != "" %>
+%><% if ENV.has_key? "INDEX_DOCUMENT" and ENV['INDEX_DOCUMENT'].to_s != "" %>
     index <%= ENV['INDEX_DOCUMENT'] %>;
     <% else %>
     index index.html;
     <% end %>
-
     server {
         server_name localhost;
         listen 80;
@@ -22,9 +18,7 @@
 
         <% if ENV.has_key? "FRAMEWORK" and ENV['FRAMEWORK'].to_s != "" %>
         # Framework-specific config
-        <%= render "templates/nginx/frameworks/" + ENV['FRAMEWORK'].to_s + ".conf.erb" %>
-        <% end %>
-
+        <%= render "templates/nginx/frameworks/" + ENV['FRAMEWORK'].to_s + ".conf.erb" %><% end %>
         <% Shellwords.split(ENV['NGINX_INCLUDES'].to_s).each do |f| %>
         include /app/<%= f %>;
         <% end %>

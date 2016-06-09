@@ -1,0 +1,15 @@
+hello-ssl:
+  image: tutum/hello-world
+  environment:
+    VIRTUAL_HOST: 'www.example.de.192.168.99.100.xip.io'
+
+hello-ssl-regex:
+  image: tutum/hello-world
+  environment:
+    VIRTUAL_HOST: '~regex.example.com'
+
+hello-no-ssl:
+  image: tutum/hello-world
+  environment:
+    VIRTUAL_HOST: 'nossl.192.168.99.100.xip.io'
+

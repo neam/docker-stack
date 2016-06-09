@@ -1,31 +1,50 @@
-Docker images for PHP-FPM + nginx
-=================================
+# PHP + nginx Docker images
 
-nginx
------
+**/!\ Note: Images moved to [phundament/docker-images](https://github.com/phundament/docker-images).
 
-- 512M client body size
+This document contains a description of the available Docker images from this repository.
 
-php
----
+> Note: `cli` containers also contain the application data, which is shared via `volumes_from`.
 
-### fpm
+## Base
 
- - basic nginx configuration
+### [`schmunk42/nginx`](https://registry.hub.docker.com/u/schmunk42/nginx/)
 
-### fpm-yii-runtime
+Basic nginx configuration
 
- - installation of PHP-extensions for Yii 2.0 Framework
-   - gd
-   - intl
-   - pdo_mysql
-   - mbstring
-   - mcrypt
-   - zip
-   - apcu
-  
-### cli-yii-runtime
+- `1.7`
+- `1.9`
 
- - installation of PHP-extensions for Yii 2.0 Framework (see fpm)
- - composer
- - fxp/composer-asset-plugin
+### [`schmunk42/php`](https://registry.hub.docker.com/u/schmunk42/php/)
+
+Basic PHP-FPM configuration
+
+- `5.6-cli`
+- `5.6-fpm` 
+
+
+## Yiisoft
+
+### [`schmunk42/php`](https://registry.hub.docker.com/u/schmunk42/php/)
+
+#### Framework runtime
+
+- `5.6-fpm-2.0.3-yii-runtime`
+- `5.6-cli-2.0.3-yii-runtime`
+
+#### Applications
+
+Available for initial installation by copying from `/yii2-src`.
+
+- `5.6-cli-2.0.3-yii-app-basic`
+
+
+## Phundament
+
+### [`phundament/php`](https://registry.hub.docker.com/u/phundament/php/)
+
+Available for initial installation by copying from `/phundament-src`.
+
+- `5.6-cli-4.0.0-prod` Phundament 4 Application CLI (and data container)
+- `5.6-cli-4.0.0-dev` Phundament 4 Application with development packages (eg. closure-compiler, code-generation) aka. "builder"
+- `5.6-fpm-4.0.0` Phundament 4 Application with development settings

@@ -1,3 +1,0 @@
-export LOCAL_STACK_YML={BASEPATH}/docker-compose.yml
-export PRODUCTION_STACK_YML={BASEPATH}/docker-compose.yml
-export TUTUM_STACK_YML={BASEPATH}/docker-compose.yml

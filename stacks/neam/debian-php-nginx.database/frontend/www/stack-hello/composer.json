@@ -1,0 +1,13 @@
+{
+    "name": "neam/debian-nginx-php.database.stack-hello",
+    "require": {
+        "mongodb/mongodb": "^0.2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fredrik Wollsen",
+            "email": "fredrik@neam.se"
+        }
+    ]
+}

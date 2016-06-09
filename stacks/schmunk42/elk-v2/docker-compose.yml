@@ -1,0 +1,40 @@
+version: '2'
+services:
+  kibana:
+    image: kibana:4.3
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    restart: always
+
+  elasticsearch:
+    image: elasticsearch:2
+
+  logstash:
+    build: logstash
+    command: 'logstash -f /logstash.conf -v'
+    depends_on:
+      - elasticsearch
+      - redis
+
+  redis:
+    image: tutum/redis
+    expose:
+      - 6379
+    environment:
+      - REDIS_PASS=secretredis
+
+  logspout:
+    image: rtoma/logspout-redis-logstash:0.1.1
+    depends_on:
+      - redis
+    command: 'redis://redis'
+    environment:
+      - DEBUG=0
+      - REDIS_PASSWORD=secretredis
+      - REDIS_KEY=logstash
+      - REDIS_DOCKER_HOST=local
+      - affinity:container!=/elklogspoutmonitor/
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro

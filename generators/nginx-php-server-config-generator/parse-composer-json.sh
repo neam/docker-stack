@@ -71,6 +71,10 @@ function package_php_service() {
     jq --raw-output ".extra.${composer_extra_key}[\"php-service\"] // \"php\"" < "$BUILD_DIR/composer.json"
 }
 
+function package_php_runtime() {
+    jq --raw-output ".extra.${composer_extra_key}[\"php-runtime\"] // \"hhvm\"" < "$BUILD_DIR/composer.json"
+}
+
 function package_nginx_includes() {
     jq --raw-output ".extra.${composer_extra_key}[\"nginx-includes\"] // [] | .[]" < "$BUILD_DIR/composer.json"
 }
@@ -103,11 +107,11 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   fi
 
   # note about php and nginx versions
-  if [ -n "$(package_php_version)" ] ; then
+  if [ "$(package_php_version)" != "default" ] ; then
     protip "Your composer.json specifies a specific PHP version. This is ignored by the server config generator - instead, the actual PHP version of your app is specified by the php-fpm docker image the app defines in it's docker-compose.yml"
   fi
 
-  if [ -n "$(package_nginx_version)" ] ; then
+  if [ "$(package_nginx_version)" != "default" ] ; then
     protip "Your composer.json specifies a specific Nginx version. This is ignored by the server config generator - instead, the actual Nginx version of your app is specified by the nginx docker image the app defines in it's docker-compose.yml"
   fi
 
@@ -119,6 +123,7 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   PHP_EXTRA_CONFIG="$(package_php_config)"
   PHP_INCLUDES="$(package_php_includes)"
   PHP_SERVICE="$(package_php_service)"
+  PHP_RUNTIME="$(package_php_runtime)"
   COMPILE_CMD="$(package_compile_cmd)"
   NGINX_INCLUDES="$(package_nginx_includes)"
   NGINX_LOCATIONS="$(package_nginx_locations)"
@@ -127,7 +132,7 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
   NEWRELIC_ENABLED="$(package_newrelic_enabled)"
 
   # Serialize the data
-  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES PHP_SERVICE COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT NEWRELIC_ENABLED > "$BUILD_DIR/stack/.serialized_composer_json_data.sh"
+  typeset -p PHP_VERSION NGINX_VERSION DOCUMENT_ROOT INDEX_DOCUMENT FRAMEWORK PHP_EXTRA_CONFIG PHP_INCLUDES PHP_SERVICE PHP_RUNTIME COMPILE_CMD NGINX_INCLUDES NGINX_LOCATIONS USER_LOG_FILES DOCUMENT_ROOT NEWRELIC_ENABLED > "$BUILD_DIR/stack/.serialized_composer_json_data.sh"
 
   status "Done! Results saved in $BUILD_DIR/stack/.serialized_composer_json_data.sh"
 
