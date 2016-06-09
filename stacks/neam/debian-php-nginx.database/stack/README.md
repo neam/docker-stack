@@ -10,6 +10,10 @@ Type: LEMP
 * MariaDB 10.1.10, MongoDB 3.2.0, MySQL 5.6.27 and/or Percona 5.6.27
 * PHP 5.6.20 or HHVM 3.13.1 (PHP 7.0.7 available for cli)
 
+## Changelog
+
+This stack and/or underlying concepts are used in production by [Neam Labs](http://neamlabs.com) and are [constantly tweaked to be faster and more reliable](https://github.com/neam/docker-stack/blob/develop/CHANGELOG.md).
+
 ## Features
 
 * Follows Docker's one-process-per-container philosophy by having separate containers for Nginx and PHP-FPM
