@@ -17,6 +17,10 @@ CHANGELOG
 
 ## Neam - Stacks and supporting images
 
+### 0.6.3 (Not yet released)
+
+- Enh: [Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
+
 ### 0.6.2 (Released 2016-06-07)
 
 - Enh: PHP-FPM 7.0.7 images built alongside PHP 5.6 images
