@@ -41,7 +41,7 @@ phphaproxy:
     - "1936"
   environment:
     MODE: tcp
-    TIMEOUT: connect 5000, client 120000, server 120000
+    TIMEOUT: connect 500, client 120000, server 120000
     # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
     STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
@@ -71,6 +71,9 @@ phpha:
     TCP_PORTS: '9000'
     DISPLAY_PHP_ERRORS: 'off'
     XDEBUG_DEFAULT_ENABLE: 'off'
+    # Adjust HHVM (enabled = 1 or disabled = 0) and PHP_PACKAGE_VERSION (5 or 7) according to what php interpreter should be used
+    #HHVM: '1'
+    PHP_PACKAGE_VERSION: '5'
 %ENVIRONMENT_YAML%
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
@@ -115,6 +118,9 @@ phpfiles:
   environment:
     DISPLAY_PHP_ERRORS: 'off'
     XDEBUG_DEFAULT_ENABLE: 'off'
+    # Adjust HHVM (enabled = 1 or disabled = 0) and PHP_PACKAGE_VERSION (5 or 7) according to what php interpreter should be used
+    #HHVM: '1'
+    PHP_PACKAGE_VERSION: '5'
 %ENVIRONMENT_YAML%
   working_dir: '/app'
   command: "/app/stack/php/run.sh"

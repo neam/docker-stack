@@ -20,6 +20,7 @@ CHANGELOG
 ### 0.6.3 (Not yet released)
 
 - Enh: [Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
+- Enh: [Debian PHP/Nginx] Using Docker compose version 2 format, self-reconfiguring php-scaling locally, clarifications, tweaks
 
 ### 0.6.2 (Released 2016-06-07)
 

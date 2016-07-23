@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-chmod -R 777 /files/$DATA/media
+if [ -d "/files/$DATA/media" ]; then
+  chmod -R 777 /files/$DATA/media
+fi
 chmod -R 777 frontend/app/runtime
 chmod -R 777 frontend/www/assets
 chmod -R 777 backend/app/runtime
