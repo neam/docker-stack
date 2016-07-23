@@ -11,7 +11,7 @@ CHANGELOG
 
 ### 0.1.0 (Released 2016-01-07)
 
-- Init: First official alpha release, as battle-tested in production by the Neam Labs in several projects during more than 6 months (motin, schmunk42)
+- Init: First official alpha release, as battle-tested in production by Neam Labs in several projects during more than 6 months (motin, schmunk42)
 - Init: Decided on a project/repository structure (motin, schmunk42)
 - Init: Including Neam Stacks and supporting images 0.6.1 (see detailed changelog below)
 
@@ -21,6 +21,7 @@ CHANGELOG
 
 - Enh: [Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
 - Enh: [Debian PHP/Nginx] Using Docker compose version 2 format, self-reconfiguring php-scaling locally, clarifications, tweaks
+- Enh: [DNA Project Base] Improvements and bug fixes
 
 ### 0.6.2 (Released 2016-06-07)
 

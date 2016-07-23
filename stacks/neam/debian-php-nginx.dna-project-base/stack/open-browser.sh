@@ -12,6 +12,13 @@ URL="$(docker-stack local url router 80 $DATA._PROJECT_.192.168.99.100.xip.io "$
 echo "Opening URL:"
 echo $URL
 
-open $URL
+case $OSTYPE in
+  darwin*)
+    open $URL ;;
+  linux-gnu)
+    xdg-open $URL ;;
+  *)
+
+esac
 
 exit 0
