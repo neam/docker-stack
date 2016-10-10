@@ -79,11 +79,7 @@ Visit the stack-hello pages by visiting the URL returned by:
 To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
-    docker-compose stop phphaproxy
-    docker-compose up -d phphaproxy
     
-(For an explanation why the container needs to be restarted, [read this](https://github.com/tutumcloud/haproxy/issues/82))
-
 ## Frontend and backend example
 
 Create the index php files expected by the default configuration:
