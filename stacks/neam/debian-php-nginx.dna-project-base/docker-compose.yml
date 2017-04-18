@@ -16,11 +16,13 @@ services:
       TIMEOUT: connect 500, client 120000, server 120000
       # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
       STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
-      DOCKER_TLS_VERIFY: ${DOCKER_TLS_VERIFY}
-      DOCKER_HOST: ${DOCKER_HOST}
-      DOCKER_CERT_PATH: ${DOCKER_CERT_PATH}
+#      DOCKER_TLS_VERIFY: ${DOCKER_TLS_VERIFY}
+#      DOCKER_HOST: ${DOCKER_HOST}
+#      DOCKER_CERT_PATH: ${DOCKER_CERT_PATH}
+#    volumes:
+#      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
     volumes:
-      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+      - /var/run/docker.sock:/var/run/docker.sock
 
   # The nginx server for serving static files directly, cached contents via the memcached server and php files via the php service
   web:
@@ -34,7 +36,7 @@ services:
       - "80"
     environment:
       NGINX_ERROR_LOG_LEVEL: 'notice'
-      VIRTUAL_HOST: '*.192.168.99.100.xip.io, 192.168.99.100, *._PROJECT_.build.neamlabs.com, *.ngrok.io'
+      VIRTUAL_HOST: '*.127.0.0.1.xip.io, 127.0.0.1, *._PROJECT_.build.neamlabs.com, *.ngrok.io'
       # The haproxy router is configured to respond to port 80 without ssl, thus we need to make sure that proxying to the web service's port 443 is not attempted
       # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
       EXCLUDE_PORTS: 443
@@ -55,11 +57,13 @@ services:
       TIMEOUT: connect 500, client 120000, server 120000
       # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
       STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
-      DOCKER_TLS_VERIFY: ${DOCKER_TLS_VERIFY}
-      DOCKER_HOST: ${DOCKER_HOST}
-      DOCKER_CERT_PATH: ${DOCKER_CERT_PATH}
+#      DOCKER_TLS_VERIFY: ${DOCKER_TLS_VERIFY}
+#      DOCKER_HOST: ${DOCKER_HOST}
+#      DOCKER_CERT_PATH: ${DOCKER_CERT_PATH}
+#    volumes:
+#      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
     volumes:
-      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+      - /var/run/docker.sock:/var/run/docker.sock
 
   # The elastically scalable php service for interpreting php code without access to /files
   phpha:
