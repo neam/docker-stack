@@ -67,7 +67,7 @@ services:
 
   # The elastically scalable php service for interpreting php code without access to /files
   phpha:
-    image: neam/dna-project-base-debian-php:0.6.2
+    image: neam/dna-project-base-debian-php:0.6.2-php7.0
     links:
       - mailcatcher
       - redisphpsessionhandler
@@ -81,7 +81,7 @@ services:
       - "9089" # Xdebug
     environment:
       TCP_PORTS: '9000'
-      DISPLAY_PHP_ERRORS: 'on'
+      DISPLAY_PHP_ERRORS: 'off'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
@@ -99,7 +99,7 @@ services:
   # The single-node php service for interpreting php code with read-write access to user-generated files
   # (to support file uploads and other local file manipulations)
   phpfiles:
-    image: neam/dna-project-base-debian-php:0.6.2
+    image: neam/dna-project-base-debian-php:0.6.2-php7.0
     links:
       - mailcatcher
       - redisphpsessionhandler
@@ -122,7 +122,7 @@ services:
 
   # Local MySQL database server to mimic a cloud database
   localdb:
-    image: mysql:5.6.27
+    image: mysql:5.7.11
     volumes:
       - ./stack/localdb/.db/mysql:/var/lib/mysql:rw
       - ./stack/localdb/:/stack/localdb:rw

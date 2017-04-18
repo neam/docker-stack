@@ -19,6 +19,8 @@ CHANGELOG
 
 ### 0.6.3 (Not yet released)
 
+- Enh: [DNA Project Base] Using PHP 7 by default in production
+- Enh: [DNA Project Base] MySQL upgraded from 5.6.27 to 5.7.11
 - Enh: [Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
 - Enh: [Debian PHP/Nginx] Using Docker compose version 2 format, self-reconfiguring php-scaling locally, clarifications, tweaks
 - Enh: [DNA Project Base] Improvements and bug fixes
