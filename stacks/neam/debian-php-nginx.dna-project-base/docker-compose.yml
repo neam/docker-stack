@@ -84,8 +84,7 @@ services:
       DISPLAY_PHP_ERRORS: 'on'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
-      # Uncomment to use HHVM
-      HHVM: '1'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     env_file:
       - .env
     working_dir: '/app'
@@ -115,8 +114,7 @@ services:
       DISPLAY_PHP_ERRORS: 'on'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
-      # Uncomment to use HHVM
-      HHVM: '1'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     env_file:
       - .env
     working_dir: '/app'
@@ -176,7 +174,7 @@ services:
       - ~/.ssh:/root/.ssh:ro
     environment:
       RUNNING_LOCALLY: '1'
-      HHVM: '1'
+      HHVM: '1' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app/dna/tests'
     env_file:
      - .current-local-cli-data-profile
@@ -197,7 +195,7 @@ services:
       - ~/.ssh:/root/.ssh:ro
     environment:
       RUNNING_LOCALLY: '1'
-      HHVM: '0'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app/dna/tests'
     env_file:
      - .current-local-cli-data-profile
@@ -218,7 +216,7 @@ services:
       - ~/.ssh:/root/.ssh:ro
     environment:
       RUNNING_LOCALLY: '1'
-      HHVM: '0'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app/dna/tests'
     env_file:
      - .current-local-cli-data-profile
@@ -245,7 +243,7 @@ services:
       - ~/.ssh:/root/.ssh:ro
     environment:
       RUNNING_LOCALLY: '1'
-      HHVM: '0'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app'
     env_file:
      - .current-local-cli-data-profile

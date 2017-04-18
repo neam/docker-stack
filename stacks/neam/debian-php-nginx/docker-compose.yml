@@ -53,9 +53,7 @@ services:
       DISPLAY_PHP_ERRORS: 'on'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
-      # Adjust HHVM (enabled = 1 or disabled = 0) and PHP_PACKAGE_VERSION (5 or 7) according to what php interpreter should be used
-      #HHVM: '1'
-      PHP_PACKAGE_VERSION: '5'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     env_file:
       - .env
     working_dir: '/app'
@@ -84,9 +82,7 @@ services:
       DISPLAY_PHP_ERRORS: 'on'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
-      # Adjust HHVM (enabled = 1 or disabled = 0) and PHP_PACKAGE_VERSION (5 or 7) according to what php interpreter should be used
-      #HHVM: '1'
-      PHP_PACKAGE_VERSION: '5'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     env_file:
       - .env
     working_dir: '/app'
