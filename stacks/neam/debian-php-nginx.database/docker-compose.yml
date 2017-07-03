@@ -155,7 +155,7 @@ services:
 
   # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
   worker:
-    image: neam/php-app-worker:0.6.2-php5
+    image: neam/php-app-worker:0.7.0-php5
     links:
       - mysql
       - mariadb

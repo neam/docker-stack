@@ -2,7 +2,7 @@
 # ===============================================================
 #   project-specific Dockerfile
 
-FROM neam/dna-project-base-debian-php:0.6.2
+FROM neam/dna-project-base-debian-php:0.7.0
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 

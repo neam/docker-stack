@@ -67,7 +67,7 @@ services:
 
   # The elastically scalable php service for interpreting php code without access to /files
   phpha:
-    image: neam/dna-project-base-debian-php:0.6.2-php7.0
+    image: neam/dna-project-base-debian-php:0.7.0-php7.0
     links:
       - mailcatcher
       - redisphpsessionhandler
@@ -99,7 +99,7 @@ services:
   # The single-node php service for interpreting php code with read-write access to user-generated files
   # (to support file uploads and other local file manipulations)
   phpfiles:
-    image: neam/dna-project-base-debian-php:0.6.2-php7.0
+    image: neam/dna-project-base-debian-php:0.7.0-php7.0
     links:
       - mailcatcher
       - redisphpsessionhandler
@@ -148,7 +148,7 @@ services:
 
   # A container to run builder commands locally
   builder:
-    image: neam/php-app-builder:0.6.2
+    image: neam/php-app-builder:0.7.0
     volumes:
       - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
       - .files:/files:rw
@@ -160,7 +160,7 @@ services:
 
   # Containers to run tester commands locally - start a shell by running stack/tester-shell.sh <flavor>
   tester-hhvm:
-    image: neam/dna-project-base-debian-php-tester:0.6.2
+    image: neam/dna-project-base-debian-php-tester:0.7.0
     links:
       - web
       - api-mock
@@ -181,7 +181,7 @@ services:
     command: "/app/stack/php/shell.sh"
 
   tester-php5:
-    image: neam/dna-project-base-debian-php-tester:0.6.2
+    image: neam/dna-project-base-debian-php-tester:0.7.0
     links:
       - web
       - api-mock
@@ -202,7 +202,7 @@ services:
     command: "/app/stack/php/shell.sh"
 
   tester-php7.0:
-    image: neam/dna-project-base-debian-php-tester:0.6.2-php7.0
+    image: neam/dna-project-base-debian-php-tester:0.7.0-php7.0
     links:
       - web
       - api-mock
@@ -232,7 +232,7 @@ services:
 
   # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
   worker:
-    image: neam/php-app-worker:0.6.2-php7.0
+    image: neam/php-app-worker:0.7.0-php7.0
     links:
       - localdb
     volumes:
