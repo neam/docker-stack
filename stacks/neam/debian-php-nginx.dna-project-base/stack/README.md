@@ -21,7 +21,7 @@ This stack and/or underlying concepts are used in production by [Neam Labs](http
 * Includes boilerplate configuration with Docker-specific enhancements
 * Includes both a PHP "ha" service which is not supposed to use any data volumes and thus can be scaled elastically, as well as a PHP "files" container which uses a /files volume to stored user-uploaded files 
 * The PHP "ha" service is fronted by a HAProxy service that distributes the load to the PHP "ha" service containers
-* The PHP services can use either PHP-FPM with Opcache or HHVM (default)
+* The PHP services can use either PHP-FPM with Opcache (default) or HHVM
 * Includes a PHP cli / shell container to run worker/administration commands locally - start a shell by running stack/shell.sh
 * Includes the mailcatcher SMTP server for local development of mailing logic
 * Includes a local MySQL server to mimic Amazon RDS
@@ -79,7 +79,11 @@ Visit the stack-hello pages by visiting the URL returned by:
 To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
-    
+
+On OSX, you can open the phphaproxy's statistics page to verify that the scaling is effective:
+
+    stack/phphaproxy-stats.sh
+
 ## Frontend and backend example
 
 Create the index php files expected by the default configuration:

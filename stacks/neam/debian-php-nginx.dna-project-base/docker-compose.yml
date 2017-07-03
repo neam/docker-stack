@@ -16,11 +16,7 @@ services:
       TIMEOUT: connect 500, client 120000, server 120000
       # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
       STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
-#      DOCKER_TLS_VERIFY: ${DOCKER_TLS_VERIFY}
-#      DOCKER_HOST: ${DOCKER_HOST}
-#      DOCKER_CERT_PATH: ${DOCKER_CERT_PATH}
-#    volumes:
-#      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+    # Necessary for auto-scaling using Docker-for-Mac
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -57,11 +53,7 @@ services:
       TIMEOUT: connect 500, client 120000, server 120000
       # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
       STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
-#      DOCKER_TLS_VERIFY: ${DOCKER_TLS_VERIFY}
-#      DOCKER_HOST: ${DOCKER_HOST}
-#      DOCKER_CERT_PATH: ${DOCKER_CERT_PATH}
-#    volumes:
-#      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+    # Necessary for auto-scaling using Docker-for-Mac
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -82,9 +74,11 @@ services:
     environment:
       TCP_PORTS: '9000'
       DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '0'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.0'
     env_file:
       - .env
     working_dir: '/app'
@@ -111,10 +105,13 @@ services:
       - "9000"
       - "9089" # Xdebug
     environment:
-      DISPLAY_PHP_ERRORS: 'on'
+      TCP_PORTS: '9000'
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '0'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.0'
     env_file:
       - .env
     working_dir: '/app'
@@ -154,7 +151,15 @@ services:
       - .files:/files:rw
       - ../.git:/.git
       - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
       - ~/.ssh:/root/.docker-host-ssh:ro
+    environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '0'
+      XDEBUG_DEFAULT_ENABLE: 'off'
+      RUNNING_LOCALLY: '1'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7'
     working_dir: '/app'
     command: "/app/stack/php/shell.sh"
 
@@ -171,8 +176,12 @@ services:
       - .files:/files:rw
       - ../.git:/.git
       - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
       - ~/.ssh:/root/.ssh:ro
     environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '1'
+      XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '1' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app/dna/tests'
@@ -192,10 +201,15 @@ services:
       - .files:/files:rw
       - ../.git:/.git
       - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
       - ~/.ssh:/root/.ssh:ro
     environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '1'
+      XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '5'
     working_dir: '/app/dna/tests'
     env_file:
      - .default-local-cli-data-profile
@@ -213,10 +227,15 @@ services:
       - .files:/files:rw
       - ../.git:/.git
       - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
       - ~/.ssh:/root/.ssh:ro
     environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '0'
+      XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.0'
     working_dir: '/app/dna/tests'
     env_file:
      - .default-local-cli-data-profile
@@ -240,10 +259,15 @@ services:
       - .files:/files:rw
       - ../.git:/.git
       - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
       - ~/.ssh:/root/.ssh:ro
     environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '1'
+      XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.0'
     working_dir: '/app'
     env_file:
      - .default-local-cli-data-profile
