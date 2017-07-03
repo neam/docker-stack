@@ -28,10 +28,11 @@ CHANGELOG
 
 - Enh: [Neam Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
 - Enh: [Neam Debian PHP/Nginx] Using Docker compose version 2 format, self-reconfiguring php-scaling locally, clarifications, tweaks
-- Chg: [DNA Project Base] Renamed the file for specifying default local cli data profile from ".current-local-cli-data-profile" to ".default-local-cli-data-profile"
+- Enh: [Neam Stacks] Install pipe viewer (pv) to monitor progress of commands that pipes large files
 - Enh: [DNA Project Base] Install tmate for on-demand ssh access directly into containers
 - Enh: [DNA Project Base] Using PHP 7 by default in production
 - Enh: [DNA Project Base] MySQL upgraded from 5.6.27 to 5.7.11
+- Chg: [DNA Project Base] Renamed the file for specifying default local cli data profile from ".current-local-cli-data-profile" to ".default-local-cli-data-profile"
 - Enh: [DNA Project Base] Improvements and bug fixes
 
 ### 0.6.2 (Released 2016-06-07)
@@ -40,9 +41,9 @@ CHANGELOG
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 5.6.17 upgraded to 5.6.30
 - Upg: [Neam Debian PHP/Nginx] HHVM 3.12.0 upgraded to 3.13.1
 - Upg: [Neam Debian PHP/Nginx] Composer updated to latest development version (includes important autoloader performance optimizations for PHP5.6 and 7)
-- Upg: [Neam Stacks] All debian packages updated as per 2016-06-07 07:33 (UTC)
 - Upg: [Neam Debian PHP/Nginx] Updated supporting deployment stacks to correspond to latest Docker Cloud best practices
 - Min: [Neam Debian PHP/Nginx] Enabling xdebug profiler requires local override in Neam Debian PHP/Nginx stack
+- Upg: [Neam Stacks] All debian packages updated as per 2016-06-07 07:33 (UTC)
 - Upg: [Neam Stacks] NodeJS upgraded from 0.10 to 4.4
 - Chg: [Neam Stacks] Removed php-app-tester, replaced by api-mock utility image
 - Chg: [Neam DNA Project Base] Stack tester shell now based on the production image 
