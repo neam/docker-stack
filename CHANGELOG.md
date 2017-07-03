@@ -26,8 +26,13 @@ CHANGELOG
 
 ### 0.7.0 (Not yet released)
 
+- Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.7 upgraded to 7.0.20
+- Upg: [Neam Debian PHP/Nginx] PHP-FPM 5.6.20 upgraded to 5.6.30
+- Upg: [Neam Debian PHP/Nginx] HHVM 3.13.1 upgraded to 3.20.2
 - Enh: [Neam Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
 - Enh: [Neam Debian PHP/Nginx] Using Docker compose version 2 format, self-reconfiguring php-scaling locally, clarifications, tweaks
+- Upg: [Neam Stacks] All debian packages updated as per 2017-07-03 16:26 (UTC)
+- Upg: [Neam Stacks] NodeJS upgraded from 4.4 to 4.8
 - Enh: [Neam Stacks] Install pipe viewer (pv) to monitor progress of commands that pipes large files
 - Enh: [DNA Project Base] Install tmate for on-demand ssh access directly into containers
 - Enh: [DNA Project Base] Using PHP 7 by default in production

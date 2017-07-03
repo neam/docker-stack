@@ -1,9 +1,9 @@
-# Dockerfile for PHP (FPM 7.0.7, HHVM 3.13.1) built for Debian PHP/Nginx base docker-stack
+# Dockerfile for PHP (FPM 7.0.20, HHVM 3.20.2) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
 #   docker build -t neam/dna-project-base-debian-php:0.7.0-php7 .
 #   docker push neam/dna-project-base-debian-php:0.7.0-php7
 
-FROM neam/debian-php:fpm-7.0.7-hhvm-3.13.1-for-debian-php-nginx-stack
+FROM neam/debian-php:fpm-7.0.20-hhvm-3.20.2-for-debian-php-nginx-stack
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
@@ -12,7 +12,7 @@ echo 'deb http://ftp.debian.org/debian jessie-backports main'> /etc/apt/sources.
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2016-06-07 07:33
+    apt-get upgrade -y -q # 2017-07-03 16:26
 
 # For erb templates
 RUN apt-get install -y -q \

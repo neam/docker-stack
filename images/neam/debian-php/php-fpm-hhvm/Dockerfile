@@ -1,14 +1,14 @@
-# Dockerfile for PHP (FPM 5.6.20, HHVM 3.13.1) built for PHP/Nginx-based docker-stacks
+# Dockerfile for PHP (FPM 5.6.30, HHVM 3.20.2) built for PHP/Nginx-based docker-stacks
 # ===============================================================
-#   docker build -f Dockerfile -t neam/debian-php:fpm-5.6.20-hhvm-3.13.1 .
-#   docker push neam/debian-php:fpm-5.6.20-hhvm-3.13.1
+#   docker build -f Dockerfile -t neam/debian-php:fpm-5.6.30-hhvm-3.20.2 .
+#   docker push neam/debian-php:fpm-5.6.30-hhvm-3.20.2
 
 FROM debian:jessie
 
 # defaults, use other values at build-time to produce an image with other versions
-ARG PHP_VERSION=5.6.20
+ARG PHP_VERSION=5.6.30
 ARG PHP_PACKAGE_NAME_VERSION=5
-ARG HHVM_VERSION=3.13.1
+ARG HHVM_VERSION=3.20.2
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
@@ -35,7 +35,7 @@ RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.0" ]; then \
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2016-06-07 07:33
+    apt-get upgrade -y -q # 2017-07-03 16:26
 
 # Install specific version of PHP-FPM (if not available - show what versions were available in debian jessie at the moment of APT_DOCKER_CACHE_TRIGGER above)
 RUN apt-get install -y -q \
