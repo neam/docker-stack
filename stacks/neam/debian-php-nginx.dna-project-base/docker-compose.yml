@@ -177,7 +177,7 @@ services:
       HHVM: '1' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app/dna/tests'
     env_file:
-     - .current-local-cli-data-profile
+     - .default-local-cli-data-profile
     command: "/app/stack/php/shell.sh"
 
   tester-php5:
@@ -198,7 +198,7 @@ services:
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app/dna/tests'
     env_file:
-     - .current-local-cli-data-profile
+     - .default-local-cli-data-profile
     command: "/app/stack/php/shell.sh"
 
   tester-php7.0:
@@ -219,7 +219,7 @@ services:
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app/dna/tests'
     env_file:
-     - .current-local-cli-data-profile
+     - .default-local-cli-data-profile
     command: "/app/stack/php/shell.sh"
 
   # A container to serve a mock version of the api according to an api blueprint TODO
@@ -246,5 +246,5 @@ services:
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
     working_dir: '/app'
     env_file:
-     - .current-local-cli-data-profile
+     - .default-local-cli-data-profile
     command: "/app/stack/php/shell.sh"
