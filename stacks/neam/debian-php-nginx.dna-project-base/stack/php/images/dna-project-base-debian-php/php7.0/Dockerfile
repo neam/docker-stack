@@ -8,7 +8,7 @@ FROM neam/debian-php:fpm-7.0.20-hhvm-3.20.2-for-debian-php-nginx-stack
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Add jessie-backports (necessary for tmate installation)
-echo 'deb http://ftp.debian.org/debian jessie-backports main'> /etc/apt/sources.list.d/jessie-backports.list
+RUN echo 'deb http://ftp.debian.org/debian jessie-backports main'> /etc/apt/sources.list.d/jessie-backports.list
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
