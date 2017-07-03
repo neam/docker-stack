@@ -6,9 +6,6 @@ FROM neam/dna-project-base-debian-php:0.7.0
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
-# Add jessie-backports (necessary for tmate installation)
-echo 'deb http://ftp.debian.org/debian jessie-backports main'> /etc/apt/sources.list.d/jessie-backports.list
-
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
     apt-get upgrade -y -q # 2016-06-07 07:33
@@ -42,23 +39,6 @@ RUN apt-get install -y -q \
 # Database clients
 RUN apt-get install -y -q \
         mysql-client
-
-# For erb templates
-RUN apt-get install -y -q \
-        ruby-full
-
-# Add external apt repositories
-RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | apt-key add -
-RUN wget -O/etc/apt/sources.list.d/s3tools.list http://s3tools.org/repo/deb-all/stable/s3tools.list
-
-# Install s3cmd
-RUN apt-get install -y -q s3cmd=1.5.0* || (echo "s3cmd \n $(apt-cache show s3cmd | grep -i version)" && exit 1)
-
-# Install pipe viewer (pv) to monitor progress of commands that pipes large files
-RUN apt-get install -y -q pv
-
-# Install tmate for on-demand ssh access directly into containers
-RUN apt-get -t jessie-backports install -y -q tmate
 
 # Clean apt caches
 RUN apt-get clean && \
