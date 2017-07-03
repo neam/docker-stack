@@ -4,6 +4,8 @@
 #   docker push neam/debian-php:fpm-5.6.20-hhvm-3.13.1
 
 FROM debian:jessie
+
+# defaults, use other values at build-time to produce an image with other versions
 ARG PHP_VERSION=5.6.20
 ARG PHP_PACKAGE_NAME_VERSION=5
 ARG HHVM_VERSION=3.13.1

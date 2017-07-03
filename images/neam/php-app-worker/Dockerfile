@@ -24,6 +24,8 @@
 # Replace with your own project tag to build and push a custom base image for use in your project.
 
 FROM debian:jessie
+
+# defaults, use other values at build-time to produce an image with other versions
 ARG PHP_PACKAGE_NAME_VERSION=5
 
 # Prepare Debian environment
