@@ -16,4 +16,7 @@ else
   if [ "$PHP_PACKAGE_NAME_VERSION" == "7.0" ]; then
     /app/stack/php/inject-config-php7.0.sh
   fi
+  if [ "$PHP_PACKAGE_NAME_VERSION" == "" ]; then
+    echo "Warning: PHP_PACKAGE_NAME_VERSION is empty and no config was injected"
+  fi
 fi

@@ -77,7 +77,7 @@ To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
 
-On OXS, you can open the phphaproxy's statistics page to verify that the scaling is effective:
+On OSX, you can open the phphaproxy's statistics page to verify that the scaling is effective:
 
     stack/phphaproxy-stats.sh
 

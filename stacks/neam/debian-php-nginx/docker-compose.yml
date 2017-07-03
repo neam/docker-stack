@@ -31,11 +31,9 @@ services:
       TIMEOUT: connect 500, client 120000, server 120000
       # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
       STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
-      DOCKER_TLS_VERIFY: ${DOCKER_TLS_VERIFY}
-      DOCKER_HOST: ${DOCKER_HOST}
-      DOCKER_CERT_PATH: ${DOCKER_CERT_PATH}
+    # Necessary for auto-scaling using Docker-for-Mac
     volumes:
-      - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+      - /var/run/docker.sock:/var/run/docker.sock
 
   # The elastically scalable php service for interpreting php code without access to /files
   phpha:
@@ -51,9 +49,11 @@ services:
     environment:
       TCP_PORTS: '9000'
       DISPLAY_PHP_ERRORS: 'on'
+      LOAD_XDEBUG_EXTENSION: '1'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.0'
     env_file:
       - .env
     working_dir: '/app'
@@ -79,10 +79,13 @@ services:
       - "9000"
       - "9089" # Xdebug
     environment:
+      TCP_PORTS: '9000'
       DISPLAY_PHP_ERRORS: 'on'
+      LOAD_XDEBUG_EXTENSION: '0'
       XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.0'
     env_file:
       - .env
     working_dir: '/app'
@@ -104,9 +107,14 @@ services:
       - .files:/files:rw
       - ../.git:/.git
       - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
       - ~/.ssh:/root/.ssh:ro
     environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '1'
+      XDEBUG_DEFAULT_ENABLE: 'off'
       RUNNING_LOCALLY: '1'
-      HHVM: '0'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.0'
     working_dir: '/app'
     command: "/app/stack/php/shell.sh"

@@ -117,10 +117,11 @@ phpfiles:
    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'off'
+    LOAD_XDEBUG_EXTENSION: '0'
     XDEBUG_DEFAULT_ENABLE: 'off'
-    # Adjust HHVM (enabled = 1 or disabled = 0) and PHP_PACKAGE_VERSION (5 or 7) according to what php interpreter should be used
-    #HHVM: '1'
-    PHP_PACKAGE_VERSION: '5'
+    RUNNING_LOCALLY: '0'
+    HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+    PHP_PACKAGE_NAME_VERSION: '7.0'
 %ENVIRONMENT_YAML%
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
