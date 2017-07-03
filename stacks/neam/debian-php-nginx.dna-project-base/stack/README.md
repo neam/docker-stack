@@ -25,7 +25,7 @@ This stack and/or underlying concepts are used in production by [Neam Labs](http
 * Includes a PHP cli / shell container to run worker/administration commands locally - start a shell by running stack/shell.sh
 * Includes the mailcatcher SMTP server for local development of mailing logic
 * Includes a local MySQL server to mimic Amazon RDS
-* Compatible with deployment routines explained in [https://github.com/neam/yii-dna-deployment](https://github.com/neam/yii-dna-deployment)
+* Compatible with deployment routines explained in [https://github.com/neam/dna-project-base-cloud-deployment](https://github.com/neam/dna-project-base-cloud-deployment)
 
 ## Default configuration
 
@@ -103,9 +103,9 @@ Visit the below returned urls in your browser (frontend and backend respectively
 
 For thorough instructions and helpers scripts (needs "minimum-stability": "dev" in your composer.json):
  
-    composer require neam/yii-dna-deployment
+    composer require neam/dna-project-base-cloud-deployment
 
-Then, follow instructions under `vendor/neam/yii-dna-deployment/README.md`
+Then, follow instructions under `vendor/neam/dna-project-base-cloud-deployment/README.md`
 
 ## Local Extras
 
