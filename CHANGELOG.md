@@ -29,6 +29,7 @@ CHANGELOG
 - Enh: [Neam Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
 - Enh: [Neam Debian PHP/Nginx] Using Docker compose version 2 format, self-reconfiguring php-scaling locally, clarifications, tweaks
 - Chg: [DNA Project Base] Renamed the file for specifying default local cli data profile from ".current-local-cli-data-profile" to ".default-local-cli-data-profile"
+- Enh: [DNA Project Base] Install tmate for on-demand ssh access directly into containers
 - Enh: [DNA Project Base] Using PHP 7 by default in production
 - Enh: [DNA Project Base] MySQL upgraded from 5.6.27 to 5.7.11
 - Enh: [DNA Project Base] Improvements and bug fixes
