@@ -1,14 +1,14 @@
-# Dockerfile for PHP (FPM 5.6.30, HHVM 3.20.2) built for PHP/Nginx-based docker-stacks
+# Dockerfile for PHP (FPM 7.0.19, HHVM 3.x.y) built for PHP/Nginx-based docker-stacks
 # ===============================================================
-#   docker build -f Dockerfile -t neam/debian-php:fpm-5.6.30-hhvm-3.20.2 .
-#   docker push neam/debian-php:fpm-5.6.30-hhvm-3.20.2
+#   docker build -f Dockerfile -t neam/debian-php:fpm-7.0.19-hhvm-3.x.y .
+#   docker push neam/debian-php:fpm-7.0.19-hhvm-3.x.y
 
-FROM debian:jessie
+FROM debian:stretch
 
 # defaults, use other values at build-time to produce an image with other versions
-ARG PHP_VERSION=5.6.30
-ARG PHP_PACKAGE_NAME_VERSION=5
-ARG HHVM_VERSION=3.20.2
+ARG PHP_VERSION=7.0.19
+ARG PHP_PACKAGE_NAME_VERSION=7.0
+ARG HHVM_VERSION=3.x.y
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
@@ -21,23 +21,18 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 # we don't need and apt cache in a container
 RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
-# For HHVM binaries
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
-      echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
-
-# PHP 7 sources
-RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.0" ]; then \
-      echo 'deb http://packages.dotdeb.org jessie all' > /etc/apt/sources.list.d/dotdeb.org.list && \
-      echo 'deb-src http://packages.dotdeb.org jessie all' >> /etc/apt/sources.list.d/dotdeb.org.list && \
-      apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449 && \
-      gpg --keyserver keys.gnupg.net --recv-key 89DF5277 && \
-      gpg -a --export 89DF5277 | apt-key add -; fi
-
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-07-03 16:26
+    apt-get upgrade -y -q # 2017-07-04 09:03
 
-# Install specific version of PHP-FPM (if not available - show what versions were available in debian jessie at the moment of APT_DOCKER_CACHE_TRIGGER above)
+# PHP 7.1 sources
+RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.1" ]; then \
+      apt-get install -y -q apt-transport-https lsb-release ca-certificates curl && \
+      curl -L -o /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
+      sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' && \
+      apt-get update; fi
+
+# Install specific version of PHP-FPM (if not available - show what versions were available in debian stretch at the moment of APT_DOCKER_CACHE_TRIGGER above)
 RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-fpm=${PHP_VERSION}* \
   || (echo "php${PHP_PACKAGE_NAME_VERSION}-cli \n $(apt-cache show php${PHP_PACKAGE_NAME_VERSION}-cli | grep -i version)" && \
@@ -45,10 +40,10 @@ RUN apt-get install -y -q \
       exit 1)
 
 # HHVM binaries
-RUN apt-get install -y -q \
-        hhvm=${HHVM_VERSION}* \
-  || (echo "hhvm \n $(apt-cache show hhvm | grep -i version)" && \
-      exit 1)
+#RUN apt-get install -y -q \
+#        hhvm=${HHVM_VERSION}* \
+#  || (echo "hhvm \n $(apt-cache show hhvm | grep -i version)" && \
+#      exit 1)
 
 # Clean apt caches
 RUN apt-get clean && \

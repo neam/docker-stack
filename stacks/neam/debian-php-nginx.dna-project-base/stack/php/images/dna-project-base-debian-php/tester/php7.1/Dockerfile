@@ -2,19 +2,20 @@
 # ===============================================================
 #   project-specific Dockerfile
 
-FROM neam/dna-project-base-debian-php:0.7.0-php7.0
+FROM neam/dna-project-base-debian-php:0.8.0-php7.1
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-07-03 16:26
+    apt-get upgrade -y -q # 2017-07-04 09:03
 
 # Enable editors and general tools for administration processes
 ENV TERM xterm
 RUN apt-get install -y -q \
         curl \
         wget \
+        gnupg \
         htop \
         less \
         jq \
