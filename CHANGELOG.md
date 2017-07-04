@@ -3,7 +3,7 @@ CHANGELOG
 
 ## Project/Repository
 
-### 0.3.0 (Not yet released)
+### 0.3.0 (Released 2017-07-04)
 
 - Chg: Assumes native docker instead of docker via docker-machine/virtualbox for local dev
 - Upg: Including Neam Stacks and supporting images 0.7.0 (see detailed changelog below)
@@ -24,7 +24,7 @@ CHANGELOG
 
 ## Stacks and supporting images
 
-### 0.7.0 (Not yet released)
+### 0.7.0 (Released 2017-07-04)
 
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.7 upgraded to 7.0.20
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 5.6.20 upgraded to 5.6.30
