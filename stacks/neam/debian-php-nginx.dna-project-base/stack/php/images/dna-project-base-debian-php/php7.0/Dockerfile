@@ -39,12 +39,12 @@ RUN cd /root/; curl -L -o ./libmagic.tar.gz https://github.com/file/file/archive
     tar -xzf ./libmagic.tar.gz && \
     rm ./libmagic.tar.gz
 RUN echo $(ls -l /root)/; cd /root/file-FILE5_31/; autoreconf -f -i && \
-	./configure --disable-silent-rules && \
+	./configure --disable-silent-rules --prefix=/usr && \
 	make -j4 && \
 	make -C tests check && \
 	make install && \
-	rm /usr/bin/file && \
-	/usr/bin/update-alternatives --install /usr/bin/file file /usr/local/bin/file 60
+	ldconfig && \
+	make installcheck
 
 # Clean apt caches
 RUN apt-get clean && \
