@@ -34,7 +34,8 @@ CHANGELOG
 - Upg: [Neam Stacks] All debian packages updated as per 2017-07-03 16:26 (UTC)
 - Upg: [Neam Stacks] NodeJS upgraded from 4.4 to 4.8
 - Enh: [Neam Stacks] Install pipe viewer (pv) to monitor progress of commands that pipes large files
-- Enh: [DNA Project Base] Install tmate for on-demand ssh access directly into containers
+- Enh: [DNA Project Base] Include tmate for on-demand ssh access directly into containers
+- Enh: [DNA Project Base] Include an up-to-date version of libmagic (5.31 instead of debian jessie stock 5.22)
 - Enh: [DNA Project Base] Using PHP 7 by default in production
 - Enh: [DNA Project Base] MySQL upgraded from 5.6.27 to 5.7.11
 - Chg: [DNA Project Base] Renamed the file for specifying default local cli data profile from ".current-local-cli-data-profile" to ".default-local-cli-data-profile"
