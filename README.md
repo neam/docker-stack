@@ -66,7 +66,7 @@ Miscellaneous Stacks
 
 ### Publisher: neam
 
-- [Hello World](stacks/neam/hello-world/README.md)
+- [Hello World](stacks/neam/hello-world/stack/README.md)
 - [Docker Cloud / Tutum HAProxy Virtual Host Proof-of-concept](stacks/neam/text-to-flowchart-generators-haproxy-vhost-example/README.md)
 
 ### Publisher: schmunk42

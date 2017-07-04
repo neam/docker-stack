@@ -38,8 +38,8 @@ set +x
 if [ ! -f .env ]; then
   cp .env.dist .env
 fi
-if [ ! -f .current-local-cli-data-profile ]; then
-  cp .current-local-cli-data-profile.dist .current-local-cli-data-profile
+if [ ! -f .default-local-cli-data-profile ]; then
+  cp .default-local-cli-data-profile.dist .default-local-cli-data-profile
 fi
 if [ ! -f deploy/config/deploy-prepare-secrets.php ]; then
   cp deploy/config/deploy-prepare-secrets.dist.php deploy/config/deploy-prepare-secrets.php

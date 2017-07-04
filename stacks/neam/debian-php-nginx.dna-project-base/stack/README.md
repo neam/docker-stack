@@ -8,7 +8,7 @@ Type: LEMP
 * Linux (Debian 8.0 Jessie)
 * Nginx 1.7
 * MySQL 5.6.27 locally (to mimic the Amazon RDS instance in production)
-* PHP 5.6.20 or HHVM 3.13.1 (PHP 7.0.7 available for cli)
+* PHP 5.6.30, 7.0.20 or HHVM 3.20.2
 
 ## Changelog
 
@@ -21,11 +21,11 @@ This stack and/or underlying concepts are used in production by [Neam Labs](http
 * Includes boilerplate configuration with Docker-specific enhancements
 * Includes both a PHP "ha" service which is not supposed to use any data volumes and thus can be scaled elastically, as well as a PHP "files" container which uses a /files volume to stored user-uploaded files 
 * The PHP "ha" service is fronted by a HAProxy service that distributes the load to the PHP "ha" service containers
-* The PHP services can use either PHP-FPM with Opcache or HHVM (default)
+* The PHP services can use either PHP-FPM with Opcache (default) or HHVM
 * Includes a PHP cli / shell container to run worker/administration commands locally - start a shell by running stack/shell.sh
 * Includes the mailcatcher SMTP server for local development of mailing logic
 * Includes a local MySQL server to mimic Amazon RDS
-* Compatible with deployment routines explained in [https://github.com/neam/yii-dna-deployment](https://github.com/neam/yii-dna-deployment)
+* Compatible with deployment routines explained in [https://github.com/neam/dna-project-base-cloud-deployment](https://github.com/neam/dna-project-base-cloud-deployment)
 
 ## Default configuration
 
@@ -79,10 +79,10 @@ Visit the stack-hello pages by visiting the URL returned by:
 To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
-    docker-compose stop phphaproxy
-    docker-compose up -d phphaproxy
-    
-(For an explanation why the container needs to be restarted, [read this](https://github.com/tutumcloud/haproxy/issues/82))
+
+On OSX, you can open the phphaproxy's statistics page to verify that the scaling is effective:
+
+    stack/phphaproxy-stats.sh
 
 ## Frontend and backend example
 
@@ -107,9 +107,9 @@ Visit the below returned urls in your browser (frontend and backend respectively
 
 For thorough instructions and helpers scripts (needs "minimum-stability": "dev" in your composer.json):
  
-    composer require neam/yii-dna-deployment
+    composer require neam/dna-project-base-cloud-deployment
 
-Then, follow instructions under `vendor/neam/yii-dna-deployment/README.md`
+Then, follow instructions under `vendor/neam/dna-project-base-cloud-deployment/README.md`
 
 ## Local Extras
 

@@ -6,7 +6,6 @@
   links:
     - phphaproxy
     - phpfiles
-#    - memcached
   ports:
     - "80"
   environment:
@@ -32,7 +31,7 @@
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: neam/tutum-haproxy:a1e506f
+  image: dockercloud/haproxy:1.5.1
   links:
     - phpha
   ports:
@@ -41,7 +40,7 @@ phphaproxy:
     - "1936"
   environment:
     MODE: tcp
-    TIMEOUT: connect 5000, client 120000, server 120000
+    TIMEOUT: connect 500, client 120000, server 120000
     # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
     STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
@@ -70,7 +69,11 @@ phpha:
   environment:
     TCP_PORTS: '9000'
     DISPLAY_PHP_ERRORS: 'off'
+    LOAD_XDEBUG_EXTENSION: '0'
     XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '0'
+    HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+    PHP_PACKAGE_NAME_VERSION: '7.0'
 %ENVIRONMENT_YAML%
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
@@ -87,6 +90,7 @@ phpha:
   # Container distribution among nodes
   deployment_strategy: high_availability
 
+# The redis service used as the PHP session handler for all containers
 redisphpsessionhandler:
   image: redis
   ports:
@@ -107,14 +111,17 @@ phpfiles:
   links:
     - mailcatcher
     - redisphpsessionhandler
-#    - memcached
   volumes:
     - /files
   ports:
    - "9000"
   environment:
     DISPLAY_PHP_ERRORS: 'off'
+    LOAD_XDEBUG_EXTENSION: '0'
     XDEBUG_DEFAULT_ENABLE: 'off'
+    RUNNING_LOCALLY: '0'
+    HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+    PHP_PACKAGE_NAME_VERSION: '7.0'
 %ENVIRONMENT_YAML%
   working_dir: '/app'
   command: "/app/stack/php/run.sh"
@@ -150,5 +157,3 @@ mailcatcher:
   autorestart: always
   # Do not update the service when a new version is pushed to the registry (whole stack is redeployed when necessary)
   autoredeploy: false
-
-# Selenium...

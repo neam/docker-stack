@@ -8,7 +8,7 @@ Type: LEMP
 * Linux (Debian 8.0 Jessie)
 * Nginx 1.7
 * MariaDB 10.1.10, MongoDB 3.2.0, MySQL 5.6.27 and/or Percona 5.6.27
-* PHP 5.6.20 or HHVM 3.13.1 (PHP 7.0.7 available for cli)
+* PHP 5.6.30, 7.0.20 or HHVM 3.20.2
 
 ## Changelog
 
@@ -78,10 +78,6 @@ Visit the stack-hello pages by visiting the URL returned by:
 To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
-    docker-compose stop phphaproxy
-    docker-compose up -d phphaproxy
-    
-(For an explanation why the container needs to be restarted, [read this](https://github.com/tutumcloud/haproxy/issues/82))
 
 ## Frontend and backend example
 

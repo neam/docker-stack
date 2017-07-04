@@ -20,4 +20,4 @@ RDS_DEFAULTS="--tmp_table_size=16777216 --max_heap_table_size=16777216 --table_o
 # Start server locally
 #/entrypoint.sh mysqld --user=mysql --console $RDS_DEFAULTS
 # no rds defaults for db imports
-/entrypoint.sh mysqld --user=mysql --console
+/entrypoint.sh mysqld --user=mysql --console --sql_mode=NO_ENGINE_SUBSTITUTION

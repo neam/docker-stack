@@ -8,7 +8,7 @@ Type: LE_P
 * Linux (Debian 8.0 Jessie)
 * Nginx 1.7
 * (add your own database container, see debian-php-nginx.database)
-* PHP 5.6.20 or HHVM 3.13.1 (PHP 7.0.7 available for cli)
+* PHP 5.6.30, 7.0.20 or HHVM 3.20.2
 
 ## Changelog
 
@@ -76,10 +76,10 @@ Visit the stack-hello pages by visiting the URL returned by:
 To scale the PHP "ha" service:
 
     docker-compose scale phpha=3
-    docker-compose stop phphaproxy
-    docker-compose up -d phphaproxy
-    
-(For an explanation why the container needs to be restarted, [read this](https://github.com/tutumcloud/haproxy/issues/82))
+
+On OSX, you can open the phphaproxy's statistics page to verify that the scaling is effective:
+
+    stack/phphaproxy-stats.sh
 
 ## Frontend and backend example
 
