@@ -27,25 +27,6 @@ RUN apt-get install -y -q pv
 # Install tmate for on-demand ssh access directly into containers
 RUN apt-get -t jessie-backports install -y -q tmate
 
-# Install an up-to-date version of libmagic (5.31 instead of debian jessie stock 5.22)
-RUN apt-get install -y -q \
-	    automake \
-	    gcc \
-	    libtool \
-	    make \
-	    python \
-	    zlib1g-dev
-RUN cd /root/; curl -L -o ./libmagic.tar.gz https://github.com/file/file/archive/FILE5_31.tar.gz && \
-    tar -xzf ./libmagic.tar.gz && \
-    rm ./libmagic.tar.gz
-RUN echo $(ls -l /root)/; cd /root/file-FILE5_31/; autoreconf -f -i && \
-	./configure --disable-silent-rules --prefix=/usr && \
-	make -j4 && \
-	make -C tests check && \
-	make install && \
-	ldconfig && \
-	make installcheck
-
 # Clean apt caches
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
