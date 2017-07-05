@@ -17,7 +17,7 @@ RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-xdebug \
         php${PHP_PACKAGE_NAME_VERSION}-intl \
         php${PHP_PACKAGE_NAME_VERSION}-gd \
-        php${PHP_PACKAGE_NAME_VERSION}-mysql \
+        php${PHP_PACKAGE_NAME_VERSION}-mysqlnd \
         php${PHP_PACKAGE_NAME_VERSION}-sqlite \
         php${PHP_PACKAGE_NAME_VERSION}-mcrypt \
         php${PHP_PACKAGE_NAME_VERSION}-curl \

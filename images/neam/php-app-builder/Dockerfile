@@ -93,7 +93,7 @@ RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.1" ]; then \
 RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-cli \
         php${PHP_PACKAGE_NAME_VERSION}-curl \
-        php${PHP_PACKAGE_NAME_VERSION}-mysql
+        php${PHP_PACKAGE_NAME_VERSION}-mysqlnd
 
 # For bundler and erb templates
 RUN apt-get install -y -q \

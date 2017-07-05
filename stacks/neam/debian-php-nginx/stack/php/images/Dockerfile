@@ -26,7 +26,8 @@ RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-mongo \
         php${PHP_PACKAGE_NAME_VERSION}-xsl \
         php${PHP_PACKAGE_NAME_VERSION}-zip \
-        php${PHP_PACKAGE_NAME_VERSION}-apcu
+        php${PHP_PACKAGE_NAME_VERSION}-apcu && \
+        phpenmod mcrypt
 
 # Install PHP mongodb support - https://github.com/mongodb/mongo-php-driver
 #RUN pecl install mongodb
