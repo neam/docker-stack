@@ -51,6 +51,7 @@ RUN apt-get install -y -q \
         less \
         jq \
         nano \
+        lsb-release gnupg \
         sed \
         telnet \
         net-tools \
@@ -69,7 +70,11 @@ RUN apt-get install -y -q \
         subversion
 
 # Database clients
-RUN apt-get install -y -q \
+RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.6-1_all.deb && \
+        dpkg -i mysql-apt-config_0.8.6-1_all.deb && \
+        rm mysql-apt-config_0.8.6-1_all.deb && \
+        apt-get update && \
+        apt-get install -y -q \
         mysql-client
 
 # PHP 7.1 sources
