@@ -19,9 +19,17 @@ if [ "$HHVM" == "1" ]; then
   hhvm -m server -c /etc/hhvm/server.ini -u www-data
 else
   if [ "$PHP_PACKAGE_NAME_VERSION" == "5" ]; then
-    php5-fpm
+    echo "PHP 5 is no longer included in the Docker stack images"
+    exit 1;
   fi
   if [ "$PHP_PACKAGE_NAME_VERSION" == "7.0" ]; then
     php-fpm7.0
+  fi
+  if [ "$PHP_PACKAGE_NAME_VERSION" == "7.1" ]; then
+    php-fpm7.1
+  fi
+  if [ "$PHP_PACKAGE_NAME_VERSION" == "" ]; then
+    echo "Error: PHP_PACKAGE_NAME_VERSION is empty so no config could be injected"
+    exit 1
   fi
 fi

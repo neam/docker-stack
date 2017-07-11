@@ -10,22 +10,6 @@ MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 RUN apt-get update && \
     apt-get upgrade -y -q # 2017-07-04 09:03
 
-# Enable editors and general tools for administration processes
-ENV TERM xterm
-RUN apt-get install -y -q \
-        curl \
-        wget \
-        gnupg \
-        htop \
-        less \
-        jq \
-        nano \
-        lsb-release gnupg \
-        sed \
-        telnet \
-        net-tools \
-        vim
-
 # Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
   echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \

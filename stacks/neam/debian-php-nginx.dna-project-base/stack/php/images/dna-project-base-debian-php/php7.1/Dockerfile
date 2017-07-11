@@ -11,6 +11,23 @@ MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 RUN apt-get update && \
     apt-get upgrade -y -q # 2017-07-04 09:03
 
+# Enable editors and general tools for administration processes
+ENV TERM xterm
+RUN apt-get install -y -q \
+        curl \
+        wget \
+        gnupg \
+        htop \
+        less \
+        jq \
+        nano \
+        man-db \
+        lsb-release \
+        sed \
+        telnet \
+        net-tools \
+        vim
+
 # For erb templates
 RUN apt-get install -y -q \
         ruby-full

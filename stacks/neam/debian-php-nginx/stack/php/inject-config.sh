@@ -11,7 +11,7 @@ if [ "$HHVM" == "1" ]; then
   /app/stack/php/inject-config-hhvm.sh
 else
   if [ "$PHP_PACKAGE_NAME_VERSION" == "5" ]; then
-    echo "PHP 5 is no longer included in the Docker images"
+    echo "PHP 5 is no longer included in the Docker stack images"
     exit 1;
   fi
   if [ "$PHP_PACKAGE_NAME_VERSION" == "7.0" ]; then

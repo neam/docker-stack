@@ -52,7 +52,8 @@ RUN apt-get install -y -q \
         less \
         jq \
         nano \
-        lsb-release gnupg \
+        man-db \
+        lsb-release \
         sed \
         telnet \
         net-tools \
