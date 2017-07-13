@@ -85,10 +85,11 @@ RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.1" ]; then \
       sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' && \
       apt-get update; fi
 
-# Install PHP with curl & mysql
+# Install PHP cli with curl, xml & mysql extensions
 RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-cli \
         php${PHP_PACKAGE_NAME_VERSION}-curl \
+        php${PHP_PACKAGE_NAME_VERSION}-xml \
         php${PHP_PACKAGE_NAME_VERSION}-mysqlnd
 
 # For erb templates
