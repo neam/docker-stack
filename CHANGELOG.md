@@ -31,7 +31,7 @@ CHANGELOG
 ### 0.8.0 (Not yet released)
 
 - Chg: [Neam Debian PHP/Nginx] Images are based on Debian stretch (current stable) instead of jessie (oldstable)
-- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.6 added
+- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.7 added
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.20 downgraded to 7.0.19 (stable Debian)
 - Chg: [Neam Debian PHP/Nginx] PHP-FPM 5.6 removed
 - Upg: [Neam Debian PHP/Nginx] HHVM removed since not in stable Debian, awaiting packages for stable Debian from HHVM project maintainers

@@ -8,7 +8,7 @@ Type: LEMP
 * Linux (Debian 9.0 Stretch)
 * Nginx 1.7
 * MariaDB 10.1.10, MongoDB 3.2.0, MySQL 5.6.27 and/or Percona 5.6.27
-* PHP 7.0.19, 7.1.6 or HHVM 3.x.y
+* PHP 7.0.19, 7.1.7 or HHVM 3.x.y
 
 ## Changelog
 
