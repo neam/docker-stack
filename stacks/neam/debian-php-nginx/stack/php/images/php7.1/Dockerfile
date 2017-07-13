@@ -10,7 +10,7 @@ MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-07-04 09:03
+    apt-get upgrade -y -q # 2017-07-13 09:08
 
 # Install PHP extensions available via apt-get (required for PHP-FPM, but can also be useful to HHVM since default configurations for the extensions are incorporated in the docker image)
 RUN apt-get install -y -q \
