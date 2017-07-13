@@ -8,7 +8,7 @@ script_path=`dirname $0`
 cd $script_path/..
 
 # run actual command
-echo "Starting /bin/bash in a new builder container. Press ENTER to see the prompt (some sort of bug...)"
+echo "Starting /bin/bash in a new builder container... "
 docker-stack local run builder /bin/bash
 
 exit 0
