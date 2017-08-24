@@ -1,15 +1,15 @@
-# Dockerfile for PHP (FPM 7.1.7, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
+# Dockerfile for PHP (FPM 7.1.8, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
 #   docker build -t neam/dna-project-base-debian-php:0.8.0-php7 .
 #   docker push neam/dna-project-base-debian-php:0.8.0-php7
 
-FROM neam/debian-php:fpm-7.1.7-hhvm-3.x.y-for-debian-php-nginx-stack
+FROM neam/debian-php:fpm-7.1.8-hhvm-3.x.y-for-debian-php-nginx-stack
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-07-13 09:08
+    apt-get upgrade -y -q # 2017-08-24 17:34
 
 # Enable editors and general tools for administration processes
 ENV TERM xterm

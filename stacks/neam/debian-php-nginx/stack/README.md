@@ -8,7 +8,7 @@ Type: LE_P
 * Linux (Debian 9.0 Stretch)
 * Nginx 1.7
 * (add your own database container, see debian-php-nginx.database)
-* PHP 7.0.19, 7.1.7 or HHVM 3.x.y
+* PHP 7.0.19, 7.1.8 or HHVM 3.x.y
 
 ## Changelog
 

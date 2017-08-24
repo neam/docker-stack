@@ -31,11 +31,11 @@ CHANGELOG
 ### 0.8.0 (Not yet released)
 
 - Chg: [Neam Debian PHP/Nginx] Images are based on Debian stretch (current stable) instead of jessie (oldstable)
-- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.7 added
+- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.8 added
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.20 downgraded to 7.0.19 (stable Debian)
 - Chg: [Neam Debian PHP/Nginx] PHP-FPM 5.6 removed
 - Upg: [Neam Debian PHP/Nginx] HHVM removed since not in stable Debian, awaiting packages for stable Debian from HHVM project maintainers
-- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2017-07-13 09:08 (UTC)
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2017-08-24 17:34 (UTC)
 - Upg: [Neam Stacks] s3cmd upgraded from 1.5.0 to 1.6.1 (stable Debian)
 
 ### 0.8.0 (Released 2017-07-04)
