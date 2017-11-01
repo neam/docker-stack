@@ -26,6 +26,8 @@ RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-mongo \
         php${PHP_PACKAGE_NAME_VERSION}-xml \
         php${PHP_PACKAGE_NAME_VERSION}-zip \
+        php${PHP_PACKAGE_NAME_VERSION}-mbstring \
+        php${PHP_PACKAGE_NAME_VERSION}-mailparse \
         php${PHP_PACKAGE_NAME_VERSION}-apcu && \
         phpenmod mcrypt
 

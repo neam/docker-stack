@@ -35,10 +35,11 @@ CHANGELOG
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.20 downgraded to 7.0.19 (stable Debian)
 - Chg: [Neam Debian PHP/Nginx] PHP-FPM 5.6 removed
 - Upg: [Neam Debian PHP/Nginx] HHVM removed since not in stable Debian, awaiting packages for stable Debian from HHVM project maintainers
+- Enh: [Neam Debian PHP/Nginx] Added php mods mbstring and mailparse
 - Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2017-08-24 17:34 (UTC)
 - Upg: [Neam Stacks] s3cmd upgraded from 1.5.0 to 1.6.1 (stable Debian)
 
-### 0.8.0 (Released 2017-07-04)
+### 0.7.0 (Released 2017-07-04)
 
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.7 upgraded to 7.0.20
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 5.6.20 upgraded to 5.6.30
