@@ -1,16 +1,16 @@
 # Dockerfile for PHP (FPM 7.0.19, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
-#   docker build -t neam/debian-php:fpm-7.1.8-hhvm-3.x.y-for-debian-php-nginx-stack .
-#   docker push neam/debian-php:fpm-7.1.8-hhvm-3.x.y-for-debian-php-nginx-stack
+#   docker build -t neam/debian-php:fpm-7.1.11-hhvm-3.x.y-for-debian-php-nginx-stack .
+#   docker push neam/debian-php:fpm-7.1.11-hhvm-3.x.y-for-debian-php-nginx-stack
 
-FROM neam/debian-php:fpm-7.1.8-hhvm-3.x.y
+FROM neam/debian-php:fpm-7.1.11-hhvm-3.x.y
 ARG PHP_PACKAGE_NAME_VERSION=7.1
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-08-24 17:34
+    apt-get upgrade -y -q # 2017-11-01 15:46
 
 # Install PHP extensions available via apt-get (required for PHP-FPM, but can also be useful to HHVM since default configurations for the extensions are incorporated in the docker image)
 RUN apt-get install -y -q \

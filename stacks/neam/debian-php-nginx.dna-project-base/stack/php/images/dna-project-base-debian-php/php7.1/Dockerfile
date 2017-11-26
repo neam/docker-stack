@@ -1,15 +1,15 @@
-# Dockerfile for PHP (FPM 7.1.8, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
+# Dockerfile for PHP (FPM 7.1.11, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
 #   docker build -t neam/dna-project-base-debian-php:0.8.0-php7 .
 #   docker push neam/dna-project-base-debian-php:0.8.0-php7
 
-FROM neam/debian-php:fpm-7.1.8-hhvm-3.x.y-for-debian-php-nginx-stack
+FROM neam/debian-php:fpm-7.1.11-hhvm-3.x.y-for-debian-php-nginx-stack
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-08-24 17:34
+    apt-get upgrade -y -q # 2017-11-01 15:46
 
 # Enable editors and general tools for administration processes
 ENV TERM xterm
@@ -27,6 +27,11 @@ RUN apt-get install -y -q \
         telnet \
         net-tools \
         vim
+
+# Install Node.js (incl. npm for installation of dependencies during build) (Note: runs apt-get update)
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+  echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
+  apt-get install -y nodejs=8.9.*
 
 # For erb templates
 RUN apt-get install -y -q \

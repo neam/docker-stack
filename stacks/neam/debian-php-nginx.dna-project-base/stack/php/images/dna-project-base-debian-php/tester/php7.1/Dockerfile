@@ -8,12 +8,7 @@ MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-08-24 17:34
-
-# Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
-  echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
-  apt-get install -y nodejs=4.8.*
+    apt-get upgrade -y -q # 2017-11-01 15:46
 
 # Version control systems
 RUN apt-get install -y -q \
