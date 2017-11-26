@@ -38,6 +38,7 @@ CHANGELOG
 - Enh: [Neam Debian PHP/Nginx] Added php mods mbstring and mailparse
 - Upg: [Neam Debian PHP/Nginx] Upgraded NodeJS 4.8 to 8.9 where present
 - Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2017-11-01 15:46 (UTC)
+- Env: [Neam Debian PHP/Nginx] Added build-essential to php images
 - Upg: [Neam Stacks] s3cmd upgraded from 1.5.0 to 1.6.1 (stable Debian)
 - Enh: [DNA Project Base] Added NodeJS 8.9 to php runtime images
 

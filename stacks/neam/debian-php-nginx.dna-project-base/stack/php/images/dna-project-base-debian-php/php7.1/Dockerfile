@@ -46,6 +46,9 @@ RUN apt-get install -y -q pv
 # Install tmate for on-demand ssh access directly into containers
 RUN apt-get install -y -q tmate
 
+# Build essential is necessary to compile some binary dependencies (incl npm dependencies)
+RUN apt-get install build-essential -y -q
+
 # Clean apt caches
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

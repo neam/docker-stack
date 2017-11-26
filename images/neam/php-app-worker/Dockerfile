@@ -106,6 +106,9 @@ RUN apt-get install -y -q s3cmd=1.6.1* || (echo "s3cmd \n $(apt-cache show s3cmd
 # Install pipe viewer (pv) to monitor progress of commands that pipes large files
 RUN apt-get install -y -q pv
 
+# Build essential is necessary to compile some binary dependencies (incl npm dependencies)
+RUN apt-get install build-essential -y -q
+
 # Clean apt caches
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
