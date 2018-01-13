@@ -6,6 +6,7 @@ CHANGELOG
 ### 0.4.0 (Not yet released)
 
 - Upg: Including Neam Stacks and supporting images 0.8.0 (see detailed changelog below)
+- Del: Removed generators directory since outdated and not used
 
 ### 0.3.0 (Released 2017-07-04)
 
