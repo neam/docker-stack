@@ -6,8 +6,8 @@ build-neam: neam.debian-php neam.util neam.php-app-images neam.stack-images neam
 
 neam.debian-php:
 	echo "Building debian-php images"
-	docker build -t neam/debian-php:fpm-7.0.19-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
-	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.1 --build-arg PHP_VERSION=7.1.11 -t neam/debian-php:fpm-7.1.11-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
+	docker build -t neam/debian-php:fpm-7.0.27-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
+	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.1 --build-arg PHP_VERSION=7.1.13 -t neam/debian-php:fpm-7.1.13-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
 
 neam.util:
 	echo "Building api-mock image"
@@ -23,8 +23,8 @@ neam.php-app-images: neam.debian-php
 
 neam.stack-images:
 	echo "Building debian-php-nginx stack base php image"
-	docker build -t neam/debian-php:fpm-7.0.19-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images
-	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.1 -t neam/debian-php:fpm-7.1.11-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images/php7.1
+	docker build -t neam/debian-php:fpm-7.0.27-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images
+	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.1 -t neam/debian-php:fpm-7.1.13-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images/php7.1
 
 neam.dna-project-base: export version=0.8.0
 neam.dna-project-base: neam.php-app-images neam.stack-images
@@ -38,14 +38,14 @@ neam.dna-project-base: neam.php-app-images neam.stack-images
 release-neam: export version=0.8.0
 release-neam: neam.dna-project-base
 	echo "Pushing neam images to Docker Hub..."
-	docker push neam/debian-php:fpm-7.0.19-hhvm-3.x.y
-	docker push neam/debian-php:fpm-7.0.19-hhvm-3.x.y-for-debian-php-nginx-stack
+	docker push neam/debian-php:fpm-7.0.27-hhvm-3.x.y
+	docker push neam/debian-php:fpm-7.0.27-hhvm-3.x.y-for-debian-php-nginx-stack
 	docker push neam/php-app-builder:$(version)
 	docker push neam/php-app-worker:$(version)
 	docker push neam/dna-project-base-debian-php:$(version)
 	docker push neam/dna-project-base-debian-php-tester:$(version)
-	docker push neam/debian-php:fpm-7.1.11-hhvm-3.x.y
-	docker push neam/debian-php:fpm-7.1.11-hhvm-3.x.y-for-debian-php-nginx-stack
+	docker push neam/debian-php:fpm-7.1.13-hhvm-3.x.y
+	docker push neam/debian-php:fpm-7.1.13-hhvm-3.x.y-for-debian-php-nginx-stack
 	docker push neam/php-app-builder:$(version)-php7.1
 	docker push neam/php-app-worker:$(version)-php7.1
 	docker push neam/dna-project-base-debian-php:$(version)-php7.1

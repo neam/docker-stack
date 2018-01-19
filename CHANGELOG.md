@@ -32,13 +32,13 @@ CHANGELOG
 ### 0.8.0 (Not yet released)
 
 - Chg: [Neam Debian PHP/Nginx] Images are based on Debian stretch (current stable) instead of jessie (oldstable)
-- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.11 added
-- Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.20 downgraded to 7.0.19 (stable Debian)
+- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.13 added
+- Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.20 upgraded to 7.0.27
 - Chg: [Neam Debian PHP/Nginx] PHP-FPM 5.6 removed
 - Upg: [Neam Debian PHP/Nginx] HHVM removed since not in stable Debian, awaiting packages for stable Debian from HHVM project maintainers
 - Enh: [Neam Debian PHP/Nginx] Added php mods mbstring and mailparse
 - Upg: [Neam Debian PHP/Nginx] Upgraded NodeJS 4.8 to 8.9 where present
-- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2017-11-01 15:46 (UTC)
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2018-01-19 14:02 (EEST)
 - Env: [Neam Debian PHP/Nginx] Added build-essential to php images
 - Upg: [Neam Stacks] s3cmd upgraded from 1.5.0 to 1.6.1 (stable Debian)
 - Enh: [DNA Project Base] Added NodeJS 8.9 to php runtime images

@@ -8,7 +8,7 @@ MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-11-01 15:46
+    apt-get upgrade -y -q # 2018-01-19 14:02
 
 # Version control systems
 RUN apt-get install -y -q \

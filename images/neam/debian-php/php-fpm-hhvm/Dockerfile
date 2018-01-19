@@ -1,12 +1,12 @@
-# Dockerfile for PHP (FPM 7.0.19, HHVM 3.x.y) built for PHP/Nginx-based docker-stacks
+# Dockerfile for PHP (FPM 7.0.27, HHVM 3.x.y) built for PHP/Nginx-based docker-stacks
 # ===============================================================
-#   docker build -f Dockerfile -t neam/debian-php:fpm-7.0.19-hhvm-3.x.y .
-#   docker push neam/debian-php:fpm-7.0.19-hhvm-3.x.y
+#   docker build -f Dockerfile -t neam/debian-php:fpm-7.0.27-hhvm-3.x.y .
+#   docker push neam/debian-php:fpm-7.0.27-hhvm-3.x.y
 
 FROM debian:stretch
 
 # defaults, use other values at build-time to produce an image with other versions
-ARG PHP_VERSION=7.0.19
+ARG PHP_VERSION=7.0.27
 ARG PHP_PACKAGE_NAME_VERSION=7.0
 ARG HHVM_VERSION=3.x.y
 
@@ -23,7 +23,7 @@ RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-11-01 15:46
+    apt-get upgrade -y -q # 2018-01-19 14:02
 
 # PHP 7.1 sources
 RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.1" ]; then \
