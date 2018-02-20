@@ -16,7 +16,7 @@ else
 fi
 
 # run actual command
-echo "Starting /bin/bash in a new tester container. Press ENTER to see the prompt (some sort of bug...)"
+echo "Starting /bin/bash in a new tester container... "
 docker-stack local run tester-$FLAVOR
 
 exit 0

@@ -5,10 +5,10 @@ Docker-based Stack - Debian PHP/Nginx
 
 Type: LE_P
 
-* Linux (Debian 8.0 Jessie)
+* Linux (Debian 9.0 Stretch)
 * Nginx 1.7
 * (add your own database container, see debian-php-nginx.database)
-* PHP 5.6.30, 7.0.20 or HHVM 3.20.2
+* PHP 7.0.27, 7.1.13 or HHVM 3.x.y
 
 ## Changelog
 

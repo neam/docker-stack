@@ -5,8 +5,10 @@ if [ "$DOCKERSTACK_DEBUG" == "1" ]; then
 fi
 
 BASEPATH="$DOCKER_STACK_SRC/stacks/$1/"
-cp -r "$BASEPATH" .
-cat "$DOCKER_STACK_SRC/stacks/$1/.docker-stack" | sed "s|{BASEPATH}|.|" > "$APP_HOME/.docker-stack"
+cp -v -r "$BASEPATH" .
+if [ -f "$DOCKER_STACK_SRC/stacks/$1/.docker-stack" ]; then
+  cat "$DOCKER_STACK_SRC/stacks/$1/.docker-stack" | sed "s|{BASEPATH}|.|" > "$APP_HOME/.docker-stack"
+fi
 
 echo "Stack '$1' installed"
 

@@ -1,16 +1,16 @@
-# Dockerfile for PHP (FPM 5.6.30, HHVM 3.20.2) built for Debian PHP/Nginx base docker-stack
+# Dockerfile for PHP (FPM 7.0.27, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
-#   docker build -t neam/debian-php:fpm-5.6.30-hhvm-3.20.2-for-debian-php-nginx-stack .
-#   docker push neam/debian-php:fpm-5.6.30-hhvm-3.20.2-for-debian-php-nginx-stack
+#   docker build -t neam/debian-php:fpm-7.0.27-hhvm-3.x.y-for-debian-php-nginx-stack .
+#   docker push neam/debian-php:fpm-7.0.27-hhvm-3.x.y-for-debian-php-nginx-stack
 
-FROM neam/debian-php:fpm-5.6.30-hhvm-3.20.2
-ARG PHP_PACKAGE_NAME_VERSION=5
+FROM neam/debian-php:fpm-7.0.27-hhvm-3.x.y
+ARG PHP_PACKAGE_NAME_VERSION=7.0
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-07-03 16:26
+    apt-get upgrade -y -q # 2018-01-19 14:02
 
 # Install PHP extensions available via apt-get (required for PHP-FPM, but can also be useful to HHVM since default configurations for the extensions are incorporated in the docker image)
 RUN apt-get install -y -q \
@@ -24,8 +24,12 @@ RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-memcached \
         php${PHP_PACKAGE_NAME_VERSION}-redis \
         php${PHP_PACKAGE_NAME_VERSION}-mongo \
-        php${PHP_PACKAGE_NAME_VERSION}-xsl \
-        php${PHP_PACKAGE_NAME_VERSION}-apcu
+        php${PHP_PACKAGE_NAME_VERSION}-xml \
+        php${PHP_PACKAGE_NAME_VERSION}-zip \
+        php${PHP_PACKAGE_NAME_VERSION}-mbstring \
+        php${PHP_PACKAGE_NAME_VERSION}-mailparse \
+        php${PHP_PACKAGE_NAME_VERSION}-apcu && \
+        phpenmod mcrypt
 
 # Install PHP mongodb support - https://github.com/mongodb/mongo-php-driver
 #RUN pecl install mongodb
@@ -60,6 +64,7 @@ RUN apt-get install -y -q \
         less \
         jq \
         nano \
+        lsb-release gnupg \
         sed \
         telnet \
         net-tools \
@@ -73,7 +78,11 @@ RUN apt-get install -y -q \
         subversion
 
 # Database clients
-RUN apt-get install -y -q \
+RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.6-1_all.deb && \
+        dpkg -i mysql-apt-config_0.8.6-1_all.deb && \
+        rm mysql-apt-config_0.8.6-1_all.deb && \
+        apt-get update && \
+        apt-get install -y -q \
         mysql-client
 
 # Clean apt caches

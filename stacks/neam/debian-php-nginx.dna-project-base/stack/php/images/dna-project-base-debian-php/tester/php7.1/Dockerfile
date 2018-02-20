@@ -2,32 +2,13 @@
 # ===============================================================
 #   project-specific Dockerfile
 
-FROM neam/dna-project-base-debian-php:0.7.0-php7.0
+FROM neam/dna-project-base-debian-php:0.8.0-php7.1
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2017-07-03 16:26
-
-# Enable editors and general tools for administration processes
-ENV TERM xterm
-RUN apt-get install -y -q \
-        curl \
-        wget \
-        htop \
-        less \
-        jq \
-        nano \
-        sed \
-        telnet \
-        net-tools \
-        vim
-
-# Install Node.js and npm for installation of dependencies during build (Note: runs apt-get update)
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
-  echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
-  apt-get install -y nodejs=4.8.*
+    apt-get upgrade -y -q # 2018-01-19 14:02
 
 # Version control systems
 RUN apt-get install -y -q \
@@ -37,7 +18,11 @@ RUN apt-get install -y -q \
         subversion
 
 # Database clients
-RUN apt-get install -y -q \
+RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.6-1_all.deb && \
+        dpkg -i mysql-apt-config_0.8.6-1_all.deb && \
+        rm mysql-apt-config_0.8.6-1_all.deb && \
+        apt-get update && \
+        apt-get install -y -q \
         mysql-client
 
 # Clean apt caches

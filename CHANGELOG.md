@@ -3,6 +3,11 @@ CHANGELOG
 
 ## Project/Repository
 
+### 0.4.0 (Released 2018-02-20)
+
+- Upg: Including Neam Stacks and supporting images 0.8.0 (see detailed changelog below)
+- Del: Removed generators directory since outdated and not used
+
 ### 0.3.0 (Released 2017-07-04)
 
 - Chg: Assumes native docker instead of docker via docker-machine/virtualbox for local dev
@@ -24,6 +29,20 @@ CHANGELOG
 
 ## Stacks and supporting images
 
+### 0.8.0 (Released 2018-02-20)
+
+- Chg: [Neam Debian PHP/Nginx] Images are based on Debian stretch (current stable) instead of jessie (oldstable)
+- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.13 added
+- Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.20 upgraded to 7.0.27
+- Chg: [Neam Debian PHP/Nginx] PHP-FPM 5.6 removed
+- Upg: [Neam Debian PHP/Nginx] HHVM removed since not in stable Debian, awaiting packages for stable Debian from HHVM project maintainers
+- Enh: [Neam Debian PHP/Nginx] Added php mods mbstring and mailparse
+- Upg: [Neam Debian PHP/Nginx] Upgraded NodeJS 4.8 to 8.9 where present
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2018-01-19 14:02 (EEST)
+- Env: [Neam Debian PHP/Nginx] Added build-essential to php images
+- Upg: [Neam Stacks] s3cmd upgraded from 1.5.0 to 1.6.1 (stable Debian)
+- Enh: [DNA Project Base] Added NodeJS 8.9 to php runtime images
+
 ### 0.7.0 (Released 2017-07-04)
 
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 7.0.7 upgraded to 7.0.20
@@ -31,7 +50,7 @@ CHANGELOG
 - Upg: [Neam Debian PHP/Nginx] HHVM 3.13.1 upgraded to 3.20.2
 - Enh: [Neam Debian PHP/Nginx] Including vhost in nginx logs so that multi-tenant deployment logs are easier to separate
 - Enh: [Neam Debian PHP/Nginx] Using Docker compose version 2 format, self-reconfiguring php-scaling locally, clarifications, tweaks
-- Upg: [Neam Stacks] All debian packages updated as per 2017-07-03 16:26 (UTC)
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2017-07-03 16:26 (UTC)
 - Upg: [Neam Stacks] NodeJS upgraded from 4.4 to 4.8
 - Enh: [Neam Stacks] Install pipe viewer (pv) to monitor progress of commands that pipes large files
 - Enh: [DNA Project Base] Include tmate for on-demand ssh access directly into containers
@@ -48,7 +67,7 @@ CHANGELOG
 - Upg: [Neam Debian PHP/Nginx] Composer updated to latest development version (includes important autoloader performance optimizations for PHP5.6 and 7)
 - Upg: [Neam Debian PHP/Nginx] Updated supporting deployment stacks to correspond to latest Docker Cloud best practices
 - Min: [Neam Debian PHP/Nginx] Enabling xdebug profiler requires local override in Neam Debian PHP/Nginx stack
-- Upg: [Neam Stacks] All debian packages updated as per 2016-06-07 07:33 (UTC)
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2016-06-07 07:33 (UTC)
 - Upg: [Neam Stacks] NodeJS upgraded from 0.10 to 4.4
 - Chg: [Neam Stacks] Removed php-app-tester, replaced by api-mock utility image
 - Chg: [Neam DNA Project Base] Stack tester shell now based on the production image 
@@ -65,7 +84,7 @@ CHANGELOG
 - Enh: [Neam Debian PHP/Nginx] PHP-FPM uses the native MySQL driver (mysqlnd) by default
 - Enh: [Neam Debian PHP/Nginx] PHP-FPM xdebug extension included in image (disabled by default)
 - Enh: [Neam Debian PHP/Nginx] Publishing default xdebug ports locally by default
-- Upg: [Neam Stacks] All debian packages updated as per 2016-02-26 10:52
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2016-02-26 10:52
 
 ### 0.6.0 (Released 2016-01-07)
 
@@ -74,7 +93,7 @@ CHANGELOG
 - Enh: [Neam Debian PHP/Nginx] Retagged base neam docker images to clarify that the php images includes both php fpm and hhvm (together with their respective versions)
 - Upg: [Neam Debian PHP/Nginx] PHP-FPM 5.6.13 upgraded to 5.6.14
 - Upg: [Neam Debian PHP/Nginx] HHVM 3.9.1 upgraded to 3.11.0 (Includes PHP 7 language support)
-- Upg: [Neam Stacks] All debian packages updated as per 2016-02-26 10:52
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2016-02-26 10:52
 - Enh: [Neam Stacks] Documentation improvements and clean-up
 
 ### 0.5.0 (Released 2015-10-27)
@@ -89,7 +108,7 @@ CHANGELOG
 - Enh: [Neam Debian PHP/Nginx] Enabled use of HHVM as an alternative to PHP-FPM
 - Chg: [Neam Debian PHP/Nginx] Using HHVM instead of PHP-FPM by default (PHP-FPM can still be re-enabled on a per-project bases in case issues with HHVM are encountered)
 - Upg: [Neam Debian PHP/Nginx] PHP 5.6.9 upgraded to 5.6.13
-- Upg: [Neam Stacks] All debian packages updated as per 2015-10-06 16:16
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2015-10-06 16:16
 - Enh: [Neam Stacks] DNA Project Base stack includes a local database container with persistent local data enabled by default
 - Enh: [Neam Stacks] Sane default Xdebug configuration provided. Xdebug verified to work with current stack.
 - Min: [Neam Stacks] Tweaks to stack documentation
@@ -103,7 +122,7 @@ CHANGELOG
 - Enh: [Neam DNA Project Base] Added some shorthand-scripts (start, stop, setup, logs, open-browser) to interact with the stack
 - Min: [Neam Stacks] Omitting PHP warning about $HTTP_RAW_POST_DATA
 - Min: [Neam Stacks] Added Xdebug default enable setting env var to php images
-- Upg: [Neam Stacks] All debian packages updated as per 2015-08-13 10:53
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2015-08-13 10:53
 - Min: [Neam Stacks] Some tweaks to stack documentation
 
 ### 0.2.0 (Released 2015-04-23)
