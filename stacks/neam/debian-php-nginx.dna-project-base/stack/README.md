@@ -7,7 +7,7 @@ Type: LEMP
 
 * Linux (Debian 9.0 Stretch)
 * Nginx 1.7
-* MySQL 5.6.27 locally (to mimic the Amazon RDS instance in production)
+* MySQL 5.7.11 locally (to mimic the Amazon RDS instance in production)
 * PHP 7.0.27, 7.1.13 or HHVM 3.x.y
 
 ## Changelog
@@ -39,7 +39,7 @@ A Redis service is included in the docker stack and configured as the PHP sessio
 
 Clone docker-stack:
 
-    git clone https://github.com/neam/docker-stack ~/.docker-stack
+    git clone https://github.com/neam/docker-stack ~/.docker-stack -b develop
 
 If you already have docker-stack installed, you can update it by running:
 

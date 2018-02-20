@@ -9,7 +9,6 @@ cd $script_path/..
 
 # run actual command
 stack/stop.sh
-#docker-sync stop
 docker-compose rm -f
 stack/start.sh $@
 
