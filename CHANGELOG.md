@@ -3,7 +3,7 @@ CHANGELOG
 
 ## Project/Repository
 
-### 0.4.0 (Not yet released)
+### 0.4.0 (Released 2018-02-20)
 
 - Upg: Including Neam Stacks and supporting images 0.8.0 (see detailed changelog below)
 - Del: Removed generators directory since outdated and not used
@@ -29,7 +29,7 @@ CHANGELOG
 
 ## Stacks and supporting images
 
-### 0.8.0 (Not yet released)
+### 0.8.0 (Released 2018-02-20)
 
 - Chg: [Neam Debian PHP/Nginx] Images are based on Debian stretch (current stable) instead of jessie (oldstable)
 - Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.1.13 added
