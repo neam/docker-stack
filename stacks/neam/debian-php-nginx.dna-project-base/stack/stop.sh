@@ -8,6 +8,6 @@ script_path=`dirname $0`
 cd $script_path/..
 
 # run actual command
-docker-stack local stop
+docker-compose -f docker-compose.yml stop
 
 exit 0

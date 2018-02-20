@@ -17,6 +17,6 @@ fi
 
 # run actual command
 echo "Starting /bin/bash in a new tester container... "
-docker-stack local run tester-$FLAVOR
+docker-compose -f docker-compose.yml run --rm tester-$FLAVOR
 
 exit 0

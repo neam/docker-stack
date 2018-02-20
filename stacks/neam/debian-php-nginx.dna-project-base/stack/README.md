@@ -37,11 +37,9 @@ A Redis service is included in the docker stack and configured as the PHP sessio
 
 ## Installation
 
-Install docker-stack cli in your home directory and make it available in PATH when using bash: 
+Clone docker-stack:
 
     git clone https://github.com/neam/docker-stack ~/.docker-stack
-    echo 'export PATH=$PATH:~/.docker-stack/cli' >> ~/.bash_profile
-    source ~/.bash_profile
 
 If you already have docker-stack installed, you can update it by running:
 
@@ -50,13 +48,14 @@ If you already have docker-stack installed, you can update it by running:
 
 Enter your project directory (can be an empty directory in case you simply want to try out the stack):
 
+    cd ~
     mkdir myapp
     cd myapp
 
 Then run the following commands to copy the boilerplate stack files to your 12-factor app base dir.
 
-    docker-stack install neam/debian-php-nginx
-    docker-stack install neam/debian-php-nginx.dna-project-base
+    cp -v -r ~/.docker-stack/stacks/neam/debian-php-nginx/ .
+    cp -v -r ~/.docker-stack/stacks/neam/debian-php-nginx.dna-project-base/ .
 
 ## Usage
 
@@ -70,11 +69,11 @@ Then, fire up the stack locally:
 
 Visit the stack-hello pages by visiting the URL returned by:
 
-    docker-stack local url web 80 - /stack-hello/
+    stack/url.sh web 80 - /stack-hello/
 
 > Hint: On OSX, you can open the url directly from a terminal session:
 
-    open $(docker-stack local url web 80 - /stack-hello/)
+    open $(stack/url.sh web 80 - /stack-hello/)
 
 To scale the PHP "ha" service:
 
@@ -95,8 +94,8 @@ Create the index php files expected by the default configuration:
 
 Visit the below returned urls in your browser (frontend and backend respectively):
 
-    docker-stack local url
-    docker-stack local url web 80 - /backend/
+    stack/url.sh
+    stack/url.sh web 80 - /backend/
 
 > Hint: On OSX, you can open the url directly from a terminal session:
 >
@@ -134,7 +133,7 @@ In order to connect to your local database from your work station, use the follo
 
 Connect to the host and port given by:
 
-    docker-stack local db
+    stack/db-info.sh
 
 ## Using mailcatcher
 
@@ -142,7 +141,7 @@ Configure your app to send emails using `mailcatcher` as the SMTP server against
 
 The emails will show up in the web frontend accessible on the url given by the following command:
 
-    docker-stack local url mailcatcher 1080
+    stack/url.sh mailcatcher 1080
 
 ## Customization
 

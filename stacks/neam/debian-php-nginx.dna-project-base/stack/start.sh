@@ -17,6 +17,6 @@ docker ps | grep -v ${DOCKERSTACKREF}_ | grep '0.0.0.0:33306->' | awk '{ print $
 set -o errexit
 
 # run actual command
-docker-stack local up --build -d
+docker-compose -f docker-compose.yml up -d
 
 exit 0

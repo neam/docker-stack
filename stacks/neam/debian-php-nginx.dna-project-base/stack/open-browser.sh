@@ -7,7 +7,7 @@ if [ "$DATA" == "" ] || [ "$DATA" == "%DATA%" ]; then
   DATA=clean-db
 fi
 
-URL="$(docker-stack local url router 80 $DATA._PROJECT_.127.0.0.1.xip.io "$1")"
+URL="$(stack/url.sh router 80 $DATA._PROJECT_.127.0.0.1.xip.io "$1")"
 
 echo "Opening URL:"
 echo $URL

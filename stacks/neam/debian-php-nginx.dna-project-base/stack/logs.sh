@@ -8,6 +8,6 @@ script_path=`dirname $0`
 cd $script_path/..
 
 # run actual command
-docker-stack local logs -f $@
+docker-compose -f docker-compose.yml run --rm logs -f $@
 
 exit 0
