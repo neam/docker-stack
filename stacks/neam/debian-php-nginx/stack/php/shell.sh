@@ -9,10 +9,21 @@ set -o errexit
 set -x
 
 # Copy custom project config overrides
-/app/stack/php/inject-config.sh
+/stack/php/inject-config.sh
 
 # Manage permissions
-/app/stack/php/manage-permissions.sh
+/stack/php/manage-permissions.sh
+
+# Wait for work-dir to exist (docker-sync workaround since the synced contents are not available at container start)
+if [ ! "$1" == "" ]; then
+    while [ ! -d "$1" ]
+    do
+      sleep 1
+      ls -l "/app"
+    done
+    ls -l "$1"
+    cd "$1"
+fi
 
 # Start a shell
 bash

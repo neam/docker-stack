@@ -8,18 +8,18 @@ set -x
 
 # ==== PHP-FPM ====
 
-cp /app/stack/php/php.ini /etc/php/7.0/fpm/php.ini
-for configfile in /app/stack/php/conf.d/*; do
+cp /stack/php/php.ini /etc/php/7.0/fpm/php.ini
+for configfile in /stack/php/conf.d/*; do
     cp $configfile /etc/php/7.0/fpm/conf.d/
 done
-for configfile in /app/stack/php/php-fpm/pool.d/*; do
+for configfile in /stack/php/php-fpm/pool.d/*; do
     cp $configfile /etc/php/7.0/fpm/pool.d/
 done
-cp /app/stack/php/php-fpm/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
+cp /stack/php/php-fpm/php-fpm.conf /etc/php/7.0/fpm/php-fpm.conf
 
 # Add local-only config overrides
 if [ "$RUNNING_LOCALLY" == "1" ]; then
-  for configfile in /app/stack/php/conf.d-local/*; do
+  for configfile in /stack/php/conf.d-local/*; do
     cp $configfile /etc/php/7.0/fpm/conf.d/
   done
 fi

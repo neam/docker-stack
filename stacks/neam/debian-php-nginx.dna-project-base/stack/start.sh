@@ -16,6 +16,12 @@ docker ps | grep -v ${DOCKERSTACKREF}_ | grep '0.0.0.0:33306->' | awk '{ print $
 # fail on any error
 set -o errexit
 
+# start stack
+docker volume create --name=sq-project-personal-unit-localdb-var-lib-mysql-persistent
+
+#export DOCKER_SYNC_ENV_FILE=.docker-sync-env
+#docker-sync-stack start
+
 # run actual command
 docker-compose -f docker-compose.yml up -d
 

@@ -13,11 +13,11 @@ if [ "$(ls /etc/nginx/conf.d/)" ]; then
 fi
 
 # Copy custom project include files
-if [ "$(ls /app/stack/nginx/conf.d/)" ]; then
-    cp -r /app/stack/nginx/conf.d/* /etc/nginx/conf.d/
+if [ "$(ls /stack/nginx/conf.d/)" ]; then
+    cp -r /stack/nginx/conf.d/* /etc/nginx/conf.d/
 fi
-cp /app/stack/nginx/nginx.conf /etc/nginx/nginx.conf
-cp -r /app/stack/nginx/include /etc/nginx/include
+cp /stack/nginx/nginx.conf /etc/nginx/nginx.conf
+cp -r /stack/nginx/include /etc/nginx/include
 
 # Example of using environment variable in configuration at runtime
 if [ ! -n "$NGINX_ERROR_LOG_LEVEL" ] ; then

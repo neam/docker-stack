@@ -8,14 +8,14 @@ set -x
 
 # ==== PHP-CLI ====
 
-cp /app/stack/php/php.ini /etc/php/7.1/cli/php.ini
-for configfile in /app/stack/php/conf.d/*; do
+cp /stack/php/php.ini /etc/php/7.1/cli/php.ini
+for configfile in /stack/php/conf.d/*; do
     cp $configfile /etc/php/7.1/cli/conf.d/
 done
 
 # Add local-only config overrides
 if [ "$RUNNING_LOCALLY" == "1" ]; then
-  for configfile in /app/stack/php/conf.d-local/*; do
+  for configfile in /stack/php/conf.d-local/*; do
     cp $configfile /etc/php/7.1/cli/conf.d/
   done
 fi

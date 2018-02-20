@@ -13,7 +13,7 @@ services:
     environment:
       NGINX_ERROR_LOG_LEVEL: 'notice'
     working_dir: '/app'
-    command: "/app/stack/nginx/run.sh"
+    command: "/stack/nginx/run.sh"
 
   # HA Proxy for php service scaling
   phphaproxy:
@@ -52,7 +52,7 @@ services:
     env_file:
       - %ENV_FILE_DIR%/.env
     working_dir: '/app'
-    command: "/app/stack/php/run.sh"
+    command: "/stack/php/run.sh"
 
   # The redis service used as the PHP session handler for all containers
   redisphpsessionhandler:
@@ -79,7 +79,7 @@ services:
     env_file:
       - %ENV_FILE_DIR%/.env
     working_dir: '/app'
-    command: "/app/stack/php/run.sh"
+    command: "/stack/php/run.sh"
 
   # Mailcatcher server for catching outgoing email when not in production
   mailcatcher:

@@ -9,10 +9,10 @@ set -o errexit
 set -x
 
 # Copy custom project config overrides
-/app/stack/php/inject-config.sh
+/stack/php/inject-config.sh
 
 # Manage permissions
-/app/stack/php/manage-permissions.sh
+/stack/php/manage-permissions.sh
 
 # Run the desired php cgi process manager (use either php-fpm or hhvm)
 if [ "$HHVM" == "1" ]; then

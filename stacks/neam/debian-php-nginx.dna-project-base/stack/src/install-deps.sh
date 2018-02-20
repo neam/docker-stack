@@ -14,6 +14,16 @@ if [ -d /root/.docker-host-ssh ]; then
 fi
 
 script_path=`dirname $0`
+
+cd $script_path/../..
+export project_abspath=$(pwd)
+
+# make sure that the shorthand "composer" is available and refers to using our shipped composer.phar (for the sake of consistency)
+function composer() {
+    php $project_abspath/composer.phar $@
+}
+export -f composer
+
 $script_path/install-core-deps.sh
 $script_path/install-local-deps.sh
 

@@ -27,6 +27,7 @@ services:
       - phphaproxy
       - phpfiles
     volumes:
+      - ./stack:/stack:rw
       - .:/app:rw
     ports:
       - "80"
@@ -37,11 +38,11 @@ services:
       # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
       EXCLUDE_PORTS: 443
     working_dir: '/app'
-    command: "/app/stack/nginx/run.sh"
+    command: "/stack/nginx/run.sh"
 
   # HA Proxy for php service scaling
   phphaproxy:
-    image: dockercloud/haproxy:1.5.1
+    image: dockercloud/haproxy:1.6.7
     links:
       - phpha
     ports:
@@ -50,6 +51,7 @@ services:
       - "1936"
     environment:
       MODE: tcp
+      TCP_PORTS: 9000
       TIMEOUT: connect 500, client 120000, server 120000
       # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
       STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
@@ -65,6 +67,7 @@ services:
       - redisphpsessionhandler
       - localdb
     volumes:
+      - ./stack:/stack:rw
       - .:/app:rw
       # Use to inspect the local tmp files directory if necessary
       # - .local-tmp-files:/local-tmp-files:rw
@@ -82,7 +85,7 @@ services:
     env_file:
       - .env
     working_dir: '/app'
-    command: "/app/stack/php/run.sh"
+    command: "/stack/php/run.sh"
 
   # The redis service used as the PHP session handler for all containers
   redisphpsessionhandler:
@@ -99,6 +102,7 @@ services:
       - redisphpsessionhandler
       - localdb
     volumes:
+      - ./stack:/stack:rw
       - .:/app:rw
       - .files:/files:rw
     ports:
@@ -115,13 +119,13 @@ services:
     env_file:
       - .env
     working_dir: '/app'
-    command: "/app/stack/php/run.sh"
+    command: "/stack/php/run.sh"
 
   # Local MySQL database server to mimic a cloud database
   localdb:
     image: mysql:5.7.11
     volumes:
-      - ./stack/localdb/.db/mysql:/var/lib/mysql:rw
+      - sq-project-personal-unit-localdb-var-lib-mysql-persistent:/var/lib/mysql:rw
       - ./stack/localdb/:/stack/localdb:rw
     ports:
       - "13306:3306"
@@ -144,38 +148,13 @@ services:
       - "1080"
 
   # Containers to run tester commands locally - start a shell by running stack/tester-shell.sh <flavor>
-  tester-hhvm:
-    image: neam/dna-project-base-debian-php:1.0.0
-    links:
-      - web
-      - api-mock
-      - localdb
-    volumes:
-      - .:/app:rw
-      - .:/personal-unit:rw
-      - .files:/files:rw
-      - ../.git:/.git
-      - ~/.composer:/root/.composer
-      - ~/.gitconfig:/root/.gitconfig
-      - ~/.ssh:/root/.ssh:ro
-    environment:
-      DISPLAY_PHP_ERRORS: 'off'
-      LOAD_XDEBUG_EXTENSION: '1'
-      XDEBUG_DEFAULT_ENABLE: 'off'
-      RUNNING_LOCALLY: '1'
-      HHVM: '1' # 1 = Use HHVM instead of the default PHP interpreter
-    working_dir: '/app/dna/tests'
-    env_file:
-     - .default-local-cli-data-profile
-    command: "/app/stack/php/shell.sh"
-
   tester-php7.0:
     image: neam/dna-project-base-debian-php:1.0.0
     links:
       - web
-      - api-mock
       - localdb
     volumes:
+      - ./stack:/stack:rw
       - .:/app:rw
       - .:/personal-unit:rw
       - .files:/files:rw
@@ -190,18 +169,18 @@ services:
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
       PHP_PACKAGE_NAME_VERSION: '7.0'
-    working_dir: '/app/dna/tests'
+    working_dir: '/app'
     env_file:
      - .default-local-cli-data-profile
-    command: "/app/stack/php/shell.sh"
+    command: "/stack/php/shell.sh /app/dna/tests"
 
   tester-php7.1:
     image: neam/dna-project-base-debian-php:1.0.0-php7.1
     links:
       - web
-      - api-mock
       - localdb
     volumes:
+      - ./stack:/stack:rw
       - .:/app:rw
       - .:/personal-unit:rw
       - .files:/files:rw
@@ -216,10 +195,35 @@ services:
       RUNNING_LOCALLY: '1'
       HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
       PHP_PACKAGE_NAME_VERSION: '7.1'
-    working_dir: '/app/dna/tests'
+    working_dir: '/app'
     env_file:
      - .default-local-cli-data-profile
-    command: "/app/stack/php/shell.sh"
+    command: "/stack/php/shell.sh /app/dna/tests"
+
+  tester-hhvm:
+    image: neam/dna-project-base-debian-php:1.0.0
+    links:
+      - web
+      - localdb
+    volumes:
+      - ./stack:/stack:rw
+      - .:/app:rw
+      - .:/personal-unit:rw
+      - .files:/files:rw
+      - ../.git:/.git
+      - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '1'
+      XDEBUG_DEFAULT_ENABLE: 'off'
+      RUNNING_LOCALLY: '1'
+      HHVM: '1' # 1 = Use HHVM instead of the default PHP interpreter
+    working_dir: '/app'
+    env_file:
+     - .default-local-cli-data-profile
+    command: "/stack/php/shell.sh /app/dna/tests"
 
   # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
   shell:
@@ -227,6 +231,7 @@ services:
     links:
       - localdb
     volumes:
+      - ./stack:/stack:rw
       - .:/app:rw
       - .files:/files:rw
       - ../.git:/.git
@@ -243,4 +248,8 @@ services:
     working_dir: '/app'
     env_file:
      - .default-local-cli-data-profile
-    command: "/app/stack/php/shell.sh"
+    command: "/stack/php/shell.sh"
+
+volumes:
+  sq-project-personal-unit-localdb-var-lib-mysql-persistent:
+    external: true

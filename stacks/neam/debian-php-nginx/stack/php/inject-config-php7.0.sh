@@ -9,9 +9,9 @@ set -x
 # ==== PHP-FPM ====
 
 if [ -d /etc/php/7.0/fpm/ ]; then
-    /app/stack/php/inject-config-php7.0.fpm.sh
+    /stack/php/inject-config-php7.0.fpm.sh
 fi
 
 if [ -d /etc/php/7.0/cli/ ]; then
-    /app/stack/php/inject-config-php7.0.cli.sh
+    /stack/php/inject-config-php7.0.cli.sh
 fi

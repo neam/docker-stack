@@ -15,7 +15,7 @@
     # A separate haproxy and corresponding web service needs to be set up to respond to port 443 with ssl if required
     EXCLUDE_PORTS: 443
 %ENVIRONMENT_YAML%
-  command: "/app/stack/nginx/run.sh"
+  command: "/stack/nginx/run.sh"
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
@@ -31,7 +31,7 @@
 
 # HA Proxy for php service scaling
 phphaproxy:
-  image: dockercloud/haproxy:1.5.1
+  image: dockercloud/haproxy:1.6.7
   links:
     - phpha
   ports:
@@ -40,6 +40,7 @@ phphaproxy:
     - "1936"
   environment:
     MODE: tcp
+    TCP_PORTS: 9000
     TIMEOUT: connect 500, client 120000, server 120000
     # Some sort of protection for the stats endpoint (needless to say, you should use a unique secure password in production)
     STATS_AUTH: stats:n3v3rg0nnAg1v3y0uup
@@ -76,7 +77,7 @@ phpha:
     PHP_PACKAGE_NAME_VERSION: '7.0'
 %ENVIRONMENT_YAML%
   working_dir: '/app'
-  command: "/app/stack/php/run.sh"
+  command: "/stack/php/run.sh"
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%
@@ -124,7 +125,7 @@ phpfiles:
     PHP_PACKAGE_NAME_VERSION: '7.0'
 %ENVIRONMENT_YAML%
   working_dir: '/app'
-  command: "/app/stack/php/run.sh"
+  command: "/stack/php/run.sh"
   # Set cluster deploy tags to ensure this container is launched inside a cluster and not on a publicly facing node)
   tags:
     - ec-%DEPLOY_STABILITY_TAG%

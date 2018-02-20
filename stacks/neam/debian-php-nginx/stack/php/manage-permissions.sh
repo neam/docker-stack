@@ -30,16 +30,16 @@ if [ "$RUNNING_LOCALLY" == "1" ]; then
   fi
 
   # Prepare writable directories
-  /app/stack/src/set-writable-local.sh
+  /stack/src/set-writable-local.sh
 
   # This needs to be run outside the docker container - does not have any effect when running as part of the start script here...
-  #/app/stack/src/set-writable-local-host-volumes.sh
+  #/stack/src/set-writable-local-host-volumes.sh
 
 else
 
   # Prepare writable directories
   cd /app
-  /app/stack/src/set-writable-remote.sh
+  /stack/src/set-writable-remote.sh
   cd -
 
 fi
