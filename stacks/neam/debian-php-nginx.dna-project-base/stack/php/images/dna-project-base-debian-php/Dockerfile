@@ -1,7 +1,7 @@
 # Dockerfile for PHP (FPM 7.0.27, HHVM 3.x.y) built for PHP/Nginx DNA Project Base docker-stack
 # ===============================================================
-#   docker build -t neam/dna-project-base-debian-php:0.8.0 .
-#   docker push neam/dna-project-base-debian-php:0.8.0
+#   docker build -t neam/dna-project-base-debian-php:1.0.0 .
+#   docker push neam/dna-project-base-debian-php:1.0.0
 
 FROM neam/debian-php:fpm-7.0.27-hhvm-3.x.y-for-debian-php-nginx-stack
 
@@ -48,6 +48,21 @@ RUN apt-get install -y -q tmate
 
 # Build essential is necessary to compile some binary dependencies (incl npm dependencies)
 RUN apt-get install build-essential -y -q
+
+# Version control systems
+RUN apt-get install -y -q \
+        git-flow \
+        git-svn \
+        mercurial \
+        subversion
+
+# Database clients
+RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.6-1_all.deb && \
+        dpkg -i mysql-apt-config_0.8.6-1_all.deb && \
+        rm mysql-apt-config_0.8.6-1_all.deb && \
+        apt-get update && \
+        apt-get install -y -q \
+        mysql-client
 
 # Clean apt caches
 RUN apt-get clean && \

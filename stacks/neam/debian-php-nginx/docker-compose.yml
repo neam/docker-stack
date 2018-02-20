@@ -101,7 +101,7 @@ services:
 
   # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
   worker:
-    image: neam/php-app-worker:0.8.0-php5
+    image: neam/dna-project-base-debian-php:1.0.0
     volumes:
       - .:/app:rw
       - .files:/files:rw

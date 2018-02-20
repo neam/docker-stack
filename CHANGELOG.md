@@ -3,16 +3,16 @@ CHANGELOG
 
 ## Project/Repository
 
-### 1.0.0-beta1 (Not yet released)
+### 1.0.0 (Not yet released)
 
-- Upg: Including Neam Stacks and supporting images 1.0.0-beta1 (see detailed changelog below)
+- Upg: Including Neam Stacks and supporting images 1.0.0 (see detailed changelog below)
 - Del: Removed docker-stack cli since it has no role in future docker stacks
 - Del: Removed schmunk42 images and stacks since they are maintained elsewhere
 - Del: Removed unmaintained neam images and stacks
 
 ### 0.4.0 (Released 2018-02-20)
 
-- Upg: Including Neam Stacks and supporting images 0.8.0 (see detailed changelog below)
+- Upg: Including Neam Stacks and supporting images 1.0.0 (see detailed changelog below)
 - Del: Removed generators directory since outdated and not used
 
 ### 0.3.0 (Released 2017-07-04)
@@ -36,7 +36,9 @@ CHANGELOG
 
 ## Stacks and supporting images
 
-### 1.0.0-beta1 (Not yet released)
+### 1.0.0 (Not yet released)
+
+- Chg: [Neam Stacks] Decreased the amount of different images used in stacks
 
 ### 0.8.0 (Released 2018-02-20)
 

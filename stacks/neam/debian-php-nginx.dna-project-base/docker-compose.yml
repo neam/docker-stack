@@ -59,7 +59,7 @@ services:
 
   # The elastically scalable php service for interpreting php code without access to /files
   phpha:
-    image: neam/dna-project-base-debian-php:0.8.0
+    image: neam/dna-project-base-debian-php:1.0.0
     links:
       - mailcatcher
       - redisphpsessionhandler
@@ -93,7 +93,7 @@ services:
   # The single-node php service for interpreting php code with read-write access to user-generated files
   # (to support file uploads and other local file manipulations)
   phpfiles:
-    image: neam/dna-project-base-debian-php:0.8.0
+    image: neam/dna-project-base-debian-php:1.0.0
     links:
       - mailcatcher
       - redisphpsessionhandler
@@ -143,29 +143,9 @@ services:
     ports:
       - "1080"
 
-  # A container to run builder commands locally
-  builder:
-    image: neam/php-app-builder:0.8.0
-    volumes:
-      - .:/app:rw # TODO: Make read-only when Yii is configured properly not to write to anywhere else than under /files
-      - .files:/files:rw
-      - ../.git:/.git
-      - ~/.composer:/root/.composer
-      - ~/.gitconfig:/root/.gitconfig
-      - ~/.ssh:/root/.docker-host-ssh:ro
-    environment:
-      DISPLAY_PHP_ERRORS: 'off'
-      LOAD_XDEBUG_EXTENSION: '0'
-      XDEBUG_DEFAULT_ENABLE: 'off'
-      RUNNING_LOCALLY: '1'
-      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
-      PHP_PACKAGE_NAME_VERSION: '7.0'
-    working_dir: '/app'
-    command: "/app/stack/php/shell.sh"
-
   # Containers to run tester commands locally - start a shell by running stack/tester-shell.sh <flavor>
   tester-hhvm:
-    image: neam/dna-project-base-debian-php-tester:0.8.0
+    image: neam/dna-project-base-debian-php:1.0.0
     links:
       - web
       - api-mock
@@ -190,7 +170,7 @@ services:
     command: "/app/stack/php/shell.sh"
 
   tester-php7.0:
-    image: neam/dna-project-base-debian-php-tester:0.8.0
+    image: neam/dna-project-base-debian-php:1.0.0
     links:
       - web
       - api-mock
@@ -216,7 +196,7 @@ services:
     command: "/app/stack/php/shell.sh"
 
   tester-php7.1:
-    image: neam/dna-project-base-debian-php-tester:0.8.0-php7.1
+    image: neam/dna-project-base-debian-php:1.0.0-php7.1
     links:
       - web
       - api-mock
@@ -241,17 +221,9 @@ services:
      - .default-local-cli-data-profile
     command: "/app/stack/php/shell.sh"
 
-  # A container to serve a mock version of the api according to an api blueprint TODO
-  api-mock:
-    image: neam/api-mock
-    volumes:
-      - .:/app:rw
-    working_dir: '/app'
-    command: "true"
-
   # A container to run worker/administration commands locally - start a shell by running stack/shell.sh
   worker:
-    image: neam/php-app-worker:0.8.0
+    image: neam/dna-project-base-debian-php:1.0.0
     links:
       - localdb
     volumes:
