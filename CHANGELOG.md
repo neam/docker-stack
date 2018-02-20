@@ -8,6 +8,7 @@ CHANGELOG
 - Upg: Including Neam Stacks and supporting images 1.0.0-beta1 (see detailed changelog below)
 - Del: Removed docker-stack cli since it has no role in future docker stacks
 - Del: Removed schmunk42 images and stacks since they are maintained elsewhere
+- Del: Removed unmaintained neam images and stacks
 
 ### 0.4.0 (Released 2018-02-20)
 

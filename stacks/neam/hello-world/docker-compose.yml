@@ -1,7 +1,0 @@
-# Docker compose configuration
-
-web:
-  image: tutum/hello-world
-  ports:
-    - "80"
-
