@@ -15,7 +15,7 @@ neam.stack-images:
 	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.1 -t neam/debian-php:fpm-7.1.13-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images/php7.1
 
 neam.dna-project-base: export version=1.0.0
-neam.dna-project-base: neam.php-app-images neam.stack-images
+neam.dna-project-base: neam.stack-images
 	echo "Building neam.dna-project-base stack base php image"
 	docker build -t neam/dna-project-base-debian-php:$(version)  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images/dna-project-base-debian-php
 	docker build -t neam/dna-project-base-debian-php:$(version)-php7.1  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images//dna-project-base-debian-php/php7.1
