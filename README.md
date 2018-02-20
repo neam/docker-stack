@@ -81,7 +81,6 @@ Command-line tools
 
 There are three main ways to interact with a Docker-based once installed in your project:
  * `docker-compose` 
- * `docker-stack` CLI 
  * `doma` 
 
 Read more about them below.
@@ -89,16 +88,6 @@ Read more about them below.
 ### `docker-compose`
 
 Docker Compose is the heart of Docker Stack. Once a stack is installed in your project folder (and thus a docker-compose.yml file is present), docker-compose can be used "as usual".
-
-### `docker-stack` CLI
-
-A wrapper around `docker-compose` that allows to list, select and interact with third-party stacks without copying the stack files to the project folder. 
-
-- [Docker Stack CLI Introduction](docs/10-docker-stack-cli.md)
-
-Instructions for using/adopting docker-based stacks for your 12-factor web app:
-
-- [Adopting a Docker stack](docs/10-stacks-adopting-a-docker-stack.md)
 
 ### `doma`
 

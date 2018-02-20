@@ -3,6 +3,10 @@ CHANGELOG
 
 ## Project/Repository
 
+### 1.0.0-beta1 (Not yet released)
+
+- Del: Removed docker-stack cli since it has no role in future docker stacks
+
 ### 0.4.0 (Released 2018-02-20)
 
 - Upg: Including Neam Stacks and supporting images 0.8.0 (see detailed changelog below)
