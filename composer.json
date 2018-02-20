@@ -17,15 +17,12 @@
             "homepage": "http://diemeisterei.de"
         },
         {
-            "name": "Docker PHP Toolkit Contributors",
+            "name": "Github Contributors",
             "homepage": "https://github.com/neam/docker-stack/graphs/contributors"
         },
         {
             "name": "Open Source Community"
         }
-    ],
-    "bin": [
-        "cli/docker-stack"
     ],
     "require": {
     },
