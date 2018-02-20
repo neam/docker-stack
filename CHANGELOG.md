@@ -39,6 +39,7 @@ CHANGELOG
 ### 1.0.0 (Not yet released)
 
 - Chg: [Neam Stacks] Decreased the amount of different images used in stacks
+- Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2018-02-20 17:05 (EEST)
 
 ### 0.8.0 (Released 2018-02-20)
 

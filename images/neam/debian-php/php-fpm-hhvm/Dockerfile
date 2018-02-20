@@ -23,7 +23,7 @@ RUN echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2018-01-19 14:02
+    apt-get upgrade -y -q # 2018-02-20 17:05
 
 # PHP 7.1 sources
 RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.1" ]; then \
