@@ -6,6 +6,7 @@ CHANGELOG
 ### 1.0.0-beta1 (Not yet released)
 
 - Del: Removed docker-stack cli since it has no role in future docker stacks
+- Del: Removed schmunk42 images and stacks since they are maintained elsewhere
 
 ### 0.4.0 (Released 2018-02-20)
 

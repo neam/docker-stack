@@ -52,14 +52,6 @@ These stacks and underlying concepts are used in production by [Neam Labs](http:
 - [Debian PHP/Nginx + Database (LEMP)](stacks/neam/debian-php-nginx/stack/README.md)
 - [DNA Project Base Stack (Based on Debian PHP/Nginx + Database)](stacks/neam/debian-php-nginx.dna-project-base/stack/README.md)
 
-### Publisher: schmunk42
-
-These stacks and underlying concepts are used in production by [Herzog Kommunikation - The Application Factory](http://herzogkommunikation.de/)
-
-- [PHP/Nginx](stacks/schmunk42/php-nginx/README.md)
-- [PHP/Nginx Vanilla](stacks/schmunk42/php-nginx-vanilla/README.md)
-- [ELK-V2](stacks/schmunk42/elk-v2/README.md)
-- [Phundament](stacks/schmunk42/phundament/)
 
 Miscellaneous Stacks
 ----------------
@@ -69,36 +61,18 @@ Miscellaneous Stacks
 - [Hello World](stacks/neam/hello-world/stack/README.md)
 - [Docker Cloud / Tutum HAProxy Virtual Host Proof-of-concept](stacks/neam/text-to-flowchart-generators-haproxy-vhost-example/README.md)
 
-### Publisher: schmunk42
-
-- [ELK-V1](stacks/schmunk42/elk/README.md)
-- [Docker Registry Mirror](stacks/schmunk42/registry-mirror/)
-- [Yii 2.0 Framework](stacks/schmunk42/yii2/README.md)
-
 
 Command-line tools
 ------------------
 
 There are three main ways to interact with a Docker-based once installed in your project:
  * `docker-compose` 
- * `doma` 
 
 Read more about them below.
 
 ### `docker-compose`
 
 Docker Compose is the heart of Docker Stack. Once a stack is installed in your project folder (and thus a docker-compose.yml file is present), docker-compose can be used "as usual".
-
-### `doma`
-
-DOcker and MAkefile combined for easy stack/application control.
-
-Requirements:
- * `make`
-
-Control your stacks and applications with `Makefile` templates for `docker`, `docker-composer`, `tutum`, `aws-s3` or `mysql`.
-
-For full documentation see [GitHub](https://github.com/schmunk42/doma) Repository.
 
 
 Configuration Generators included in Docker Stack
@@ -137,3 +111,8 @@ License
 -------
 
 MIT
+
+Acknowledgements
+----------------
+
+This repository was co-created with [schmunk42](https://github.com/schmunk42), who is nowadays maintaining docker stack images at [phundament/docker-images](https://github.com/phundament/docker-images).
