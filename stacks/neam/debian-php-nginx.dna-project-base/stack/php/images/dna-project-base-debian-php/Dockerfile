@@ -7,6 +7,9 @@ FROM neam/debian-php:fpm-7.0.27-hhvm-3.x.y-for-debian-php-nginx-stack
 
 MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 
+# Add stretch backports (to be able to get some more updated versions of software packages)
+RUN echo 'deb http://http.debian.net/debian stretch-backports main contrib non-free' > /etc/apt/sources.list.d/stretch-backports.list
+
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
     apt-get upgrade -y -q # 2018-02-20 17:05

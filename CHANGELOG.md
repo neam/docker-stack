@@ -41,6 +41,7 @@ CHANGELOG
 - Chg: [Neam Stacks] Decreased the amount of different images used in stacks
 - Chg: [Neam Stacks] Calling the shell container "shell" instead of "worker"
 - Enh: [Neam Stacks] Improvements and bug fixes
+- Chg: [Neam Debian PHP/Nginx] Added stretch backports to apt sources
 - Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2018-02-20 17:05 (EEST)
 
 ### 0.8.0 (Released 2018-02-20)
