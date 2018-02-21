@@ -1,4 +1,4 @@
-# Dockerfile for PHP (FPM 7.0.27, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
+# Dockerfile for PHP (FPM 7.1.13, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
 # ===============================================================
 #   docker build -t neam/debian-php:fpm-7.1.13-hhvm-3.x.y-for-debian-php-nginx-stack .
 #   docker push neam/debian-php:fpm-7.1.13-hhvm-3.x.y-for-debian-php-nginx-stack

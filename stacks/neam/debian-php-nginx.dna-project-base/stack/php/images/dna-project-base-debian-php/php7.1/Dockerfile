@@ -1,4 +1,4 @@
-# Dockerfile for PHP (FPM 7.1.13, HHVM 3.x.y) built for Debian PHP/Nginx base docker-stack
+# Dockerfile for PHP (FPM 7.1.13, HHVM 3.x.y) built for PHP/Nginx DNA Project Base docker-stack
 # ===============================================================
 #   docker build -t neam/dna-project-base-debian-php:1.0.0-php7 .
 #   docker push neam/dna-project-base-debian-php:1.0.0-php7

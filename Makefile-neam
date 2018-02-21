@@ -18,7 +18,7 @@ neam.dna-project-base: export version=1.0.0
 neam.dna-project-base: neam.stack-images
 	echo "Building neam.dna-project-base stack base php image"
 	docker build -t neam/dna-project-base-debian-php:$(version)  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images/dna-project-base-debian-php
-	docker build -t neam/dna-project-base-debian-php:$(version)-php7.1  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images//dna-project-base-debian-php/php7.1
+	docker build -t neam/dna-project-base-debian-php:$(version)-php7.1  stacks/neam/debian-php-nginx.dna-project-base/stack/php/images/dna-project-base-debian-php/php7.1
 
 release-neam: export version=1.0.0
 release-neam: neam.dna-project-base
