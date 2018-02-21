@@ -65,4 +65,4 @@ MIT
 Acknowledgements
 ----------------
 
-This repository was co-created with [schmunk42](https://github.com/schmunk42), who is nowadays maintaining docker stack images at [phundament/docker-images](https://github.com/phundament/docker-images).
+This repository was co-created with [schmunk42](https://github.com/schmunk42), who is nowadays maintaining docker stack images at [dmstr](https://github.com/dmstr?utf8=%E2%9C%93&q=docker&type=&language=).
