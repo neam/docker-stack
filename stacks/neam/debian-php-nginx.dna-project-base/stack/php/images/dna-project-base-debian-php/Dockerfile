@@ -52,6 +52,18 @@ RUN apt-get install -y -q tmate
 # Build essential is necessary to compile some binary dependencies (incl npm dependencies)
 RUN apt-get install build-essential -y -q
 
+# Install exiftool
+#RUN apt-get install -t stretch-backports -y -q \
+#        libimage-exiftool-perl=10.79.0* || (echo "exiftool \n $(apt-cache show libimage-exiftool-perl | grep -i version)" && exit 1)
+RUN wget https://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.79.tar.gz && \
+            tar -xvf Image-ExifTool-10.79.tar.gz && \
+            cd Image-ExifTool-10.79 && ls -l && \
+            perl Makefile.PL && \
+            make test && \
+            make install && \
+            cd - && \
+            rm Image-ExifTool-10.79.tar.gz
+
 # Version control systems
 RUN apt-get install -y -q \
         git-flow \

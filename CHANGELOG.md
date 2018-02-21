@@ -42,6 +42,7 @@ CHANGELOG
 - Chg: [Neam Stacks] Calling the shell container "shell" instead of "worker"
 - Enh: [Neam Stacks] Improvements and bug fixes
 - Chg: [Neam Debian PHP/Nginx] Added stretch backports to apt sources
+- Chg: [Neam Debian PHP/Nginx] Added exiftool 10.79 to php images (installed from source)
 - Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2018-02-20 17:05 (EEST)
 
 ### 0.8.0 (Released 2018-02-20)
