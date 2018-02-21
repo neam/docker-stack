@@ -200,6 +200,32 @@ services:
      - .default-local-cli-data-profile
     command: "/stack/php/shell.sh /app/dna/tests"
 
+  tester-php7.2:
+    image: neam/dna-project-base-debian-php:1.0.0-php7.2
+    links:
+      - web
+      - localdb
+    volumes:
+      - ./stack:/stack:rw
+      - .:/app:rw
+      - .:/personal-unit:rw
+      - .files:/files:rw
+      - ../.git:/.git
+      - ~/.composer:/root/.composer
+      - ~/.gitconfig:/root/.gitconfig
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      DISPLAY_PHP_ERRORS: 'off'
+      LOAD_XDEBUG_EXTENSION: '0'
+      XDEBUG_DEFAULT_ENABLE: 'off'
+      RUNNING_LOCALLY: '1'
+      HHVM: '0' # 1 = Use HHVM instead of the default PHP interpreter
+      PHP_PACKAGE_NAME_VERSION: '7.2'
+    working_dir: '/app'
+    env_file:
+     - .default-local-cli-data-profile
+    command: "/stack/php/shell.sh /app/dna/tests"
+
   tester-hhvm:
     image: neam/dna-project-base-debian-php:1.0.0
     links:

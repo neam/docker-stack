@@ -38,6 +38,7 @@ CHANGELOG
 
 ### 1.0.0 (Not yet released)
 
+- Chg: [Neam Debian PHP/Nginx] PHP-FPM 7.2.2 added
 - Chg: [Neam Stacks] Decreased the amount of different images used in stacks
 - Chg: [Neam Stacks] Calling the shell container "shell" instead of "worker"
 - Enh: [Neam Stacks] Improvements and bug fixes

@@ -32,6 +32,13 @@ RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.1" ]; then \
       sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' && \
       apt-get update; fi
 
+# PHP 7.2 sources
+RUN if [ "${PHP_PACKAGE_NAME_VERSION}" = "7.2" ]; then \
+      apt-get install -y -q apt-transport-https lsb-release ca-certificates curl && \
+      curl -L -o /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
+      sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' && \
+      apt-get update; fi
+
 # Install specific version of PHP-FPM (if not available - show what versions were available in debian stretch at the moment of APT_DOCKER_CACHE_TRIGGER above)
 RUN apt-get install -y -q \
         php${PHP_PACKAGE_NAME_VERSION}-fpm=${PHP_VERSION}* \

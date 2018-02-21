@@ -28,6 +28,9 @@ else
   if [ "$PHP_PACKAGE_NAME_VERSION" == "7.1" ]; then
     php-fpm7.1
   fi
+  if [ "$PHP_PACKAGE_NAME_VERSION" == "7.2" ]; then
+    php-fpm7.2
+  fi
   if [ "$PHP_PACKAGE_NAME_VERSION" == "" ]; then
     echo "Error: PHP_PACKAGE_NAME_VERSION is empty so no config could be injected"
     exit 1
