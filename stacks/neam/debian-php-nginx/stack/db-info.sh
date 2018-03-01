@@ -22,7 +22,11 @@ if [ "$PORT" == "" ]; then
 fi
 
 export DOCKER_HOST_IP=$(echo $DOCKER_HOST | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//');
-export DB_PORT=$(docker-compose -f $STACK_YML port $SERVICE_NAME $PORT | sed 's/[0-9.]*://');
+export DB_PORT=$(docker-compose port $SERVICE_NAME $PORT | sed 's/[0-9.]*://');
+if [ "DB_PORT" == "" ]; then
+  echo "Could not find the corresponding DB_PORT"
+  exit 1
+fi
 export URL="$DRIVER://$DOCKER_HOST_IP:$DB_PORT";
 URL=$URL"$URL_PATH";
 echo $URL;

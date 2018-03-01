@@ -21,7 +21,11 @@ if [ "$VIRTUAL_HOST" == "" ] || [ "$VIRTUAL_HOST" == "-" ]; then
   VIRTUAL_HOST=$(echo $DOCKER_HOST | sed 's/tcp:\/\///' | sed 's/:[0-9.]*//');
 fi
 
-HTTP_PORT=$(docker-compose -f $STACK_YML port $SERVICE_NAME $PORT | sed 's/[0-9.]*://');
+HTTP_PORT=$(docker-compose port $SERVICE_NAME $PORT | sed 's/[0-9.]*://');
+if [ "HTTP_PORT" == "" ]; then
+  echo "Could not find the corresponding HTTP_PORT"
+  exit 1
+fi
 URL="http://$VIRTUAL_HOST:$HTTP_PORT";
 URL=$URL"$URL_PATH";
 echo $URL;
