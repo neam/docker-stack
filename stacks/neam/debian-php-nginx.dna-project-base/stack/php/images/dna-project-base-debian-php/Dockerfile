@@ -22,7 +22,7 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
 
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
-    apt-get upgrade -y -q # 2018-02-20 17:05
+    apt-get upgrade -y -q # 2018-05-09 19:40
 
 # Enable editors and general tools for administration processes
 ENV TERM xterm
