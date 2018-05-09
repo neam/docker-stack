@@ -10,6 +10,16 @@ MAINTAINER Fredrik Wollsén <fredrik@neam.se>
 # Add stretch backports (to be able to get some more updated versions of software packages)
 RUN echo 'deb http://http.debian.net/debian stretch-backports main contrib non-free' > /etc/apt/sources.list.d/stretch-backports.list
 
+# Apt source for: Database clients
+RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.6-1_all.deb && \
+        dpkg -i mysql-apt-config_0.8.6-1_all.deb && \
+        rm mysql-apt-config_0.8.6-1_all.deb
+
+# Apt source for: Google Cloud SDK
+RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+        echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
 # Update the below commented date time to match the time docker fetched the system package information - an update will trigger docker to fetch the information anew
 RUN apt-get update && \
     apt-get upgrade -y -q # 2018-02-20 17:05
@@ -72,12 +82,13 @@ RUN apt-get install -y -q \
         subversion
 
 # Database clients
-RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.6-1_all.deb && \
-        dpkg -i mysql-apt-config_0.8.6-1_all.deb && \
-        rm mysql-apt-config_0.8.6-1_all.deb && \
-        apt-get update && \
-        apt-get install -y -q \
+RUN apt-get install -y -q \
         mysql-client
+
+# Google Cloud SDK
+RUN apt-get install -y -q \
+        google-cloud-sdk && \
+        gcloud config set pass_credentials_to_gsutil false
 
 # Clean apt caches
 RUN apt-get clean && \
