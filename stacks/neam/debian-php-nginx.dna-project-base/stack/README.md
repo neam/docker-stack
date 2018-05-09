@@ -8,7 +8,7 @@ Type: LEMP
 * Linux (Debian 9.0 Stretch)
 * Nginx 1.7
 * MySQL 5.7.11 locally (to mimic the Amazon RDS instance in production)
-* PHP 7.0.27, 7.1.13 or HHVM 3.x.y
+* PHP 7.0.27, 7.1.17 or HHVM 3.x.y
 
 ## Changelog
 
