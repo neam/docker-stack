@@ -8,13 +8,13 @@ neam.debian-php:
 	echo "Building debian-php images"
 	docker build -t neam/debian-php:fpm-7.0.27-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
 	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.1 --build-arg PHP_VERSION=7.1.17 -t neam/debian-php:fpm-7.1.17-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
-	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.2 --build-arg PHP_VERSION=7.2.2 -t neam/debian-php:fpm-7.2.2-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
+	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.2 --build-arg PHP_VERSION=7.2.5 -t neam/debian-php:fpm-7.2.5-hhvm-3.x.y         images/neam/debian-php/php-fpm-hhvm
 
 neam.stack-images:
 	echo "Building debian-php-nginx stack base php image"
 	docker build -t neam/debian-php:fpm-7.0.27-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images
 	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.1 -t neam/debian-php:fpm-7.1.17-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images/php7.1
-	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.2 -t neam/debian-php:fpm-7.2.2-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images/php7.2
+	docker build --build-arg PHP_PACKAGE_NAME_VERSION=7.2 -t neam/debian-php:fpm-7.2.5-hhvm-3.x.y-for-debian-php-nginx-stack  stacks/neam/debian-php-nginx/stack/php/images/php7.2
 
 neam.dna-project-base: export version=1.0.0
 neam.dna-project-base: neam.stack-images
@@ -32,6 +32,6 @@ release-neam: neam.dna-project-base
 	docker push neam/debian-php:fpm-7.1.17-hhvm-3.x.y
 	docker push neam/debian-php:fpm-7.1.17-hhvm-3.x.y-for-debian-php-nginx-stack
 	docker push neam/dna-project-base-debian-php:$(version)-php7.1
-	docker push neam/debian-php:fpm-7.2.2-hhvm-3.x.y
-	docker push neam/debian-php:fpm-7.2.2-hhvm-3.x.y-for-debian-php-nginx-stack
+	docker push neam/debian-php:fpm-7.2.5-hhvm-3.x.y
+	docker push neam/debian-php:fpm-7.2.5-hhvm-3.x.y-for-debian-php-nginx-stack
 	docker push neam/dna-project-base-debian-php:$(version)-php7.2
