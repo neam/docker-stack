@@ -44,7 +44,7 @@ RUN apt-get install -y -q \
 # Install Node.js (incl. npm for installation of dependencies during build) (Note: runs apt-get update)
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
   echo "nodejs \n $(apt-cache show nodejs | grep -i version)" && \
-  apt-get install -y nodejs=8.9.*
+  apt-get install -y nodejs=8.11.*
 
 # For erb templates
 RUN apt-get install -y -q \

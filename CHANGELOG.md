@@ -43,6 +43,7 @@ CHANGELOG
 - Chg: [Neam Stacks] Calling the shell container "shell" instead of "worker"
 - Enh: [Neam Stacks] Improvements and bug fixes
 - Chg: [Neam Debian PHP/Nginx] Added stretch backports to apt sources
+- Upg: [Neam Debian PHP/Nginx] Upgraded NodeJS 8.9 to 8.11 where present
 - Upg: [Neam Debian PHP/Nginx] All debian packages updated as per 2018-05-09 19:40 (EEST)
 - Enh: [DNA Project Base] Added exiftool 10.79 to php images (installed from source)
 - Enh: [DNA Project Base] Added Google Cloud SDK to php images
